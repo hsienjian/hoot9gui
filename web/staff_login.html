@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Staff Login & Register</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <style>
+            body {
+                background-size: 100% 120%;
+                background-repeat: none;
+                background-image: url("images/staff_login_BG.jpg");
+                color: white;
+            }
+            .staff-login-container {
+                width: 300px;
+                height: 225px;
+                margin: 180px auto;
+                border: solid 1px #dark;
+                border-radius: 20px;
+                background-color: rgb(0,0,0,0.5)
+            }
+            .staff-login-img {
+                position: relative;
+                width: 80px;
+                height: 80px;
+                padding: 10px;
+                transform: translate(110px, 0px);
+                border-radius: 50px;
+            }
+            .staff-login-form {
+                padding: 0px 10px 10px 10px;
+                margin: 0px auto;
+            }
+            .staff-login-form .form-group{
+                margin-bottom: 25px;
+            }
+            .form-group input {
+                float: right;
+            }
+            .login-btn {
+                position: relative;
+                width: 80px;
+                border-radius: 15px;
+                left: 100px;
+                background-color: #A2D9E7;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="staff-login-container">
+            <div class="staff-login-img">
+                <svg t="1615725320801" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1130" width="60" height="60"><path d="M907.788 819.637c-21.631-51.141-52.593-97.064-92.025-136.498-39.434-39.433-85.358-70.394-136.498-92.024a427.22 427.22 0 0 0-55.298-19.058c27.979-12.982 53.754-30.915 76.214-53.375 50.238-50.238 77.906-117.033 77.906-188.081s-27.668-137.843-77.906-188.082S583.147 64.613 512.1 64.613 374.257 92.28 324.018 142.519s-77.906 117.034-77.906 188.082 27.667 137.843 77.906 188.081c22.46 22.46 48.236 40.393 76.215 53.375a427.22 427.22 0 0 0-55.298 19.058c-51.14 21.631-97.064 52.592-136.497 92.025-39.433 39.433-70.395 85.356-92.025 136.497-18.872 44.619-29.905 91.571-32.911 139.921h40.106c14.031-202.079 182.91-362.2 388.492-362.2 205.582 0 374.462 160.121 388.494 362.199h40.105c-3.007-48.349-14.039-95.301-32.911-139.92zM286.112 330.601c0-124.61 101.377-225.987 225.987-225.987s225.987 101.377 225.987 225.987S636.71 556.588 512.1 556.588c-124.61 0-225.988-101.378-225.988-225.987z" p-id="1131" fill="#13227a"></path></svg>            
+            </div>
+            <form class="staff-login-form">
+                <div class="form-group">
+                    <label>Email : </label>
+                    <input name="staff_email" type="email" />
+                </div>
+                <div class="form-group">
+                    <label>Password : </label>
+                    <input name="staff_pw" type="password" />
+                </div>
+                <input class="login-btn" name="submit" type="submit" value="Login"/>
+            </form>
+        </div>
+    </body>
+</html>
