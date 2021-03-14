@@ -12,9 +12,9 @@ import javax.swing.*;
 
 public class OrderDA {
 
-    private String host = "jdbc:derby://localhost:1527/collegedb";
-    private String user = "nbuser";
-    private String password = "nbuser";
+    private String host = "jdbc:derby://localhost:1527/guidb";
+    private String user = "guidb";
+    private String password = "guidb";
     private String tableName = "Order";
     private Connection conn;
     private PreparedStatement stmt;
@@ -34,8 +34,8 @@ public class OrderDA {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Customer customer = custDA.getRecord(rs.getString("CUST_ID"));
-                order = new Order(orderID, rs.getString("DATE"), rs.getString("TOTAL_PRICE"), rs.getString("STATUS"), customer);
+                Customer customer = custDA.getRecord(rs.getInt("CUST_ID"));
+                order = new Order(orderID, rs.getDate("DATE"), rs.getDouble("TOTAL_PRICE"), rs.getString("STATUS"), customer);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -49,10 +49,10 @@ public class OrderDA {
             createConnection();
             stmt = conn.prepareStatement(insertColor);
             stmt.setInt(1, order.getOrderID());
-            stmt.setString(2, order.getDate());
+            stmt.setDate(2, order.getDate());
             stmt.setDouble(3, order.getTtlPrice());
             stmt.setString(4, order.getStatus());
-            stmt.setDouble(5, order.getCustID.getCustID());
+            stmt.setInt(5, order.getCustID.getCustID());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             throw ex;
@@ -68,7 +68,7 @@ public class OrderDA {
     public void deleteRecord(int orderID) throws SQLException {
         try {
             createConnection();
-            String deleteProd = "DELETE FROM" + tableName + "WHERE ORDER_ID = ?";
+            String deleteProd = "DELETE FROM " + tableName + " WHERE ORDER_ID = ?";
             stmt = conn.prepareStatement(deleteProd);
             stmt.setInt(1, orderID);
             stmt.executeUpdate();
