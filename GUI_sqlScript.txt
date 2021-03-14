@@ -1,0 +1,120 @@
+CREATE TABLE "CUSTOMER" (
+    "CUST_ID" INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 1001, INCREMENT BY 1),
+    "FIRST_NAME" VARCHAR(40) not null,
+    "LAST_NAME" VARCHAR(40) not null,
+    "AGE" INT,
+    "EMAIL" VARCHAR(50) not null unique, 
+    "PASSWORD" VARCHAR(100) not null,
+    "GENDER" CHAR(6),
+    "ADDRESS" VARCHAR(60),
+    "PHONE_NO" CHAR(11),
+    "REWARD_POINT" INT
+);
+
+CREATE TABLE "STAFF" (
+    "STAFF_ID" INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 2001, INCREMENT BY 1),
+    "FIRST_NAME" VARCHAR(30),
+    "LAST_NAME" VARCHAR(30),
+    "AGE" INT,
+    "EMAIL" VARCHAR(30) not null unique, 
+    "PASSWORD" VARCHAR(100) not null,
+    "GENDER" CHAR(6),
+    "ADDRESS" VARCHAR(60),
+    "PHONE_NO" CHAR(11),
+    "POSITION" VARCHAR(30)
+);
+
+
+CREATE TABLE "COLOR" (
+    "COLOR_ID" INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 5001, INCREMENT BY 1),
+    "COLOR_NAME" VARCHAR(30),
+    "COLOR_CODE" VARCHAR(30)
+);
+
+CREATE TABLE "SHOES" (
+    "PROD_ID" INT not null GENERATED ALWAYS AS IDENTITY (START WITH 4001, INCREMENT BY 1),
+    "SIZE" CHAR(6) not null,
+    "PROD_NAME" VARCHAR(50),
+    "BRAND" VARCHAR(30),
+    "PRICE" DECIMAL(19,2),
+    "STOCK" INT,
+    "SEASON" VARCHAR(30),
+    "IMG" VARCHAR(80),
+    "COLOR_ID" INT not null,
+    "STAFF_ID" INT,
+    PRIMARY KEY ("PROD_ID"),
+    CONSTRAINT PK_SHOES_VARIETY UNIQUE ("PROD_ID","SIZE","COLOR_ID"),
+    foreign key ("COLOR_ID") references "COLOR"("COLOR_ID"),
+    foreign key ("STAFF_ID") references "STAFF"("STAFF_ID")
+);
+
+
+CREATE TABLE "ORDER" (
+    "ORDER_ID" INT not null primary key GENERATED ALWAYS AS IDENTITY (START WITH 3001, INCREMENT BY 1),
+    "DATE" DATE DEFAULT '00-00-0000',
+    "TOTAL_PRICE" DECIMAL(19,2),
+    "STATUS" VARCHAR(30),
+    "CUST_ID" INT,
+    foreign key ("CUST_ID") references "CUSTOMER"("CUST_ID")
+);
+
+CREATE TABLE "ORDERLIST" (
+    "PROD_ID" INT not null,
+    "ORDER_ID" INT not null,
+    "QTY" INT,
+    "SUBTOTAL" DECIMAL(19,2),
+    CONSTRAINT PK_ORDERLIST_ITEMS PRIMARY KEY ("PROD_ID","ORDER_ID"),
+    CONSTRAINT FK_ORDERLIST_PRODID foreign key ("PROD_ID") references "SHOES"("PROD_ID"),
+    CONSTRAINT FK_ORDERLIST_ORDERID foreign key ("ORDER_ID") references "ORDER"("ORDER_ID")
+);
+
+INSERT INTO CUSTOMER (FIRST_NAME, LAST_NAME, AGE, EMAIL, PASSWORD, GENDER, ADDRESS, PHONE_NO, REWARD_POINT) VALUES
+('Ng', 'Jing Chong', 20, 'ngjingchong@gmail.com', 'ngjingchong', 'Male', 'Bukit Jalil', '010-2826133', 0),
+('Low', 'Jia Hie', 20, 'lowjiahie@gmail.com', 'lowjiahie', 'Male', 'Bangi', '016-3742396', 100),
+('Khor', 'Wen Xin', 20, 'khorwenxin@gmail.com', 'khorwenxin', 'Female', 'Kepong', '019-3820970', 50),
+('Kong', 'Yuen Fai', 22, 'kongyuenfai@gmail.com', 'kongyuenfai', 'Male', 'Setapak', '019-7685709', 0),
+('Puah', 'Hsien Jian', 21, 'puahhisenjian@gmail.com', 'puahhsienjian', 'Male', 'Cheras', '019-3218340', 100);
+
+INSERT INTO STAFF (FIRST_NAME, LAST_NAME, AGE, EMAIL, PASSWORD, GENDER, ADDRESS, PHONE_NO, "POSITION") VALUES
+('Ng', 'JC', 20, 'ngjc@gmail.com', 'ngjingchong', 'Male', 'Bukit Jalil', '010-2826133', 'Manager'),
+('Low', 'JH', 20, 'lowjh@gmail.com', 'lowjiahie', 'Male', 'Bangi', '016-3742396', 'Manager'),
+('Khor', 'WX', 20, 'khorwx@gmail.com', 'khorwenxin', 'Female', 'Kepong', '019-3820970', 'Regular Staff'),
+('Kong', 'YF', 22, 'kongyf@gmail.com', 'kongyuenfai', 'Male', 'Setapak', '019-7685709', 'Regular Staff'),
+('Puah', 'HJ', 21, 'puahhj@gmail.com', 'puahhsienjian', 'Male', 'Cheras', '019-3218340', 'Manager');
+
+INSERT INTO COLOR (COLOR_NAME, COLOR_CODE) VALUES
+('White Color', 'rgb(255,255,255)'),
+('Black Color', 'rgb(0,0,0)'),
+('Light Cyan Color', 'rgb(224,255,255)'),
+('Maroon Color', 'rgb(128,0,0)'),
+('Gray Color', 'rgb(192,192,192)');
+
+INSERT INTO SHOES ("SIZE", PROD_NAME, BRAND, PRICE, STOCK, SEASON, IMG, COLOR_ID, STAFF_ID) VALUES
+('UK7', 'Ultrabost 21', 'Adidas', 799.00, 10, 'All Season', NULL, 5001, 2001),
+('UK8', 'Ultrabost 21', 'Adidas', 799.00, 15, 'All Season', NULL, 5002, 2001),
+('UK9', 'Stan Smith', 'Adidas', 419.00, 10, 'All Season', NULL, 5001, 2002),
+('UK7', 'Stan Smith', 'Adidas', 420.00, 15, 'All Season', NULL, 5004, 2002),
+('UK9.5', 'NMD R1', 'Adidas', 649.00, 10, 'All Season', NULL, 5002, 2003),
+('UK8.5', 'Air Zoom', 'Nike', 829.00, 15, 'All Season', NULL, 5001, 2003),
+('UK9.5', 'React Miller', 'Nike', 535.00, 10, 'All Season', NULL, 5005, 2004),
+('UK10', 'Flex Experience Run 10', 'Nike', 225.00, 10, 'All Season', NULL, 5001, 2004),
+('UK8', 'Joyride Dual Run', 'Nike', 269.00, 10, 'All Season', NULL, 5005, 2005),
+('UK7', 'Joyride Run Flyknit', 'Nike', 735.00, 10, 'All Season', NULL, 5005, 2005);
+
+INSERT INTO "ORDER" ("DATE", TOTAL_PRICE, STATUS, CUST_ID) VALUES 
+('2021-03-06', 2310.00, 'Completed', 1001),
+('2021-04-07', 1605.00, 'Completed', 1002),
+('2021-05-31', 1754.00, 'Processing', 1003),
+('2021-06-27', 1667.00, 'Processing', 1004),
+('2021-06-28', 450.00, 'Processing', 1005);
+
+INSERT INTO ORDERLIST (PROD_ID, ORDER_ID, QTY, SUBTOTAL) VALUES
+(4004, 3001, 2, 840.00),
+(4005, 3001, 2, 1470.00),
+(4002, 3002, 3, 1605.00),
+(4002, 3003, 1, 799.00),
+(4004, 3003, 1, 420.00),
+(4007, 3003, 1, 535.00),
+(4003, 3004, 2, 838.00),
+(4006, 3004, 1, 829.00),
+(4008, 3005, 2, 535.00);
