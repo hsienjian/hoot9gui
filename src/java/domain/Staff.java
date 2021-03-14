@@ -5,10 +5,24 @@
  */
 package domain;
 
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+
+@Entity
+@Table(name = "REGISTERED_SUBJECT")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "RegisteredSubject.findAll", query = "SELECT r FROM RegisteredSubject r")
+    , @NamedQuery(name = "RegisteredSubject.findByRegSubjectId", query = "SELECT r FROM RegisteredSubject r WHERE r.regSubjectId = :regSubjectId")})
 /**
  *
  * @author Ruey
  */
+
 public class Staff {
 
     private String staffID;
