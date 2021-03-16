@@ -11,9 +11,9 @@ import javax.swing.*;
 
 public class OrderListDA {
 
-    private String host = "jdbc:derby://localhost:1527/collegedb";
-    private String user = "nbuser";
-    private String password = "nbuser";
+    private String host = "jdbc:derby://localhost:1527/guidb";
+    private String user = "guidb";
+    private String password = "guidb";
     private String tableName = "Orderlist";
     private Connection conn;
     private PreparedStatement stmt;

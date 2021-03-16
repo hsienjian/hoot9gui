@@ -13,9 +13,9 @@ import javax.swing.*;
 
 public class ShoesDA {
 
-    private String host = "jdbc:derby://localhost:1527/collegedb";
-    private String user = "nbuser";
-    private String password = "nbuser";
+    private String host = "jdbc:derby://localhost:1527/guidb";
+    private String user = "guidb";
+    private String password = "guidb";
     private String tableName = "Shoes";
     private Connection conn;
     private PreparedStatement stmt;
@@ -36,7 +36,7 @@ public class ShoesDA {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Color color = colorDA.getRecord(rs.getInt("COLOR_ID"));
-                Staff staff = colorDA.getRecord(rs.getInt("STAFF_ID"));
+                Staff staff = staffDA.getRecord(rs.getInt("STAFF_ID"));
                 shoes = new Shoes(prodID, rs.getString("Size"), rs.getString("Product Name"), rs.getString("Brand"), rs.getDouble("Price"), rs.getString("Stock"), rs.getString("Season"), color, staff);
             }
         } catch (SQLException ex) {
