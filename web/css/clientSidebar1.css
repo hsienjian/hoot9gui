@@ -1,0 +1,82 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 14, 2021, 4:00:19 AM
+    Author     : Admin-jiahie
+*/
+@font-face {
+    font-family: 'OCR';
+    src: url('../font/OCR-A-Std-Regular.ttf'); 
+}
+
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.8);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.sidebar-nav{
+    height:100%; 
+    width:250px; 
+    padding-top:50px; 
+    padding-left: 0;
+    padding-right: 0;
+    margin-left:0px;
+    background-color: rgba(255,255,255, 0.9);
+    box-shadow:
+        0 0.9px 1.9px -13px rgba(0, 0, 0, 0.022),
+        0 1.9px 4.1px -13px rgba(0, 0, 0, 0.033),
+        0 3.3px 7px -13px rgba(0, 0, 0, 0.04),
+        0 5px 10.9px -13px rgba(0, 0, 0, 0.047),
+        0 7.4px 16.1px -13px rgba(0, 0, 0, 0.053),
+        0 10.9px 23.7px -13px rgba(0, 0, 0, 0.06),
+        0 16.4px 35.5px -13px rgba(0, 0, 0, 0.067),
+        0 26.1px 56.6px -13px rgba(0, 0, 0, 0.078),
+        0 49px 106px -13px rgba(0, 0, 0, 0.1)
+        ;
+}
+
+.overlay .sidebar-nav a {
+    font-family: 'OCR', Arial, sans-serif;
+    padding: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    font-weight: 900;
+    border-bottom: 1px solid rgba(0,0,0, 0.1) ;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay .sidebar-nav a:hover, .overlay .sidebar-nav a:focus {
+        background-color: rgba(169,169,169,0.1) ;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 0px;
+    right: 20px;
+    font-size: 60px;
+    text-decoration: none;
+    color: #818181;
+}
+
+@media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+    .overlay .closebtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+    }
+}

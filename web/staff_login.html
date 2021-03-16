@@ -6,32 +6,33 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Staff Login & Register</title>
+        <title>Staff Login</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <style>
             body {
                 background-size: 100% 120%;
                 background-repeat: none;
                 background-image: url("images/staff_login_BG.jpg");
-                color: white;
+                color: rgb(255,255,255,0.8) !important;
             }
             .staff-login-container {
                 width: 300px;
-                height: 225px;
+                height: 200px;
                 margin: 180px auto;
                 border: solid 1px #dark;
                 border-radius: 20px;
-                background-color: rgb(0,0,0,0.5)
+                background-color: rgb(0,0,0,0.5);
             }
-            .staff-login-img {
+            .staff-login-img, .staff-login-img img {
                 position: relative;
-                width: 80px;
-                height: 80px;
-                padding: 10px;
-                transform: translate(110px, 0px);
-                border-radius: 50px;
+                padding-left: 30px;
+                transform: translate(0px, -35px);
+            }
+            .staff-login-img img {
+                transform: translate(0px, -40px);
             }
             .staff-login-form {
+                transform: translateY(-30px);
                 padding: 0px 10px 10px 10px;
                 margin: 0px auto;
             }
@@ -40,20 +41,32 @@ and open the template in the editor.
             }
             .form-group input {
                 float: right;
+                border: unset;
+                border-radius: 5px;
+                background-color: rgb(255,255,255,0.3);
+            }
+            .form-group input:focus {
+                outline: unset;
             }
             .login-btn {
                 position: relative;
+                height: 25px;
                 width: 80px;
-                border-radius: 15px;
+                border: unset;
+                border-radius: 10px;
                 left: 100px;
-                background-color: #A2D9E7;
+                background-color: rgb(255,255,255,0.3);
+            }
+            .login-btn:hover {
+                background-color: rgb(0,0,0,0.4)!important;
             }
         </style>
     </head>
     <body>
         <div class="staff-login-container">
             <div class="staff-login-img">
-                <svg t="1615725320801" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1130" width="60" height="60"><path d="M907.788 819.637c-21.631-51.141-52.593-97.064-92.025-136.498-39.434-39.433-85.358-70.394-136.498-92.024a427.22 427.22 0 0 0-55.298-19.058c27.979-12.982 53.754-30.915 76.214-53.375 50.238-50.238 77.906-117.033 77.906-188.081s-27.668-137.843-77.906-188.082S583.147 64.613 512.1 64.613 374.257 92.28 324.018 142.519s-77.906 117.034-77.906 188.082 27.667 137.843 77.906 188.081c22.46 22.46 48.236 40.393 76.215 53.375a427.22 427.22 0 0 0-55.298 19.058c-51.14 21.631-97.064 52.592-136.497 92.025-39.433 39.433-70.395 85.356-92.025 136.497-18.872 44.619-29.905 91.571-32.911 139.921h40.106c14.031-202.079 182.91-362.2 388.492-362.2 205.582 0 374.462 160.121 388.494 362.199h40.105c-3.007-48.349-14.039-95.301-32.911-139.92zM286.112 330.601c0-124.61 101.377-225.987 225.987-225.987s225.987 101.377 225.987 225.987S636.71 556.588 512.1 556.588c-124.61 0-225.988-101.378-225.988-225.987z" p-id="1131" fill="#13227a"></path></svg>            
+                <svg t="1615726873708" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2130" width="64" height="64"><path d="M856.339597 799.428571q0 62.285714-35.714286 106.857143t-86 44.571429H246.625311q-50.285714 0-86-44.571429T124.911026 799.428571q0-48.571429 4.857143-91.714285t18-86.857143 33.428571-74.857143 53.714286-50.857143T311.768169 475.428571q74.857143 73.142857 178.857142 73.142858t178.857143-73.142858q43.428571 0 76.857143 19.714286t53.714286 50.857143 33.428571 74.857143 18 86.857143 4.857143 91.714285z m-146.285714-506.857142q0 90.857143-64.285714 155.142857T490.625311 512 335.482454 447.714286 271.19674 292.571429t64.285714-155.142858T490.625311 73.142857t155.142858 64.285714T710.053883 292.571429z" p-id="2131" fill="#2c2c2c"></path></svg>
+                <img src="images/hoot9elogo-01.png" alt="hoot9e-logo" style="width:160px"/>
             </div>
             <form class="staff-login-form">
                 <div class="form-group">
@@ -64,7 +77,7 @@ and open the template in the editor.
                     <label>Password : </label>
                     <input name="staff_pw" type="password" />
                 </div>
-                <input class="login-btn" name="submit" type="submit" value="Login"/>
+                <input class="login-btn" name="login" type="submit" value="Login"/>
             </form>
         </div>
     </body>
