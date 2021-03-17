@@ -11,7 +11,8 @@ import java.io.Serializable;
  *
  * @author Forge-15
  */
-public class Customer implements Serializable{
+public class Customer implements Serializable {
+
     private int custID;
     private String firstName;
     private String lastName;
@@ -22,8 +23,6 @@ public class Customer implements Serializable{
     private String address;
     private String phoneNo;
     private int rewardPoint;
-
-
 
     public Customer(int custID, String firstName, String lastName, int age, String email, String password, String gender, String address, String phoneNo, int rewardPoint) {
         this.custID = custID;
@@ -38,8 +37,6 @@ public class Customer implements Serializable{
         this.rewardPoint = rewardPoint;
     }
 
-    
-    
     public Customer() {
     }
 
@@ -128,10 +125,4 @@ public class Customer implements Serializable{
         return "Customer{" + "custID=" + custID + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", email=" + email + ", password=" + password + ", gender=" + gender + ", address=" + address + ", phoneNo=" + phoneNo + '}';
     }
 
-    
-        
-    
-    
-    
-    
 }

@@ -18,7 +18,7 @@
     </head>
 
     <body>
-        <%@include  file="components/clientHeader.html" %>
+        <%@include  file="components/clientHeader.jsp"%>
 
         <div class="container-fluid " style="margin-top: 100px;">
 
@@ -72,7 +72,7 @@
             <br>
 
         </div>
-        <%@include  file="components/clientFooter.html" %>
+        <%@include  file="components/clientFooter.jsp" %>
 
     </body>
     <!-- Optional JavaScript -->
