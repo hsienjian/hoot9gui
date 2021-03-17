@@ -1,9 +1,11 @@
+<%-- 
+    Document   : backendHeader
+    Created on : Mar 17, 2021, 11:37:16 AM
+    Author     : j.chong
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Staff Console Header</title>
@@ -21,8 +23,9 @@ and open the template in the editor.
                 document.getElementById("menuBtn").style.opacity = "1";
             }
             function handleCollapse(element, icon) {
-                if (event.target.getAttribute('name') === element){
-                    if ($("#" + element).css("maxHeight") === "0px"){
+                console.log(event.target.getAttribute('id'));
+                if (event.target.getAttribute('name') === element || event.target.getAttribute('id') === icon){
+                    if ($("#" + element).css("maxHeight") === "0px") {
                         var height = document.getElementById(element).scrollHeight;
                         document.getElementById(element).style.maxHeight = height + "px";
                         document.getElementById(element).style.overflow = "auto";
