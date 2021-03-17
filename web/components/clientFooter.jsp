@@ -1,3 +1,8 @@
+<%-- 
+    Document   : clientFooter.jsp
+    Created on : Mar 17, 2021, 11:33:32 AM
+    Author     : Admin-jiahie
+--%>
         <footer class="footer" style="background-color:#000000;">
             <div class="container-fluid" style="padding-top: 40px;">
                 <div class="row ml-3 font-white">
