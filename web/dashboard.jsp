@@ -34,7 +34,7 @@
                                     <h5 class="card-title">Revenue</h5>
                                     <p class="card-text">123<!-- implement result --></p>
                                     
-                                        <a href="#" class="btn btn-primary">View</a>
+                                        <a href="#" class="btn btn-primary b-full">View</a>
                                     
                                     
                                   </div>
@@ -45,7 +45,7 @@
                                   <div class="card-body bg-light">
                                     <h5 class="card-title">Total Order </h5>
                                     <p class="card-text">123<!-- implement result --></p>
-                                    <a href="#" class="btn btn-primary">View</a>
+                                    <a href="#" class="btn btn-primary b-full">View</a>
                                   </div>
                                 </div>
                               </div>
@@ -54,7 +54,7 @@
                                   <div class="card-body bg-light">
                                     <h5 class="card-title">Order Pending</h5>
                                     <p class="card-text">123<!-- implement result --></p>
-                                    <a href="#" class="btn btn-primary">View</a>
+                                    <a href="#" class="btn btn-primary b-full">View</a>
                                   </div>
                                 </div>
                               </div>
@@ -69,48 +69,55 @@
                               </div>
 </div>  
                 
-            
-            <div class="mb-3">
-                
-                <table>
-
+                    <div class="table-wrapper ">
+                        <label for="Sort">Sort By:</label>
+                        <select id="cars">
+                          <option value="Sales">Sales</option>
+                          <option value="Status">Status</option>
+                          <option value="Price">Low to High</option>
+                          <option value="Name">Name(A-Z)</option>
+                        </select>
+            </div>
                     <div class="mb-3">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="table-responsive">
+                
+                        <table>
+                            
+                            <div class="mb-3">
+                                <div class="row">
                                     
-                                        <table class="table table-striped table-hover ">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                                <table class="table table-striped table-hover ">
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th scope="col" class="align-middle">Order ID </th>
+                                                            <th scope="col" class="align-middle">Customer Name </th>
+                                                            <th scope="col" class="align-middle">Phone No</th>
+                                                            <th scope="col" class="align-middle">Total Item</th>
+                                                            <th scope="col" class="align-middle">Total (RM)</th>
+                                                            <th scope="col" class="align-middle">Status</th>
+                                                        </tr>
+                                                    </thead>
 
-                                            <thead class="table-light">
-                                                <tr>
-                                                    <th scope="col" class="align-middle">Order ID </th>
-                                                    <th scope="col" class="align-middle">Customer Name </th>
-                                                    <th scope="col" class="align-middle">Phone No</th>
-                                                    <th scope="col" class="align-middle">Total Item</th>
-                                                    <th scope="col" class="align-middle">Total (RM)</th>
-                                                    <th scope="col" class="align-middle">Status</th>
-                                                </tr>
-                                            </thead>
-                                            
-                                            <tbody>
+                                                    <tbody>
 
-                                                    <tr>
+                                                            <tr>
 
-                                                        <td>0000</td>
-                                                        <td>puah</td>
-                                                        
-                                                        <td>0193218340</td>
-                                                        <td>100</td>
-                                                        <td>2000</td>
-                                                        
-                                                        <td>
-                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Pending</a> 
-                                                        </td>
+                                                                <td>0000</td>
+                                                                <td>puah</td>
+
+                                                                <td>0193218340</td>
+                                                                <td>100</td>
+                                                                <td>2000</td>
+
+                                                                <td>
+                                                                    <a href="#" type="button" class="btn btn-primary" style="width: 80px">Pending</a> 
+                                                                </td>
 
 
 
-                                                    </tr>
-                                            </tbody>
+                                                            </tr>
+                                                    </tbody>
                 
                 
                 
