@@ -23,21 +23,19 @@ public class CustomerDA {
     private PreparedStatement stmt;
 
     public CustomerDA() {
-        createConnection();
     }
 
-    public Customer getRecord(int CustID) {
+    public Customer getCustomer(int custID) {
         createConnection();
-        String queryStr = "SELECT * FROM " + tableName + " WHERE Code = ?";
+        String queryStr = "SELECT * FROM " + tableName + " WHERE CUST_ID=?";
         Customer customer = null;
         try {
             stmt = conn.prepareStatement(queryStr);
-            stmt.setInt(1, CustID);
+            stmt.setInt(1, custID);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-
-                customer = new Customer(CustID, rs.getString("firstName"), rs.getString("lastName"), rs.getInt("age"), rs.getString("email"), rs.getString("password"), rs.getString("gender"), rs.getString("address"), rs.getString("phoneNo"), rs.getInt("rewardPoint"));
+                customer = new Customer(custID, rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getInt("AGE"), rs.getString("EMAIL"), rs.getString("PASSWORD"), rs.getString("GENDER"), rs.getString("ADDRESS"), rs.getString("PHONE_NO"), rs.getInt("REWARDPOINT"));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -47,16 +45,63 @@ public class CustomerDA {
         return customer;
     }
 
-    public void updateRecord(Customer customer) {
-        // to be implemented
+    public void addCustomer(Customer customer) {
+        createConnection();
+        String queryStr = "INSERT INTO " + tableName + " (FIRST_NAME, LAST_NAME, AGE, EMAIL, PASSWORD, GENDER, ADDRESS, PHONE_NO, REWARD_POINT) VALUES(?,?,?,?,?,?,?,?,?)";
+        try {
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1, customer.getFirstName());
+            stmt.setString(2, customer.getLastName());
+            stmt.setInt(3, customer.getAge());
+            stmt.setString(4, customer.getEmail());
+            stmt.setString(5, customer.getPassword());
+            stmt.setString(6, customer.getGender());
+            stmt.setString(7, customer.getAddress());
+            stmt.setString(8, customer.getPhoneNo());
+            stmt.setInt(9, customer.getRewardPoint());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            shutDown();
+        }
     }
 
-    public void addRecord(Customer customer) {
-        // to be implemented
+    public void updateCustomer(Customer customer) {
+        createConnection();
+        String queryStr = "UPDATE " + tableName + " SET FIRST_NAME=?, LAST_NAME=?, AGE=?, EMAIL=?, PASSWORD=?, GENDER=?, ADDRESS=?, PHONE_NO=?, REWARD_POINT=? WHERE CUST_ID=?";
+        try {
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1, customer.getFirstName());
+            stmt.setString(2, customer.getLastName());
+            stmt.setInt(3, customer.getAge());
+            stmt.setString(4, customer.getEmail());
+            stmt.setString(5, customer.getPassword());
+            stmt.setString(6, customer.getGender());
+            stmt.setString(7, customer.getAddress());
+            stmt.setString(8, customer.getPhoneNo());
+            stmt.setInt(9, customer.getRewardPoint());
+            stmt.setInt(10, customer.getCustID());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            shutDown();
+        }
     }
 
-    public void deleteRecord(String email) {
-        // to be implemented
+    public void deleteCustomer(int custID) {
+        createConnection();
+        String queryStr = "DELETE FROM " + tableName + " WHERE CUST_ID=?";
+        try {
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setInt(1, custID);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            shutDown();
+        }
     }
 
     private void createConnection() {

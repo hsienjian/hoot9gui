@@ -13,13 +13,13 @@ public class Order {
     private Date date;
     private double ttlPrice;
     private String status;
-    private Customer custID;
+    private int custID;
 
     public Order() {
 
     }
 
-    public Order(int orderID, Date date, double ttlPrice, String status, Customer custID) {
+    public Order(int orderID, Date date, double ttlPrice, String status, int custID) {
         this.orderID = orderID;
         this.date = date;
         this.ttlPrice = ttlPrice;
@@ -43,7 +43,7 @@ public class Order {
         return status;
     }
 
-    public Customer getCustID() {
+    public int getCustID() {
         return custID;
     }
 
@@ -63,7 +63,7 @@ public class Order {
         this.status = status;
     }
 
-    public void setCustID(Customer custID) {
+    public void setCustID(int custID) {
         this.custID = custID;
     }
 
