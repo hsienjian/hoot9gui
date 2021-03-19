@@ -1,9 +1,11 @@
+<%-- 
+    Document   : staff_login
+    Created on : Mar 17, 2021, 11:29:48 AM
+    Author     : j.chong
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Staff Login</title>
@@ -11,7 +13,7 @@ and open the template in the editor.
         <style>
             body {
                 background-size: 100% 120%;
-                background-repeat: none;
+                background-repeat:no-repeat;
                 background-image: url("images/staff_login_BG.jpg");
                 color: rgb(255,255,255,0.8) !important;
             }
