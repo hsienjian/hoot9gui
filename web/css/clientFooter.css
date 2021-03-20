@@ -1,0 +1,63 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 13, 2021, 11:45:49 PM
+    Author     : Admin-jiahie
+*/
+@font-face {
+    font-family: 'OCR';
+    src: url('../font/OCR-A-Std-Regular.ttf'); 
+}
+
+.header-footer{
+    font-family: 'OCR', Arial, sans-serif;
+    font-weight:normal;
+    font-style:normal;
+}
+
+.font-white{
+    color:#FFFFFF;
+}
+
+.bg-color-black{
+    background-color:#000000;
+}
+#social-link{
+    text-decoration: none;
+}
+
+
+@media screen and (max-width:767px) {
+    .social-media{
+        padding-left: 0px;
+    }
+    .about-us{
+        padding-left: 0px;
+    }
+    .border-line-1{
+        width: 96%;
+        height: 1px;
+        background: #797979;
+        padding-right:100px;
+        margin-left: auto;
+        margin-top:20px;
+        margin-bottom:20px;
+        margin-right:25px;
+        
+    }
+
+}
+@media screen and (max-width:360px) {
+    .social-media{
+        padding-left: 0px;
+    }
+    .about-us{
+        padding-left: 0px;
+    }
+    .font-reduce-size{
+        font-size: 14px;
+    }
+}
