@@ -24,6 +24,9 @@ public class Customer implements Serializable {
     private String phoneNo;
     private int rewardPoint;
 
+    public Customer() {
+    }
+
     public Customer(int custID, String firstName, String lastName, int age, String email, String password, String gender, String address, String phoneNo, int rewardPoint) {
         this.custID = custID;
         this.firstName = firstName;
@@ -35,9 +38,6 @@ public class Customer implements Serializable {
         this.address = address;
         this.phoneNo = phoneNo;
         this.rewardPoint = rewardPoint;
-    }
-
-    public Customer() {
     }
 
     public int getCustID() {
@@ -76,16 +76,12 @@ public class Customer implements Serializable {
         return phoneNo;
     }
 
-    public void setCustID(int custID) {
-        this.custID = custID;
-    }
-
     public int getRewardPoint() {
         return rewardPoint;
     }
 
-    public void setRewardPoint(int rewardPoint) {
-        this.rewardPoint = rewardPoint;
+    public void setCustID(int custID) {
+        this.custID = custID;
     }
 
     public void setFirstName(String firstName) {
@@ -120,9 +116,13 @@ public class Customer implements Serializable {
         this.phoneNo = phoneNo;
     }
 
+    public void setRewardPoint(int rewardPoint) {
+        this.rewardPoint = rewardPoint;
+    }
+
     @Override
     public String toString() {
-        return "Customer{" + "custID=" + custID + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", email=" + email + ", password=" + password + ", gender=" + gender + ", address=" + address + ", phoneNo=" + phoneNo + '}';
+        return "Customer{" + "custID=" + custID + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", email=" + email + ", password=" + password + ", gender=" + gender + ", address=" + address + ", phoneNo=" + phoneNo + ",rewardPoint=" + rewardPoint + '}';
     }
 
 }
