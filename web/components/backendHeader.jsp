@@ -8,94 +8,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Staff Console Header</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../css/backendHeader.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
-        <script>
-            function showMenu() {
-                document.getElementById("menuNav").style.transform = "translateX(0px)";
-                document.getElementById("menuBtn").style.opacity = "0";
-            }
-            function hideMenu() {
-                document.getElementById("menuNav").style.transform = "translateX(-270px)";
-                document.getElementById("menuBtn").style.opacity = "1";
-            }
-            function handleCollapse(element, icon) {
-                console.log(event.target.getAttribute('id'));
-                if (event.target.getAttribute('name') === element || event.target.getAttribute('id') === icon){
-                    if ($("#" + element).css("maxHeight") === "0px") {
-                        var height = document.getElementById(element).scrollHeight;
-                        document.getElementById(element).style.maxHeight = height + "px";
-                        document.getElementById(element).style.overflow = "auto";
-                        document.getElementById(icon).style.transform = "rotate(180deg)";
-                    }else {
-                        document.getElementById(element).style.maxHeight = "0px";
-                        document.getElementById(icon).style.transform = "rotate(0deg)";
-                    }
-                }
-            }
-        </script>
-        <style>
-            body {
-                margin: 0px;
-                background-color: whitesmoke;
-            }
-            .btn{
-                cursor: pointer;
-                outline: unset;
-                border: unset;
-                background-color: unset;
-            }
-            .menu-btn {
-                position: absolute;
-                font-size: 24px;
-                transform: translate(20px, 15px);
-            }
-            .close-btn {
-                font-size: 28px;
-                transform: translate(48px, -40px);
-            }
-            .copyright {
-                width: 2max-content;
-                position: fixed;
-                padding: 20px 15px;
-                font-size: 12px;
-                bottom: 0px;
-            }
-            .staff-nav {
-                transform: translateX(-270px);
-                transition: 0.4s;
-                width: 270px;
-                min-height: 100vh;
-                height: max-content;
-                background-color: rgb(224,255,255, 0.8);
-            }
-            .staff-nav>ul {
-                list-style: none;
-                margin: 0px 20px;
-                padding: 25px 0px;
-            }
-            .staff-nav>ul>li {
-                height: max-content;
-                padding: 0px 10px;
-                margin-bottom: 35px;
-                cursor: pointer;
-            }
-            .staff-nav>ul i {
-                float: right;
-            }
-            .collapse-ul{
-                transition: 0.3s;
-                max-height: 0px;
-                overflow: hidden;
-                padding-left: 35px;
-            }
-            .collapse-ul li{
-                margin-top: 15px;
-            }
-        </style>
+        <script src="../js/backendHeader.js"></script>
     </head>
     <body>
         <button class="btn menu-btn" id="menuBtn" onclick="showMenu()"><i class="fa fa-bars" aria-hidden="true"></i></button>
