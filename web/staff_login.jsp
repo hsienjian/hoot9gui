@@ -64,6 +64,10 @@
                 background-color: rgba(0,0,0,0.4)!important;
             }
         </style>
+        <%
+            Object activeStaff = session.getAttribute("activeStaff");
+            Object errorMsg = request.getAttribute("errorMsg");
+        %>
     </head>
     <body
         <div class="staff-login-container">
@@ -76,7 +80,13 @@
                     <label>Email : </label>
                     <input name="staff_email" type="email" />
                 </div>
-                <font style="position:absolute;font-weight:600" color="#B22222"><%= (session.getAttribute("activeStaff")!=null)?"logged In":(request.getAttribute("errorMsg") == null)?"":request.getAttribute("errorMsg") %></font>
+                <% if ( activeStaff == null) { %>
+                    <font style="position:absolute;font-weight:600" color="#B22222"><%= (errorMsg == null)?"":errorMsg %></font>
+                <% } else { 
+                    String site = "http://localhost:8080/build/staff.html";
+                    response.setStatus(response.SC_MOVED_TEMPORARILY);
+                    response.setHeader("location",site); 
+                }%>
                 <div class="form-group">
                     <label>Password : </label>
                     <input name="staff_pw" type="password" />
