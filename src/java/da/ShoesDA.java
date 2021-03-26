@@ -9,6 +9,7 @@ import domain.Color;
 import domain.Shoes;
 import domain.Staff;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class ShoesDA {
@@ -104,6 +105,28 @@ public class ShoesDA {
         } finally {
             shutDown();
         }
+    }
+
+    public ArrayList<Shoes> getShoesList() {
+        createConnection();
+        ArrayList<Shoes> shoesList = new ArrayList<Shoes>();
+        Shoes shoes = null;
+        String orderQuery = "SELECT * FROM \"SHOES\" ";
+        try {
+            stmt = conn.prepareStatement(orderQuery);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                shoes = new Shoes(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
+                shoesList.add(shoes);
+                System.out.println("erorro");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            System.out.println("erorro1");
+        } finally {
+            shutDown();
+        }
+        return shoesList;
     }
 
     private void createConnection() {

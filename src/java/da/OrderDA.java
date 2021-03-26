@@ -5,9 +5,9 @@
  */
 package da;
 
-import domain.Customer;
 import domain.Order;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class OrderDA {
@@ -94,6 +94,27 @@ public class OrderDA {
                 shutDown();
             }
         }
+    }
+
+    public ArrayList<Order> getOrderList() throws SQLException {
+        createConnection();
+        ArrayList<Order> orderList = new ArrayList<Order>();
+        Order order = null;
+        String orderQuery = "SELECT * FROM \"ORDER\" ";
+        try {
+            stmt = conn.prepareStatement(orderQuery);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                order = new Order(rs.getInt(1), rs.getDate(2), rs.getDouble(3), rs.getString(4), rs.getInt(5));
+                orderList.add(order);
+                System.out.println("erorro");
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return orderList;
     }
 
     private void createConnection() {
