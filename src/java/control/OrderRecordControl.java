@@ -5,14 +5,9 @@
  */
 package control;
 
-import da.OrderDA;
-import domain.Order;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,13 +16,32 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin-jiahie
  */
-@WebServlet("OrderRecordControl")
 public class OrderRecordControl extends HttpServlet {
 
-    private OrderDA orderDa;
-
-    public void init() throws ServletException {
-        orderDa = new OrderDA();
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet OrderRecordControl</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet OrderRecordControl at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -42,49 +56,31 @@ public class OrderRecordControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String orderOption = request.getParameter("orderOption");
-        try {
-            switch (orderOption) {
-                case "1":
-                    showRecentOrderRecords(request, response);
-                    break;
-                case "2":
-//                    insertBook(request, response);
-                    break;
-                case "3":
-//                    deleteBook(request, response);
-                    break;
-                case "4":
-//                    showEditForm(request, response);
-                    break;
-                case "5":
-//                    updateBook(request, response);
-                    break;
-            }
-        } catch (SQLException ex) {
-            throw new ServletException(ex);
-        }
+        processRequest(request, response);
     }
 
-//    /**
-//     * Handles the HTTP <code>POST</code> method.
-//     *
-//     * @param request servlet request
-//     * @param response servlet response
-//     * @throws ServletException if a servlet-specific error occurs
-//     * @throws IOException if an I/O error occurs
-//     */
-//    @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//
-//    }
-    private void showRecentOrderRecords(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        ArrayList<Order> orderList = orderDa.getOrderList();
-        request.setAttribute("orderList", orderList);
-        String url = "/Wen_Xin/myOrder.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
 }
