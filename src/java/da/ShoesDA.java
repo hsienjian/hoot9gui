@@ -226,4 +226,23 @@ public class ShoesDA {
             }
         }
     }
+
+    public Shoes getOrderShoes(int prodID) throws SQLException {
+        createConnection();
+        Shoes orderShoes = null;
+        try {
+            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID = ?";
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setInt(1, prodID);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                orderShoes = new Shoes(rs.getInt("PROD_ID"), rs.getString("SIZE"), rs.getString("PROD_NAME"), rs.getString("BRAND"), rs.getDouble("PRICE"), rs.getInt("STOCK"), rs.getString("SEASON"), rs.getString("IMG"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return orderShoes;
+    }
 }

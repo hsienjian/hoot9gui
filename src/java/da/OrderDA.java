@@ -3,7 +3,6 @@ package da;
 import domain.Order;
 import java.sql.*;
 import java.util.*;
-import javax.swing.*;
 
 public class OrderDA {
 
@@ -144,6 +143,47 @@ public class OrderDA {
         } finally {
             shutDown();
         }
+    }
+
+    public Order getCusOrder(int cusID, int orderID) throws SQLException {
+        createConnection();
+        Order order = null;
+        String orderQuery = "SELECT * FROM " + tableName + " WHERE CUST_ID = ? AND ORDER_ID = ?";
+        try {
+            stmt = conn.prepareStatement(orderQuery);
+            stmt.setInt(1, cusID);
+            stmt.setInt(2, orderID);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                order = new Order(rs.getInt(1), rs.getDate(2), rs.getDouble(3), rs.getString(4), rs.getInt(5));
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return order;
+    }
+
+    public ArrayList<Order> getCusOrderList(int cusID) throws SQLException {
+        createConnection();
+        ArrayList<Order> cusOrderList = new ArrayList<Order>();
+        Order order = null;
+        String orderQuery = "SELECT * FROM " + tableName + " WHERE CUST_ID = ?";
+        try {
+            stmt = conn.prepareStatement(orderQuery);
+            stmt.setInt(1, cusID);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                order = new Order(rs.getInt(1), rs.getDate(2), rs.getDouble(3), rs.getString(4), rs.getInt(5));
+                cusOrderList.add(order);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return cusOrderList;
     }
 
 }

@@ -97,6 +97,26 @@ public class ColorDA {
         }
     }
 
+    public Color getRecord(int colorID) throws SQLException {
+        createConnection();
+        String queryStr = "SELECT * FROM " + tableName + " WHERE COLOR_ID = ?";
+        Color color = null;
+        try {
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setInt(1, colorID);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                color = new Color(colorID, rs.getString(2), rs.getString(3));
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return color;
+    }
+
     public void deleteColor(int colorID) throws SQLException {
         try {
             createConnection();
