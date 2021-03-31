@@ -326,7 +326,7 @@ public class OrderRecordControl extends HttpServlet {
             //after get the color details and assign to colorObj then add to colorArrayList
             //this to filter the color we need for the shoes in shoesArrayList
             for (int i = 0; i < shoesList.size(); i++) {
-                color = colorDa.getRecord(shoesList.get(i).getColorID());
+                color = colorDa.getColor(shoesList.get(i).getColorID());
                 colorList.add(color);
             }
 
