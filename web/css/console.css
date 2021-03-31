@@ -9,7 +9,12 @@ and open the template in the editor.
 */
 
 #wrapper{
-    display: flex;
+    display: inline;
+    
+}
+
+.b-full{
+    width: 100px;
 }
 
 #sidebar {
@@ -19,6 +24,10 @@ and open the template in the editor.
     color: rgba(255, 255, 255, 0.8);
     transition: all 0.3s;
     width: 14rem !important;
+    z-index: 1;
+    height: 100%;
+    position: fixed;
+    overflow-x: auto;
 }
 
 #sidebar.active {
@@ -54,3 +63,13 @@ a[aria-expanded="true"] {
     color: #fff;
     background: #ddd;
 }
+
+.wrap-content{
+    margin-left: 250px;
+  padding: 1px 16px;
+  
+}
+
+
+
+
