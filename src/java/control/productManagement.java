@@ -12,7 +12,6 @@ import domain.Color;
 import domain.Shoes;
 import domain.Staff;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
