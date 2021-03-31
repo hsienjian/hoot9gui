@@ -65,7 +65,7 @@ public class ShoesControl extends HttpServlet {
         int colorID = Integer.parseInt(request.getParameter("color_id"));
         ArrayList<Shoes> choosen = new ArrayList<Shoes>();
         try {
-            Color color = colorDA.getRecord(colorID);
+            Color color = colorDA.getColor(colorID);
             choosen = shoesDA.getRecord(prodName);
             request.setAttribute("shoes", choosen);
             request.setAttribute("color", color);

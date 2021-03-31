@@ -91,7 +91,7 @@ public class StaffControl extends HttpServlet {
         int staffID = Integer.parseInt(request.getParameter("staffID"));
         try (PrintWriter out = response.getWriter()) {
             Staff staff = null;
-            staff = staffDA.getRecord(staffID);
+            staff = staffDA.getStaff(staffID);
             request.setAttribute("staff", staff);
             RequestDispatcher dispatcher = request.getRequestDispatcher("EditStaff.jsp");
             dispatcher.forward(request, response);
@@ -192,7 +192,7 @@ public class StaffControl extends HttpServlet {
         try {
             duty = shoesDA.staffHandle(staffID);
             Staff profile = null;
-            profile = staffDA.getRecord(staffID);
+            profile = staffDA.getStaff(staffID);
             request.setAttribute("profile", profile);
             request.setAttribute("duty", duty);
             RequestDispatcher dispatcher = request.getRequestDispatcher("StaffProfile.jsp");
