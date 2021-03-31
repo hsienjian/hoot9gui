@@ -5,59 +5,62 @@
  */
 package domain;
 
+/**
+ *
+ * @author Admin-jiahie
+ */
 public class OrderList {
 
-    private Shoes prodID;
-    private Order orderID;
-    private int qty;
-    private double subtotal;
+    private Integer prodID;
+    private Integer orderID;
+    private Integer qty;
+    private double subTtlPrice;
 
     public OrderList() {
 
     }
 
-    public OrderList(Shoes prodID, Order orderID, int qty, double subtotal) {
+    public OrderList(Integer prodID, Integer orderID, Integer qty, double subTtlPrice) {
         this.prodID = prodID;
         this.orderID = orderID;
         this.qty = qty;
-        this.subtotal = subtotal;
+        this.subTtlPrice = subTtlPrice;
     }
 
-    public Shoes getProdID() {
+    public Integer getProdID() {
         return prodID;
     }
 
-    public Order getOrderID() {
+    public Integer getOrderID() {
         return orderID;
     }
 
-    public int getQty() {
+    public Integer getQty() {
         return qty;
     }
 
-    public double getSubtotal() {
-        return subtotal;
+    public double getSubTtlPrice() {
+        return subTtlPrice;
     }
 
-    public void setProdID(Shoes prodID) {
-        this.prodID = prodID;
-    }
-
-    public void setOrderID(Order orderID) {
+    public void setOrderID(Integer orderID) {
         this.orderID = orderID;
     }
 
-    public void setQty(int qty) {
-        this.qty = qty;
+    public void setProdID(Integer prodID) {
+        this.prodID = prodID;
     }
 
-    public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
+    public void setSubTtlPrice(double subTtlPrice) {
+        this.subTtlPrice = subTtlPrice;
+    }
+
+    public void setQty(Integer qty) {
+        this.qty = qty;
     }
 
     @Override
     public String toString() {
-        return "OrderList{" + "prodID=" + prodID + ", orderID=" + orderID + ", qty=" + qty + ", subtotal=" + subtotal + '}';
+        return "OrderList{" + "prodID=" + prodID + ", orderID=" + orderID + ", subTtlPrice=" + subTtlPrice + ", qty=" + qty + '}';
     }
-
 }

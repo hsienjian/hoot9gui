@@ -5,6 +5,18 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="domain.Customer" %>
+<%@page import="da.CustomerDA" %>
+<%@page import="domain.Order" %>
+<%@page import="da.OrderDA" %>
+<%@page import="domain.OrderList" %>
+<%@page import="da.OrderListDA" %>
+<%@page import="domain.Shoes" %>
+<%@page import="da.ShoesDA" %>
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,10 +33,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        
+        <%
+            CustomerDA customerDa = new CustomerDA();
+            OrderDA orderDa = new OrderDA();
+            OrderListDA orderListDa = new OrderListDA();
+            ShoesDA shoesDa = new ShoesDA();
+            ArrayList<Customer> Customer = customerDa.getCustomer();
+            ArrayList<Order> Order = orderDa.getOrder();
+            ArrayList<OrderList> OrderList = orderListDa.getOrderList();
+            ArrayList<Shoes> Shoes = shoesDa.getShoes();
+        %>
         <div id="wrapper">
-            
-            
         <div class="wrap-content">
                         
                            <div class="row ">
@@ -96,16 +115,22 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                            <tr>
-                                                                <td>0000</td>
-                                                                <td>puah</td>
-                                                                <td>0193218340</td>
-                                                                <td>100</td>
-                                                                <td>2000</td>
-                                                                <td>
-                                                                    <a href="#" type="button" class="btn btn-primary" style="width: 80px">Pending</a> 
-                                                                </td>
-                                                            </tr>
+                                                               <%for(int i=0; i<Customer.size(); i++) { %>
+                                                               <%for( i=0; i<Order.size(); i++ ) { %>
+                                                                    <tr>
+                                                                        <td><%=Order.get(i).getOrderID() %></td>
+                                                                        <td><%=Customer.get(i).getFirstName() %> <%=Customer.get(i).getLastName() %></td>
+                                                                        <td><%=Customer.get(i).getPhoneNo() %></td>
+                                                                        <td><%=OrderList.get(i).getQty() %></td>
+                                                                        <td><%=Order.get(i).getTtlPrice() %></td>
+                                                                        <td><%=Order.get(i).getStatus() %></td>
+                                                                        
+                                                                        <td><%=Customer.get(i).getRewardPoint() %></td>
+                                                                        <td>
+                                                                            <a href="#" type="button" class="btn btn-primary" >View Order</a>
+                                                                        </td>
+                                                                    </tr>
+                                                    <% }  %>
                                                     </tbody>
             </div>
             </div>   

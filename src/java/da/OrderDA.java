@@ -8,6 +8,7 @@ package da;
 import domain.Customer;
 import domain.Order;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class OrderDA {
@@ -15,7 +16,7 @@ public class OrderDA {
     private String host = "jdbc:derby://localhost:1527/guidb";
     private String user = "guidb";
     private String password = "guidb";
-    private String tableName = "Order";
+    private String tableName = "ORDER";
     private Connection conn;
     private PreparedStatement stmt;
     private CustomerDA custDA;
@@ -24,9 +25,9 @@ public class OrderDA {
         custDA = new CustomerDA();
     }
 
-    public Order getRecord(int orderID) {
+    public Order getOrder(int orderID) {
         createConnection();
-        String queryStr = "SELECT * FROM " + tableName + " WHERE ORDER_ID = ?";
+        String queryStr = "SELECT * FROM " + tableName + " WHERE ORDER_ID=?";
         Order order = null;
         try {
             stmt = conn.prepareStatement(queryStr);
@@ -34,8 +35,7 @@ public class OrderDA {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Customer customer = custDA.getRecord(rs.getInt("CUST_ID"));
-                order = new Order(orderID, rs.getDate("DATE"), rs.getDouble("TOTAL_PRICE"), rs.getString("STATUS"), customer);
+                order = new Order(orderID, rs.getDate("DATE"), rs.getDouble("TOTAL_PRICE"), rs.getString("STATUS"), rs.getInt("CUST_ID"));
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -43,16 +43,16 @@ public class OrderDA {
         return order;
     }
 
-    public void addRecord(Order order) throws SQLException {
-        String insertColor = "INSERT INTO" + tableName + "VALUES( ?, ?, ?, ?, ?)";
+    public void addOrder(Order order) throws SQLException {
+        createConnection();
+        String insertColor = "INSERT INTO " + tableName + " (DATE, TOTAL_PRICE, STATUS, CUST_ID) VALUES( ?, ?, ?, ?, ?)";
         try {
             createConnection();
             stmt = conn.prepareStatement(insertColor);
-            stmt.setInt(1, order.getOrderID());
-            stmt.setDate(2, order.getDate());
-            stmt.setDouble(3, order.getTtlPrice());
-            stmt.setString(4, order.getStatus());
-            stmt.setInt(5, order.getCustID.getCustID());
+            stmt.setDate(1, order.getDate());
+            stmt.setDouble(2, order.getTtlPrice());
+            stmt.setString(3, order.getStatus());
+            stmt.setInt(4, order.getCustID());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             throw ex;
@@ -61,21 +61,39 @@ public class OrderDA {
         }
     }
 
-    public void updateRecord(Order order) throws SQLException {
-
-    }
-
-    public void deleteRecord(int orderID) throws SQLException {
+    public void updateOrder(Order order) throws SQLException {
+        createConnection();
+        String insertColor = "UPDATE " + tableName + " SET DATE=?, TOTAL_PRICE=?, STATUS=?, CUST_ID=? WHERE ORDER_ID=?";
         try {
             createConnection();
-            String deleteProd = "DELETE FROM " + tableName + " WHERE ORDER_ID = ?";
-            stmt = conn.prepareStatement(deleteProd);
-            stmt.setInt(1, orderID);
+            stmt = conn.prepareStatement(insertColor);
+            stmt.setDate(1, order.getDate());
+            stmt.setDouble(2, order.getTtlPrice());
+            stmt.setString(3, order.getStatus());
+            stmt.setInt(4, order.getCustID());
+            stmt.setInt(5, order.getOrderID());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             throw ex;
         } finally {
             shutDown();
+        }
+
+    }
+
+    public void deleteOrder(int orderID) throws SQLException {
+        {
+            createConnection();
+            String deleteProd = "DELETE FROM " + tableName + " WHERE ORDER_ID = ?";
+            try {
+                stmt = conn.prepareStatement(deleteProd);
+                stmt.setInt(1, orderID);
+                stmt.executeUpdate();
+            } catch (SQLException ex) {
+                throw ex;
+            } finally {
+                shutDown();
+            }
         }
     }
 
@@ -98,4 +116,26 @@ public class OrderDA {
         }
     }
 
+    public ArrayList<Order> getOrderList() {
+        createConnection();
+        ArrayList<Order> orderList = new ArrayList<Order>();
+        Order order = null;
+        String orderQuery = "SELECT * FROM \"ORDER\" ";
+        try {
+            stmt = conn.prepareStatement(orderQuery);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                order = new Order(rs.getInt(1), rs.getDate(2), rs.getDouble(3), rs.getString(4), rs.getInt(5));
+                orderList.add(order);
+                System.out.println("erorro");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            System.out.println("erorro1");
+        } finally {
+            shutDown();
+        }
+        return orderList;
+    }
+    
 }

@@ -22,7 +22,7 @@ public class CustomerControl {
     
     
     public Customer selectRecord(int custID){
-        return custDA.getRecord(custID);
+        return custDA.getCustomer(custID);
     }
         
     

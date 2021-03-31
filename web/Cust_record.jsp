@@ -156,6 +156,7 @@
                                                 <td>
                                                     <a href="#" type="button" class="btn btn-primary" >View Order</a>
                                                 </td>
+                                            </tr>
                                                 <% } %>
                                         </tbody>
                                 </div>
