@@ -5,29 +5,28 @@
  */
 package da;
 
-import domain.Color;
 import domain.Shoes;
-import domain.Staff;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class ShoesDA {
 
-    private String host = "jdbc:derby://localhost:1527/guidb";
-    private String user = "guidb";
-    private String password = "guidb";
-    private String tableName = "SHOES";
+    private final String host = "jdbc:derby://localhost:1527/guidb";
+    private final String user = "guidb";
+    private final String password = "guidb";
+    private final String tableName = "SHOES";
     private Connection conn;
     private PreparedStatement stmt;
-    private ColorDA colorDA;
-    private StaffDA staffDA;
+    private final ColorDA colorDA;
+    private final StaffDA staffDA;
 
     public ShoesDA() {
         colorDA = new ColorDA();
         staffDA = new StaffDA();
     }
 
-    public Shoes getShoes(int prodID) {
+    public Shoes getShoes(int prodID) throws SQLException {
         createConnection();
         String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID= ?";
         Shoes shoes = null;
@@ -36,12 +35,27 @@ public class ShoesDA {
             stmt.setInt(1, prodID);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                Color color = colorDA.getColor(rs.getInt("COLOR_ID"));
-                Staff staff = staffDA.getStaff(rs.getInt("STAFF_ID"));
-                shoes = new Shoes(prodID, rs.getString("Size"), rs.getString("Product Name"), rs.getString("Brand"), rs.getDouble("Price"), rs.getInt("Stock"), rs.getString("Season"), rs.getString("Img"), rs.getInt("CUST_ID"), rs.getInt("STAFF_ID"));
+                shoes = new Shoes(rs.getInt("prod_ID"), rs.getString("Size"), rs.getString("Prod_Name"), rs.getString("Brand"), rs.getDouble("Price"), rs.getInt("Stock"), rs.getString("Season"), rs.getString("Img"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
+        }
+        return shoes;
+    }
+
+    public ArrayList<Shoes> getAllShoes() throws SQLException {
+        createConnection();
+        String queryStr = "SELECT * FROM " + tableName;
+        ArrayList<Shoes> shoes = new ArrayList<Shoes>();
+        try {
+            stmt = conn.prepareStatement(queryStr);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Shoes s = new Shoes(rs.getInt("prod_ID"), rs.getString("Size"), rs.getString("Prod_Name"), rs.getString("Brand"), rs.getDouble("Price"), rs.getInt("Stock"), rs.getString("Season"), rs.getString("Img"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
+                shoes.add(s);
+            }
+        } catch (SQLException ex) {
+            throw ex;
         }
         return shoes;
     }
@@ -106,12 +120,28 @@ public class ShoesDA {
         }
     }
 
-    private void createConnection() {
+    public void restock(int prodID, int stock) throws SQLException {
+        createConnection();
+        String queryStr = "UPDATE " + tableName + " SET STOCK=? WHERE PROD_ID=?";
+        try {
+            createConnection();
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setDouble(1, stock);
+            stmt.setDouble(2, prodID);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+    }
+
+    private void createConnection() throws SQLException {
         try {
             conn = DriverManager.getConnection(host, user, password);
             System.out.println("***TRACE: Connection established.");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
         }
     }
 

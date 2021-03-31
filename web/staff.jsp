@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="console.css">
+        <link rel="stylesheet" href="css/console.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -24,336 +24,338 @@
     <body>
         <div id="wrapper">
             <%@include file="console.html" %>
-            <table>
-                
-                <div class="overflow-auto">
+            <div class="wrap-content">
+                <table>
 
-                    <div class="row">
-                        
-                        <div class="col-12">
-                            <!--<button type="button" class="btn btn-info">Add new employee</button>-->
-                            <div class="table-responsive">
-                                    <table class="table table-striped table-hover ">
-                                        
-                                        <thead class="table-success">
-                                            <tr>
-                                                <th scope="col" class="align-middle">Staff ID</th>
-                                                <th scope="col" class="align-middle">First Name</th>
-                                                <th scope="col" class="align-middle">Last Name</th>
-                                                <th scope="col" class="align-middle">Age</th>
-                                                <th scope="col" class="align-middle">gender</th>
-                                                <th scope="col" class="align-middle">Phone No</th>
-                                                <th scope="col" class="align-middle">Position</th>
-                                                <th scope="col" class="align-middle">Join Date</th>
-                                                <th scope="col" class="align-middle">Working Days</th>
-                                                <th scope="col" class="align-middle" >Action</th>
-                                            </tr>
-                                        </thead>
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <div class="">
+                                                <button type="button" class="btn btn-info">Add new employee</button>
+                                    </div>
+                                        <table class="table table-striped table-hover ">
 
-                                        <tbody>
+                                            <thead class="table-success">
                                                 <tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
-                                                    </td>
-
-
-
+                                                    <th scope="col" class="align-middle">Staff ID</th>
+                                                    <th scope="col" class="align-middle">First Name</th>
+                                                    <th scope="col" class="align-middle">Last Name</th>
+                                                    <th scope="col" class="align-middle">Age</th>
+                                                    <th scope="col" class="align-middle">gender</th>
+                                                    <th scope="col" class="align-middle">Phone No</th>
+                                                    <th scope="col" class="align-middle">Position</th>
+                                                    <th scope="col" class="align-middle">Join Date</th>
+                                                    <th scope="col" class="align-middle">Working Days</th>
+                                                    <th scope="col" class="align-middle" >Action</th>
                                                 </tr>
-
-                                                <tr>
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr>
-
-                                                <tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr><tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr><tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr><tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr><tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr><tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr><tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr><tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr><tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr><tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr><tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr><tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr><tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr><tr>
-
-                                                    <td>12345</td>
-                                                    <td>puah</td>
-                                                    <td>hj</td>
-                                                    <td>21</td>
-                                                    <td>male</td>
-                                                    <td>019321340</td>
-                                                    <td>manager</td>
-                                                    <td>5</td>
-                                                    <td>12-12-1212</td>
-                                                    <td>
-                                                        <a href="#" type="button" class="btn btn-primary">Edit</a> 
-                                                        <a href="#" type="button" class="btn btn-danger">Delete</a> 
-                                                    </td>
-
-
-
-                                                </tr>
-
-
-
-
-
-                                        </tbody>
+                                            </thead>
+
+                                            <tbody>
+                                                    <tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr>
+
+                                                    <tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a>  
+                                                        </td>
+
+
+
+                                                    </tr><tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr><tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr><tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr><tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr><tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr><tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr><tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr><tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr><tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr><tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr><tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr><tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr><tr>
+
+                                                        <td>12345</td>
+                                                        <td>puah</td>
+                                                        <td>hj</td>
+                                                        <td>21</td>
+                                                        <td>male</td>
+                                                        <td>019321340</td>
+                                                        <td>manager</td>
+                                                        <td>5</td>
+                                                        <td>12-12-1212</td>
+                                                        <td>
+                                                            <a href="#" type="button" class="btn btn-primary" style="width: 80px">Edit</a> 
+                                                            <a href="#" type="button" class="btn btn-danger" style="width: 80px">Delete</a> 
+                                                        </td>
+
+
+
+                                                    </tr>
+
+
+
+
+
+                                            </tbody>
+                                </div>
                             </div>
-                        </div>
-                    </div>           
-                </div>              
-            </table>
+                        </div>           
+                    </div>              
+                </table>
+            </div>
         </div>
     </body>
 </html>
