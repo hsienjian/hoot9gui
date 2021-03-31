@@ -7,7 +7,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/maintainStaff.css">
+        <link rel="stylesheet" href="css/maintainStaff.css">        
+        <link rel="stylesheet" href="css/console.css">
         <title>Staff Profile</title>
         <style>
         .error{
@@ -37,7 +38,8 @@
         </style>
     </head>
     <body>
-        <div style="margin-top:50px; margin-bottom: 0">
+        <%@include file="console.html" %>
+        <div>
             <div class="error">${error}</div>
             <div class="success">${success}</div>
         </div>

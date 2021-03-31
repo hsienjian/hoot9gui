@@ -12,7 +12,7 @@
 
 .staffmaintainance .header{
     width: 30%;
-    /*margin: 50px auto 0px;*/
+    margin: 0px auto;
     color: white;
     background: #4b4276;
     text-align: center;
@@ -22,7 +22,7 @@
     padding: 20px;
 }
 
-.staffmaintainance form, .staffmaintainance .summary{
+.staffmaintainance form{
     width: 30%;
     margin: 0px auto;
     padding: 20px;

@@ -4,11 +4,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/maintainStaff.css">
+        <link href="css/maintainStaff.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="css/console.css">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <title>Staff Details</title>
     </head>
     <body>
+        <%@include file="console.html" %>
         <div class="staffmaintainance">
             <div class="header">
                 <h2>Edit Staff</h2>
@@ -36,7 +38,7 @@
                         <input type="email" name="email" value="${staff.email}" required /><br>
                     </div>
                     <div class="registergrp" style="display: flex" >
-                        <label>Gender</label><br>
+                        <label>Gender : &nbsp;</label><br>
                         <select name="staffGender" required>
                             <option value='${staff.gender}'>${staff.gender}</option>
                             <option value="Male">Male</option>
@@ -63,7 +65,10 @@
                         <input type="hidden" name="staffID" value="${staff.staffID}">
                         <input type="hidden" name="option" value="2">
                         <button class="btn" id="submitBtn" name="updateStaff">Update Staff</button>
-                        <a href="StaffControl?option=0" class="btn" name="cancel">Back to Staff Page</a>
+                        <a href="StaffControl?option=4&staffID=${staff.staffID}" style="text-decoration: none" id="deleteBtn" class="btn btn-danger" style="width: 80px">Delete</a>    
+                    </div>
+                    <div class="registergrp" >
+                        <a href="StaffControl?option=0" class="btn" style="text-decoration: none" name="cancel">Back to Staff Page</a>
                     </div>
                 </div>
             </form>
@@ -71,8 +76,19 @@
     </body>
     <script>
     $(document).ready(function(){
-        $("#submitBtn").click(function(){ 
+        $("#submitBtn").click(function(){
+            $("#editForm").validate();
             if(confirm("CONFIRM TO UPDATE THE STAFF INFORMATION ?")){
+                $("#editForm").submit();
+                return true;
+            }
+            else{
+                alert('Cancelled.');
+                return false;
+            }
+        });
+        $("#deleteBtn").click(function(){
+            if(confirm("CONFIRM TO DELETE THE STAFF PERMANENTLY ?")){
                 $("#editForm").submit();
                 return true;
             }

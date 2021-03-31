@@ -217,13 +217,16 @@ public class StaffControl extends HttpServlet {
         String confirmPWD = request.getParameter("confirmPWD");
 
         int id = 0, age = 0;
-        try {
+        try (PrintWriter out = response.getWriter()) {
             id = Integer.parseInt(staffID);
             age = Integer.parseInt(staffAge);
             String oldpassword = staffDA.getPassword(id);
             if (!oldpassword.equals(password)) {
                 request.setAttribute("error", "The Current Password is not the same! Please try again later.");
                 request.getRequestDispatcher("StaffControl?option=5").forward(request, response);
+//                out.print("<div>Old PassWord" + oldpassword + "</div>");
+//                out.print("<div>Current PassWord" + password + "</div>");
+//                out.print("<div>New PassWord" + newPWD + "</div>");
             } else if (newPWD.equals(password)) {
                 request.setAttribute("error", "The Current Password and New Password are the same! Please try again later.");
                 request.getRequestDispatcher("StaffControl?option=5").forward(request, response);

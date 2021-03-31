@@ -141,21 +141,6 @@ public class StaffDA {
         return oldpswd;
     }
 
-//    public void updatePassword(String password, int id) throws SQLException {
-//        createConnection();
-//        try {
-//            String updatePWD = "UPDATE " + tableName + " SET PASSWORD=? WHERE STAFF_ID=?";
-//            stmt = conn.prepareStatement(updatePWD);
-//            stmt.setString(1, password);
-//            stmt.setInt(2, id);
-//            stmt.executeUpdate();
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-//            throw ex;
-//        } finally {
-//            shutDown();
-//        }
-//    }
     public Staff searchStaff(String staffEmail, String staffPW) throws SQLException {
         Staff found = null;
         try {
@@ -195,4 +180,20 @@ public class StaffDA {
             }
         }
     }
+
+//    public void updatePassword(String password, int id) throws SQLException {
+//        createConnection();
+//        try {
+//            String updatePWD = "UPDATE " + tableName + " SET PASSWORD=? WHERE STAFF_ID=?";
+//            stmt = conn.prepareStatement(updatePWD);
+//            stmt.setString(1, password);
+//            stmt.setInt(2, id);
+//            stmt.executeUpdate();
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+//            throw ex;
+//        } finally {
+//            shutDown();
+//        }
+//    }
 }

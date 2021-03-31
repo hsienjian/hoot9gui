@@ -3,11 +3,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/maintainStaff.css">
+        <link rel="stylesheet" href="css/console.css">
+        <link href="css/maintainStaff.css" rel="stylesheet" type="text/css"/>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <title>Add Staff</title>
     </head>
     <body>
+        <%@include file="console.html" %>
         <div class="staffmaintainance">
             <div class="errorMessage" style="text-align: center; width: fit-content">${error}</div>
             <div class="header">
@@ -69,7 +71,8 @@
     </body>
     <script>
     $(document).ready(function(){
-        $("#submitBtn").click(function(){ 
+        $("#submitBtn").click(function(){
+            $("#addForm").validate();
             if(confirm("CONFIRM TO ADD A NEW STAFF ?")){
                 $("#addForm").submit();
                 return true;
