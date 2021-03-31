@@ -10,7 +10,7 @@ public class OrderDA {
     private String host = "jdbc:derby://localhost:1527/guidb";
     private String user = "guidb";
     private String password = "guidb";
-    private String tableName = "\"ORDER?";
+    private String tableName = "\"ORDER\"";
     private Connection conn;
     private PreparedStatement stmt;
     private CustomerDA custDA;
