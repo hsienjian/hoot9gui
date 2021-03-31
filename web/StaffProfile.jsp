@@ -107,7 +107,7 @@
                         <label for="password">Confirm Password :</label>
                         <input type="password" name="confirmPWD" required /><br>
                     </div>
-                    <div class="registergrp" style="margin-bottom: 40px">
+                    <div class="registergrp">
                         <input type="hidden" name="staffID" value="${profile.staffID}" />
                         <input type="hidden" name="fname" value="${profile.firstName}" />
                         <input type="hidden" name="lname" value="${profile.lastName}" />
@@ -118,7 +118,7 @@
                         <input type="hidden" name="phNum" value="${profile.phoneNo}" />
                         <input type="hidden" name="position" value="${profile.position}" />
                         <input type="hidden" name="option" value="6" />
-                        <button type="submit" class="btn" name="updatepswd">Save</button>
+                        <button type="submit" class="btn" name="updatepswd">Save Password</button>
                         <!--<button type="submit" class="btn" name="updateprod">Reset</button>-->
                     </div>
                 </div>

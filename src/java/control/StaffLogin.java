@@ -8,6 +8,7 @@ package control;
 import da.StaffDA;
 import domain.Staff;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,16 +39,19 @@ public class StaffLogin extends HttpServlet {
         String email = request.getParameter("staff_email");
         String pw = request.getParameter("staff_pw");
         StaffDA staffDA = new StaffDA();
-        Staff staff = staffDA.getStaff(email);
+        try {
+            Staff staff = staffDA.getStaff(email);
+            if (staff == null) {
+                errorMsg.append("Invalid Staff Email.\n");
+                request.setAttribute("errorMsg", errorMsg);
+            } else if (!staff.getPassword().equals(pw)) {
+                errorMsg.append("Incorrect Staff Password.\n");
+                request.setAttribute("errorMsg", errorMsg);
+            } else {
+                session.setAttribute("activeStaff", email);
+            }
+        } catch (SQLException ex) {
 
-        if (staff == null) {
-            errorMsg.append("Invalid Staff Email.\n");
-            request.setAttribute("errorMsg", errorMsg);
-        } else if (!staff.getPassword().equals(pw)) {
-            errorMsg.append("Incorrect Staff Password.\n");
-            request.setAttribute("errorMsg", errorMsg);
-        } else {
-            session.setAttribute("activeStaff", email);
         }
 
         if (session.getAttribute("activeStaff") == null) {

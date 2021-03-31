@@ -29,7 +29,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-
         <jsp:include page="/components/backendHeader.jsp" />
         <div id="wrapper">
             <div class="wrap-content">

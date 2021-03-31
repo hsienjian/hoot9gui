@@ -59,16 +59,19 @@ public class productManagement extends HttpServlet {
                 } catch (Exception ex) {
                     //handle error message here
                 }
-
-                for (Shoes s : shoes) {
-                    colors.add(colorDA.getColor(s.getColorID()));
-                    staffs.add(staffDA.getStaff(s.getStaffID()));
+                try {
+                    for (Shoes s : shoes) {
+                        colors.add(colorDA.getColor(s.getColorID()));
+                        staffs.add(staffDA.getStaff(s.getStaffID()));
+                    }
+                    request.setAttribute("shoes", shoes);
+                    request.setAttribute("colors", colors);
+                    request.setAttribute("staffs", staffs);
+                    rd = request.getRequestDispatcher("productManagement.jsp");
+                    rd.include(request, response);
+                } catch (SQLException ex) {
+                    request.getRequestDispatcher("getShoes_error.html");
                 }
-                request.setAttribute("shoes", shoes);
-                request.setAttribute("colors", colors);
-                request.setAttribute("staffs", staffs);
-                rd = request.getRequestDispatcher("productManagement.jsp");
-                rd.include(request, response);
                 break;
             case "addShoes":
                 String product_name = request.getParameter("product_name");

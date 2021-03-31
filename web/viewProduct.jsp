@@ -26,11 +26,11 @@
                 //Set the value of action in action attribute of form element.
                 //Submit the form
                 $('#priceID').submit();
-            }   
+            }
         </script>
     </head>
     <body>
-  
+
         <section class="product spad">
             <div class="container">
                 <div class="row">
@@ -38,61 +38,56 @@
                         <div class="sidebar" style="overflow-y:auto; position: fixed;">
                             <div class="sidebar__item">
                                 <h4>Department</h4> <!--Retrieve Brand and Season-->
-                                <ul>    
-                                    <%  
+                                <ul>
+                                    <%
                                         ShoesDA shoes = new ShoesDA();
                                         ArrayList<Shoes> listBrand = shoes.listAllShoes();
 
-                                        for(int i=0 ; i<listBrand.size(); i++)
-                                        {
-                                            if(listBrand.get(i).getBrand() == listBrand.get(++i).getBrand())
-                                            {
-                                                ++i;
-                                            }
+                                        for (int i = 0; i < listBrand.size(); i++) {
                                     %>
                                     <li><a href="#"><%= listBrand.get(i).getBrand()%></a></li>
-                                    <% } %>
+                                        <% } %>
                                 </ul>
                             </div>
-<!--                            <div class="sidebar__item sidebar__item__color--option">
-                                <h4>Colors</h4>
-                                <div class="sidebar__item__color sidebar__item__color--white">
-                                    <label for="white">
-                                        White
-                                        <input type="radio" id="white">
-                                    </label>
-                                </div>
-                                <div class="sidebar__item__color sidebar__item__color--gray">
-                                    <label for="gray">
-                                        Gray
-                                        <input type="radio" id="gray">
-                                    </label>
-                                </div>
-                                <div class="sidebar__item__color sidebar__item__color--red">
-                                    <label for="red">
-                                        Red
-                                        <input type="radio" id="red">
-                                    </label>
-                                </div>
-                                <div class="sidebar__item__color sidebar__item__color--black">
-                                    <label for="black">
-                                        Black
-                                        <input type="radio" id="black">
-                                    </label>
-                                </div>
-                                <div class="sidebar__item__color sidebar__item__color--blue">
-                                    <label for="blue">
-                                        Blue
-                                        <input type="radio" id="blue">
-                                    </label>
-                                </div>
-                                <div class="sidebar__item__color sidebar__item__color--green">
-                                    <label for="green">
-                                        Green
-                                        <input type="radio" id="green">
-                                    </label>
-                                </div>
-                            </div>-->
+                            <!--                            <div class="sidebar__item sidebar__item__color--option">
+                                                            <h4>Colors</h4>
+                                                            <div class="sidebar__item__color sidebar__item__color--white">
+                                                                <label for="white">
+                                                                    White
+                                                                    <input type="radio" id="white">
+                                                                </label>
+                                                            </div>
+                                                            <div class="sidebar__item__color sidebar__item__color--gray">
+                                                                <label for="gray">
+                                                                    Gray
+                                                                    <input type="radio" id="gray">
+                                                                </label>
+                                                            </div>
+                                                            <div class="sidebar__item__color sidebar__item__color--red">
+                                                                <label for="red">
+                                                                    Red
+                                                                    <input type="radio" id="red">
+                                                                </label>
+                                                            </div>
+                                                            <div class="sidebar__item__color sidebar__item__color--black">
+                                                                <label for="black">
+                                                                    Black
+                                                                    <input type="radio" id="black">
+                                                                </label>
+                                                            </div>
+                                                            <div class="sidebar__item__color sidebar__item__color--blue">
+                                                                <label for="blue">
+                                                                    Blue
+                                                                    <input type="radio" id="blue">
+                                                                </label>
+                                                            </div>
+                                                            <div class="sidebar__item__color sidebar__item__color--green">
+                                                                <label for="green">
+                                                                    Green
+                                                                    <input type="radio" id="green">
+                                                                </label>
+                                                            </div>
+                                                        </div>-->
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-7">
@@ -108,7 +103,7 @@
                                                 <option value="300">Low to High</option>
                                                 <option value="200">Above RM 200</option>
                                                 <option value="100">Below RM 200</option>
-                                            </select> 
+                                            </select>
                                         </form>
                                     </div>
                                 </div>
@@ -119,21 +114,16 @@
                                             <button type="submit" class="site-btn">SEARCH</button>
                                         </form>
                                     </div>
-                                </div>                
+                                </div>
                             </div>
                         </div>
-                        <div class="row">  
-    <%  
-        
-        ArrayList<Shoes> listRecord = shoes.listAllShoes();
-        
-        for(int i=0; i<listRecord.size(); i++)
-        {
-            if(listRecord.get(i).getProdName() == listRecord.get(++i).getProdName())
-            {
-                ++i;
-            }
-    %>
+                        <div class="row">
+                            <%
+
+                                ArrayList<Shoes> listRecord = shoes.listAllShoes();
+
+                                for (int i = 0; i < listRecord.size(); i++) {
+                            %>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg" >
@@ -156,14 +146,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <% } %>
+                            <% }%>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>   
+        </section>
     </body>
-      <!-- Js Plugins -->
+    <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
