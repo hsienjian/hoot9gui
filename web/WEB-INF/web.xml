@@ -12,6 +12,10 @@
         <servlet-name>ShoesAddControl</servlet-name>
         <servlet-class>control.ShoesAddControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewServlet</servlet-name>
+        <servlet-class>NewServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShoesControl</servlet-name>
         <url-pattern>/ShoesControl</url-pattern>
