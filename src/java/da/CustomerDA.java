@@ -125,7 +125,7 @@ public class CustomerDA {
         }
     }
 
-    public ArrayList<Customer> getCustomer() {
+    public ArrayList<Customer> getCustomer() throws SQLException {
         createConnection();
         ArrayList<Customer> customer = new ArrayList<Customer>();
         Customer cust = null;

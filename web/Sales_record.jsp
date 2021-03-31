@@ -32,7 +32,7 @@
             CustomerDA customerDa = new CustomerDA();
             OrderDA orderDa = new OrderDA();
             ArrayList<Customer> Customer = customerDa.getCustomer();
-            ArrayList<Order> orderList = orderDa.getOrderList();
+            ArrayList<Order> orderList = orderDa.listRecord();
         %>
         <div class="wrap-content">
             <table>

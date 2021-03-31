@@ -9,10 +9,13 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="domain.Customer" %>
 <%@page import="da.CustomerDA" %>
+
 <%@page import="domain.Order" %>
 <%@page import="da.OrderDA" %>
+
 <%@page import="domain.OrderList" %>
 <%@page import="da.OrderListDA" %>
+
 <%@page import="domain.Shoes" %>
 <%@page import="da.ShoesDA" %>
 
@@ -42,6 +45,18 @@
     </head>
     <body>
         <jsp:include page="/components/backendHeader.jsp" />
+        <%
+            CustomerDA customerDa = new CustomerDA();
+            OrderDA orderDa = new OrderDA();
+            //OrderListDA orderlistDa = new OrderListDA();
+            //ShoesDA shoesDa = new ShoesDA();
+            ArrayList<Customer> Customer = customerDa.getCustomer();
+            ArrayList<Order> orderList = orderDa.listRecord();
+            //ArrayList<OrderList> cusOrderList = orderlistDa.CusOrderList();
+            //ArrayList<Shoes> shoesdetails = shoesDa.getRecord();
+            
+            
+        %>
         <div id="wrapper">
             <div class="wrap-content">
 
@@ -51,10 +66,7 @@
                             <div class="card-body bg-light">
                                 <h5 class="card-title">Revenue</h5>
                                 <p class="card-text">123<!-- implement result --></p>
-
                                 <a href="#" class="btn btn-primary b-full">View</a>
-
-
                             </div>
                         </div>
                     </div>
@@ -86,7 +98,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="table-wrapper ">
                     <label for="Sort">Sort By:</label>
                     <select id="cars">
@@ -97,12 +108,9 @@
                     </select>
                 </div>
                 <div class="mb-3">
-
                     <table>
-
                         <div class="mb-3">
                             <div class="row">
-
                                 <div class="col-12">
                                     <div class="table-responsive">
                                         <table class="table table-striped table-hover ">
@@ -116,83 +124,29 @@
                                                     <th scope="col" class="align-middle">Status</th>
                                                 </tr>
                                             </thead>
-
                                             <tbody>
-
+                                                <%for (int i = 0; i < Customer.size(); i++) { %>
+                                                <%for (i = 0; i < orderList.size(); i++) {%>
                                                 <tr>
-
-                                                    <td>0000</td>
-                                                    <td>puah</td>
-
-                                                    <td>0193218340</td>
-                                                    <td>100</td>
+                                                    <td><%=orderList.get(i).getOrderID()%></td>
+                                                    <td><%=Customer.get(i).getFirstName()%> <%=Customer.get(i).getLastName()%></td>
+                                                    <td><%=Customer.get(i).getPhoneNo()%></td>
+                                                    <td></td>
                                                     <td>2000</td>
-
                                                     <td>
                                                         <a href="#" type="button" class="btn btn-primary" style="width: 80px">Pending</a>
                                                     </td>
-
-
-
                                                 </tr>
+                                                <% }
+                                                }%>
                                             </tbody>
-
-
-
-
-
                                     </div>
 
                                 </div>
-
-
                             </div>
                         </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="card text-center ">
-                            <div class="card-body bg-light">
-                                <h5 class="card-title">Total Order </h5>
-                                <p class="card-text">123<!-- implement result --></p>
-                                <a href="#" class="btn btn-primary b-full">View</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="card text-center">
-                            <div class="card-body bg-light">
-                                <h5 class="card-title">Order Pending</h5>
-                                <p class="card-text">123<!-- implement result --></p>
-                                <a href="#" class="btn btn-primary b-full">View</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 ">
-                        <div class="card text-center">
-                            <div class="card-body bg-light">
-                                <h5 class="card-title">Total Product</h5>
-                                <p class="card-text">123<!-- implement result --></p>
-                                <a href="#" class="btn btn-primary b-full" >View</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            </div>
-
-                            </body>
-                            </html>
+                </div>
+            </div>  
+        </div>
+    </body>
+</html>

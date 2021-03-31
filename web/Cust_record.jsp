@@ -113,7 +113,7 @@
         </style>
     </head>
     <body>
-        <%@include file="components/bH.jsp"%>
+        <jsp:include page="/components/backendHeader.jsp" />
         <%
             CustomerDA customerDa = new CustomerDA();
             ArrayList<Customer> Customer = customerDa.getCustomer();

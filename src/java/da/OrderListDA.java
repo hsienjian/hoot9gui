@@ -134,4 +134,25 @@ public class OrderListDA {
         }
         return cusOrderList;
     }
+    
+       public ArrayList<OrderList> CusOrderList() throws SQLException {
+        ArrayList<OrderList> cusOrderList = new ArrayList<OrderList>();
+        OrderList orderListObj = null;
+        try {
+            createConnection();
+            String orderQuery = "SELECT * FROM " + tableName + " WHERE ORDER_ID = ?";
+            stmt = conn.prepareStatement(orderQuery);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                orderListObj = new OrderList(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDouble(4));
+                cusOrderList.add(orderListObj);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return cusOrderList;
+    }
+       
 }
