@@ -108,7 +108,7 @@ public class OrderControl extends HttpServlet {
             } else {
                 try {
                     Order updatestatus = new Order(orderID, date, ttlPrice, status, custID);
-                    orderDA.updateRecord(updatestatus);
+                    orderDA.updateOrder(updatestatus);
                     request.getRequestDispatcher("OrderControl?option=0").include(request, response);
                 } catch (SQLException ex) {
                     out.println(ex.getMessage());

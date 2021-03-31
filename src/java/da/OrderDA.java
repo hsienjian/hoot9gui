@@ -89,22 +89,6 @@ public class OrderDA {
 
     }
 
-    public void deleteOrder(int orderID) throws SQLException {
-        {
-            createConnection();
-            String deleteProd = "DELETE FROM " + tableName + " WHERE ORDER_ID = ?";
-            try {
-                stmt = conn.prepareStatement(deleteProd);
-                stmt.setInt(1, orderID);
-                stmt.executeUpdate();
-            } catch (SQLException ex) {
-                throw ex;
-            } finally {
-                shutDown();
-            }
-        }
-    }
-
     private void createConnection() throws SQLException {
         try {
             conn = DriverManager.getConnection(host, user, password);
