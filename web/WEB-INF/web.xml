@@ -9,12 +9,20 @@
         <servlet-class>control.OrderRecordControl</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ShoesAddControl</servlet-name>
-        <servlet-class>control.ShoesAddControl</servlet-class>
+        <servlet-name>productManagement</servlet-name>
+        <servlet-class>control.productManagement</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>NewServlet</servlet-name>
-        <servlet-class>NewServlet</servlet-class>
+        <servlet-name>StaffLogin</servlet-name>
+        <servlet-class>control.StaffLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderControl</servlet-name>
+        <servlet-class>control.OrderControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffControl</servlet-name>
+        <servlet-class>control.StaffControl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ShoesControl</servlet-name>
@@ -25,8 +33,20 @@
         <url-pattern>/OrderRecordControl</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ShoesAddControl</servlet-name>
-        <url-pattern>/ShoesAddControl</url-pattern>
+        <servlet-name>productManagement</servlet-name>
+        <url-pattern>/productManagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffLogin</servlet-name>
+        <url-pattern>/StaffLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderControl</servlet-name>
+        <url-pattern>/OrderControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffControl</servlet-name>
+        <url-pattern>/StaffControl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
