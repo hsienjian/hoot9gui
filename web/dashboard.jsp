@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="css/console.css">
+        
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -24,7 +24,7 @@
         
         <div id="wrapper">
             
-            <%@include file="console.html" %>
+            
         <div class="wrap-content">
                         
                            <div class="row ">
@@ -79,12 +79,9 @@
                         </select>
             </div>
                     <div class="mb-3">
-                
                         <table>
-                            
                             <div class="mb-3">
                                 <div class="row">
-                                    
                                     <div class="col-12">
                                         <div class="table-responsive">
                                                 <table class="table table-striped table-hover ">
@@ -98,52 +95,20 @@
                                                             <th scope="col" class="align-middle">Status</th>
                                                         </tr>
                                                     </thead>
-
                                                     <tbody>
-
                                                             <tr>
-
                                                                 <td>0000</td>
                                                                 <td>puah</td>
-
                                                                 <td>0193218340</td>
                                                                 <td>100</td>
                                                                 <td>2000</td>
-
                                                                 <td>
                                                                     <a href="#" type="button" class="btn btn-primary" style="width: 80px">Pending</a> 
                                                                 </td>
-
-
-
                                                             </tr>
                                                     </tbody>
-                
-                
-                
-                
-                
             </div>
-            
-         </div>   
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            </div>   
          </div>
-        
     </body>
 </html>
