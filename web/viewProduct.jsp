@@ -38,7 +38,7 @@
                         <div class="sidebar" style="overflow-y:auto; position: fixed;">
                             <div class="sidebar__item">
                                 <h4>Department</h4> <!--Retrieve Brand and Season-->
-                                <ul>
+                                <ul>    
                                     <%
                                         ShoesDA shoes = new ShoesDA();
                                         ArrayList<Shoes> listBrand = shoes.listAllShoes();
@@ -117,7 +117,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row">  
                             <%
 
                                 ArrayList<Shoes> listRecord = shoes.listAllShoes();
