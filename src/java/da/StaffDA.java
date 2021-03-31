@@ -21,7 +21,25 @@ public class StaffDA {
     public void StaffDA() {
     }
 
-    public ArrayList<Staff> listAllStaff() throws SQLException {
+    public Staff getStaff(String email) {
+        createConnection();
+        String queryStr = "SELECT * FROM " + tableName + " WHERE EMAIL=?";
+        Staff staff = null;
+        try {
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                staff = new Staff(rs.getInt("STAFF_ID"), rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getInt("AGE"), rs.getString("EMAIL"), rs.getString("PASSWORD"), rs.getString("GENDER"), rs.getString("ADDRESS"), rs.getString("PHONE_NO"), rs.getString("POSITION"));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        return staff;
+    }
+
+    public Staff getStaff(int staffID) {
         createConnection();
         ArrayList<Staff> listStaff = new ArrayList<Staff>();
         Staff staff = null;
