@@ -3,12 +3,16 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="da.ShoesDA"%>
 <%@page import="da.ColorDA"%>
+<%--<jsp:useBean id="shoes" scope="session" class="domain.Shoes"/>--%>
+<jsp:useBean id="color" scope="session" class="domain.Color"/>
+<% Color colorkk = (Color) request.getAttribute("color"); %>
+<% ArrayList <Shoes> shoesDetails = (ArrayList<Shoes>) request.getAttribute("shoes");  %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Shoe Details</title>
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -24,78 +28,72 @@
         <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
         <link rel="stylesheet" href="css/styleProduct.css" type="text/css">
     </head>
-
+    
     <body>
         <section class="product-details spad">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="product__details__pic">
+                            
                             <div class="product__details__pic__item">
-                                <img class="product__details__pic__item--large" src="images/kalenji.jpg" alt="">
+                                <img class="product__details__pic__item--large" src="<%= shoesDetails.get(0).getImg()%>" alt="">
                             </div>
                             <div class="product__details__pic__slider owl-carousel">
-                                <img data-imgbigurl="images/kalenji.jpg"
-                                     src="images/kalenji.jpg" alt="">
-                                <img data-imgbigurl="images/brownboot.jpg"
-                                     src="images/brownboot.jpg" alt="">
-                                <img data-imgbigurl="images/birkenstock.jpg"
-                                     src="images/birkenstock.jpg" alt="">
+                                <% for(int i=0; i < shoesDetails.size(); i++){
+                                        Shoes images = shoesDetails.get(i); 
+                                    %> 
+                                <img data-imgbigurl="<%= images.getImg()%>"
+                                    src="<%= images.getImg()%>" alt="">
+                                <% } %> 
                             </div>
+                            
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
-                        <%
-                            ArrayList<Shoes> shoesDetails = (ArrayList<Shoes>) request.getAttribute("shoes");
-                            Color color = (Color) request.getAttribute("color");
-                        %>   
                         <div class="product__details__text">
-                            <% for (int i = 0; i < shoesDetails.size(); i++) {
-                                    Shoes sizes = shoesDetails.get(i);
-                            %>      
-                            <h3><%= sizes.getProdName()%></h3>
-                            <h4><%= sizes.getBrand()%></h4>
-                            <div class="product__details__price"><%=color.getColorName()%></div>
-
-
-                            <p><%=color.getColorName()%></p>
-                            <div class="product__details__quantity">
-
-                                <form action="">                        
-
-                                    <h4 style="margin-bottom: 10px">Shoes size</h4>
-                                    <input type="radio" id="uk4" name="size" value="4 UK">
-                                    <label for="size"><%= sizes.getSize()%></label><br>
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-
+                                
+                            <h3><%= shoesDetails.get(0).getProdName()%></h3>
+                            <h4><%= shoesDetails.get(0).getBrand()%></h4>
+                            <div class="product__details__price"><%= colorkk.getColorName() %></div>
+                           
+                            <div class="product__details__quantity" style="margin-bottom: 10px">
+                                <h4 style="margin-bottom: 10px">Shoe sizes</h4>
+                                <form action="">
+                                    <select id="available" name="orderStatus">                      
+                                    <% for(int i=0; i < shoesDetails.size(); i++){
+                                        Shoes sizes = shoesDetails.get(i); 
+                                    %> 
+                                            <option value='<%= sizes.getSize() %>'><%= sizes.getSize() %></option>
+                                         &nbsp;                             
+                                     <% } %>
+                                    </select>
                                 </form>
-                            </div>                                                       
+                            </div>         
+                            <li style="margin-bottom: 10px"><b>Shipping</b>&nbsp;&nbsp;&nbsp;<span>07 days shipping. &nbsp;&nbsp;&nbsp; <samp>Free pickup today</samp></span></li>
+                            <div class="quantity">
+                                <div class="pro-qty">
+                                    <input type="text" value="1">
+                                </div>
+                            </div>
                             <a href="#" class="primary-btn">ADD TO CARD</a>
-                            <a href="#" class="heart-icon"><span class="fa fa-heart-o"></span></a>
-                            <ul>
-                                <li><b>Availability</b><span><%= sizes.getStock()%></span></li>
-                                <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
-                            </ul> <% }%>
-                        </div>
+                            <a href="#" class="heart-icon primary-btn" style="background-color: red;"><span style="color: white" class="fa fa-heart-o"></span></a>
+                        </div> 
                     </div>
                     <div class="col-lg-12">
                         <div class="product__details__tab">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
-                                       aria-selected="true">Description</a>
+                                        aria-selected="true">Description</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                                       aria-selected="false">Information</a>
+                                        aria-selected="false">Information</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                       aria-selected="false">Reviews <span>(1)</span></a>
+                                        aria-selected="false">Reviews <span>(1)</span></a>
                                 </li>
                             </ul>
                             <div class="tab-content">
@@ -112,7 +110,7 @@
                                             elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus
                                             et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
                                             vel, ullamcorper sit amet ligula. Proin eget tortor risus.</p>
-                                        <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
+                                            <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
                                             ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet
                                             elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum
                                             porta. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus

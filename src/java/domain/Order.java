@@ -27,6 +27,12 @@ public class Order {
         this.custID = custID;
     }
 
+    public Order(int orderID, int custID, String status) {
+        this.orderID = orderID;
+        this.status = status;
+        this.custID = custID;
+    }
+
     public int getOrderID() {
         return orderID;
     }

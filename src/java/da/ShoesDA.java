@@ -1,57 +1,68 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package da;
 
-import domain.Color;
 import domain.Shoes;
-import domain.Staff;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 public class ShoesDA {
 
-    private String host = "jdbc:derby://localhost:1527/guidb";
-    private String user = "guidb";
-    private String password = "guidb";
-    private String tableName = "\"SHOES\"";
+    private final String host = "jdbc:derby://localhost:1527/guidb";
+    private final String user = "guidb";
+    private final String password = "guidb";
+    private final String tableName = "SHOES";
     private Connection conn;
     private PreparedStatement stmt;
-    private ColorDA colorDA;
-    private StaffDA staffDA;
+    private final ColorDA colorDA;
+    private final StaffDA staffDA;
 
     public ShoesDA() {
         colorDA = new ColorDA();
         staffDA = new StaffDA();
     }
 
-    public Shoes getShoes(int prodID) {
-        createConnection();
-        String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID= ?";
+    public Shoes getShoes(int prodID) throws SQLException {
         Shoes shoes = null;
         try {
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID= ?";
             stmt = conn.prepareStatement(queryStr);
             stmt.setInt(1, prodID);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                Color color = colorDA.getColor(rs.getInt("COLOR_ID"));
-                Staff staff = staffDA.getStaff(rs.getInt("STAFF_ID"));
-                shoes = new Shoes(prodID, rs.getString("Size"), rs.getString("Product Name"), rs.getString("Brand"), rs.getDouble("Price"), rs.getInt("Stock"), rs.getString("Season"), rs.getString("Img"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
+                shoes = new Shoes(rs.getInt("prod_ID"), rs.getString("Size"), rs.getString("Prod_Name"), rs.getString("Brand"), rs.getDouble("Price"), rs.getInt("Stock"), rs.getString("Season"), rs.getString("Img"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
+        }
+        return shoes;
+    }
+
+    public ArrayList<Shoes> getAllShoes() throws SQLException {
+        ArrayList<Shoes> shoes = new ArrayList<Shoes>();
+        try {
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName;
+            stmt = conn.prepareStatement(queryStr);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Shoes s = new Shoes(rs.getInt("prod_ID"), rs.getString("Size"), rs.getString("Prod_Name"), rs.getString("Brand"), rs.getDouble("Price"), rs.getInt("Stock"), rs.getString("Season"), rs.getString("Img"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
+                shoes.add(s);
+            }
+        } catch (SQLException ex) {
+            throw ex;
         }
         return shoes;
     }
 
     public void addShoes(Shoes shoes) throws SQLException {
-        createConnection();
-        String queryStr = "INSERT INTO " + tableName + " (SIZE, PROD_NAME, BRAND, PRICE, STOCK, SEASON, IMG, COLOR_ID, STAFF_ID) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             createConnection();
+            String queryStr = "INSERT INTO " + tableName + " (SIZE, PROD_NAME, BRAND, PRICE, STOCK, SEASON, IMG, COLOR_ID, STAFF_ID) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             stmt = conn.prepareStatement(queryStr);
             stmt.setString(1, shoes.getSize());
             stmt.setString(2, shoes.getProdName());
@@ -71,10 +82,9 @@ public class ShoesDA {
     }
 
     public void updateShoes(Shoes shoes) throws SQLException {
-        createConnection();
-        String queryStr = "UPDATE " + tableName + " SET SIZE=?, PROD_NAME=?, BRAND=?, PRICE=?, STOCK=?, SEASON=?, IMG=?, COLOR_ID=?, STAFF_ID=? WHERE PROD_ID=?";
         try {
             createConnection();
+            String queryStr = "UPDATE " + tableName + " SET SIZE=?, PROD_NAME=?, BRAND=?, PRICE=?, STOCK=?, SEASON=?, IMG=?, COLOR_ID=?, STAFF_ID=? WHERE PROD_ID=?";
             stmt = conn.prepareStatement(queryStr);
             stmt.setString(1, shoes.getSize());
             stmt.setString(2, shoes.getProdName());
@@ -94,9 +104,9 @@ public class ShoesDA {
     }
 
     public void deleteShoes(int prodID) throws SQLException {
-        createConnection();
-        String queryStr = "DELETE FROM " + tableName + " WHERE PROD_ID = ?";
         try {
+            createConnection();
+            String queryStr = "DELETE FROM " + tableName + " WHERE PROD_ID = ?";
             stmt = conn.prepareStatement(queryStr);
             stmt.setInt(1, prodID);
             stmt.executeUpdate();
@@ -107,33 +117,11 @@ public class ShoesDA {
         }
     }
 
-    public ArrayList<Shoes> getShoesList() {
-        createConnection();
-        ArrayList<Shoes> shoesList = new ArrayList<Shoes>();
-        Shoes shoes = null;
-        String orderQuery = "SELECT * FROM \"SHOES\" ";
-        try {
-            stmt = conn.prepareStatement(orderQuery);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                shoes = new Shoes(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDouble(5), rs.getInt(6), rs.getString(7), rs.getString(8), rs.getInt(9), rs.getInt(10));
-                shoesList.add(shoes);
-                System.out.println("erorro");
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-            System.out.println("erorro1");
-        } finally {
-            shutDown();
-        }
-        return shoesList;
-    }
-
     public ArrayList<Shoes> listAllShoes() throws SQLException {
-        createConnection();
         ArrayList<Shoes> listshoes = new ArrayList<Shoes>();
         Shoes shoes = null;
         try {
+            createConnection();
             String selectStt = "SELECT DISTINCT * FROM " + tableName + " ORDER BY BRAND, PROD_NAME";
             stmt = conn.prepareStatement(selectStt);
             ResultSet rs = stmt.executeQuery();
@@ -174,11 +162,69 @@ public class ShoesDA {
                 shoesdetails.add(choosen);
             }
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             throw ex;
         } finally {
             shutDown();
         }
         return shoesdetails;
+    }
+
+    public ArrayList<Shoes> staffHandle(int staffID) throws SQLException {
+        Shoes handled = null;
+        ArrayList<Shoes> shoes = new ArrayList<Shoes>();
+        try {
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName + " WHERE STAFF_ID = ?";
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setInt(1, staffID);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                handled = new Shoes(staffID, rs.getString("SIZE"), rs.getString("PROD_NAME"), rs.getString("BRAND"), rs.getDouble("PRICE"), rs.getInt("STOCK"), rs.getString("SEASON"), rs.getString("IMG"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
+                shoes.add(handled);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return shoes;
+    }
+
+    public void restock(int prodID, int stock) throws SQLException {
+        createConnection();
+        String queryStr = "UPDATE " + tableName + " SET STOCK=? WHERE PROD_ID=?";
+        try {
+            createConnection();
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setDouble(1, stock);
+            stmt.setDouble(2, prodID);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+    }
+
+    private void createConnection() throws SQLException {
+        try {
+            conn = DriverManager.getConnection(host, user, password);
+            System.out.println("***TRACE: Connection established.");
+        } catch (SQLException ex) {
+            throw ex;
+        }
+    }
+
+    private void shutDown() throws SQLException {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
     }
 
     public Shoes getOrderShoes(int prodID) throws SQLException {
@@ -198,24 +244,5 @@ public class ShoesDA {
             shutDown();
         }
         return orderShoes;
-    }
-
-    private void createConnection() {
-        try {
-            conn = DriverManager.getConnection(host, user, password);
-            System.out.println("***TRACE: Connection established.");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void shutDown() {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-        }
     }
 }

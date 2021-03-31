@@ -8,8 +8,7 @@ package da;
 import domain.Order;
 import domain.OrderList;
 import java.sql.*;
-import java.util.ArrayList;
-import javax.swing.*;
+import java.util.*;
 
 public class OrderListDA {
 
@@ -27,11 +26,11 @@ public class OrderListDA {
         shoesDA = new ShoesDA();
     }
 
-    public Order getOrderList(int orderID) {
-        createConnection();
-        String queryStr = "SELECT * FROM " + tableName + " WHERE ORDER_ID=?";
+    public Order getOrderList(int orderID) throws SQLException {
         Order order = null;
         try {
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName + " WHERE ORDER_ID=?";
             stmt = conn.prepareStatement(queryStr);
             stmt.setInt(1, orderID);
             ResultSet rs = stmt.executeQuery();
@@ -40,16 +39,15 @@ public class OrderListDA {
                 order = new Order(orderID, rs.getDate("DATE"), rs.getDouble("TOTAL_PRICE"), rs.getString("STATUS"), rs.getInt("CUST_ID"));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
         }
         return order;
     }
 
     public void addOrderList(Order order) throws SQLException {
-        createConnection();
-        String insertColor = "INSERT INTO " + tableName + " (DATE, TOTAL_PRICE, STATUS, CUST_ID) VALUES( ?, ?, ?, ?)";
         try {
             createConnection();
+            String insertColor = "INSERT INTO " + tableName + " (DATE, TOTAL_PRICE, STATUS, CUST_ID) VALUES( ?, ?, ?, ?)";
             stmt = conn.prepareStatement(insertColor);
             stmt.setDate(1, order.getDate());
             stmt.setDouble(2, order.getTtlPrice());
@@ -64,10 +62,9 @@ public class OrderListDA {
     }
 
     public void updateOrderList(Order order) throws SQLException {
-        createConnection();
-        String insertColor = "UPDATE " + tableName + " SET DATE=?, TOTAL_PRICE=?, STATUS=?, CUST_ID=? WHERE ORDER_ID=?";
         try {
             createConnection();
+            String insertColor = "UPDATE " + tableName + " SET DATE=?, TOTAL_PRICE=?, STATUS=?, CUST_ID=? WHERE ORDER_ID=?";
             stmt = conn.prepareStatement(insertColor);
             stmt.setDate(1, order.getDate());
             stmt.setDouble(2, order.getTtlPrice());
@@ -84,9 +81,9 @@ public class OrderListDA {
     }
 
     public void deleteOrderList(int orderID) throws SQLException {
-        createConnection();
-        String deleteProd = "DELETE FROM " + tableName + " WHERE ORDER_ID = ?";
         try {
+            createConnection();
+            String deleteProd = "DELETE FROM " + tableName + " WHERE ORDER_ID = ?";
             stmt = conn.prepareStatement(deleteProd);
             stmt.setInt(1, orderID);
             stmt.executeUpdate();
@@ -97,12 +94,32 @@ public class OrderListDA {
         }
     }
 
+    private void createConnection() throws SQLException {
+
+        try {
+            conn = DriverManager.getConnection(host, user, password);
+            System.out.println("***TRACE: Connection established.");
+        } catch (SQLException ex) {
+            throw ex;
+        }
+    }
+
+    private void shutDown() throws SQLException {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
+    }
+
     public ArrayList<OrderList> getCusOrderList(int orderID) throws SQLException {
-        createConnection();
         ArrayList<OrderList> cusOrderList = new ArrayList<OrderList>();
         OrderList orderListObj = null;
-        String orderQuery = "SELECT * FROM " + tableName + " WHERE ORDER_ID = ?";
         try {
+            createConnection();
+            String orderQuery = "SELECT * FROM " + tableName + " WHERE ORDER_ID = ?";
             stmt = conn.prepareStatement(orderQuery);
             stmt.setInt(1, orderID);
             ResultSet rs = stmt.executeQuery();
@@ -116,24 +133,5 @@ public class OrderListDA {
             shutDown();
         }
         return cusOrderList;
-    }
-
-    private void createConnection() {
-        try {
-            conn = DriverManager.getConnection(host, user, password);
-            System.out.println("***TRACE: Connection established.");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void shutDown() {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-        }
     }
 }

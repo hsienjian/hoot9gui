@@ -43,8 +43,12 @@
                                         ShoesDA shoes = new ShoesDA();
                                         ArrayList<Shoes> listBrand = shoes.listAllShoes();
 
-                                        for(int i=0; i<listBrand.size(); i++)
+                                        for(int i=0 ; i<listBrand.size(); i++)
                                         {
+                                            if(listBrand.get(i).getBrand() == listBrand.get(++i).getBrand())
+                                            {
+                                                ++i;
+                                            }
                                     %>
                                     <li><a href="#"><%= listBrand.get(i).getBrand()%></a></li>
                                     <% } %>
@@ -98,7 +102,7 @@
                                     <div class="filter__sort">
                                         <span>Sort By</span>
                                         <form id="priceID" method="POST" action="ShoesControl">
-                                            <select  onChange=selectChange(this.value)>
+                                            <select onChange="selectChange(this.value)">
                                                 <option value="0">Price</option>
                                                 <option value="400">High to Low</option>
                                                 <option value="300">Low to High</option>
@@ -125,6 +129,10 @@
         
         for(int i=0; i<listRecord.size(); i++)
         {
+            if(listRecord.get(i).getProdName() == listRecord.get(++i).getProdName())
+            {
+                ++i;
+            }
     %>
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
@@ -138,10 +146,11 @@
                                     </div>
                                     <div class="product__item__text">
                                         <h7><%= listRecord.get(i).getBrand()%></h7>
+                                        <h7><%= listRecord.get(i).getSize()%></h7>
                                         <form action="ShoesControl" method="POST">
                                             <input type="hidden" id="prod_name" name="prod_name" value="<%= listRecord.get(i).getProdName()%>"/>
                                             <input type="hidden" id="color_id" name="color_id" value="<%= listRecord.get(i).getColorID()%>"/>
-                                            <input type="submit" name="submit" />
+                                            <input type="submit" value="<%= listRecord.get(i).getProdName()%>" name="submit" />
                                         </form>
                                         <h5><%= listRecord.get(i).getPrice()%></h5>
                                     </div>
