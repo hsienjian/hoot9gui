@@ -38,6 +38,18 @@ public class Staff {
         this.position = position;
     }
 
+    public Staff(String firstName, String lastName, Integer age, String email, String password, String gender, String address, String phoneNo, String position) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+        this.gender = gender;
+        this.address = address;
+        this.phoneNo = phoneNo;
+        this.position = position;
+    }
+
     public Integer getStaffID() {
         return staffID;
     }

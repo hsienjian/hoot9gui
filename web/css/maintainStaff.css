@@ -1,0 +1,109 @@
+*{
+    margin: 0px;
+}
+
+.staffmaintainance{
+    font-size: 20px;
+    background: white;
+/*    padding-top: 7%;*/
+    padding-bottom: 30px;
+    background-color: #fff;
+}
+
+.staffmaintainance .header{
+    width: 30%;
+    margin: 50px auto 0px;
+    color: white;
+    background: #4b4276;
+    text-align: center;
+    border: 1px solid #B0C4DE;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px;
+    padding: 20px;
+}
+
+.staffmaintainance form, .staffmaintainance .summary{
+    width: 30%;
+    margin: 0px auto;
+    padding: 20px;
+    border: 1px solid #B0C4DE;
+    background: #fdfdfe;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.staffmaintainance .registergrp {
+    margin: 10px 0px 10px 0px;
+}
+
+.loginform .registergrp label {
+    display: block;
+    text-align: left;
+    margin: 3px;
+}
+
+.staffmaintainance .registergrp input {
+    height: 30px;
+    width: 93%;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.staffmaintainance .registergrp .btn{
+    padding: 10px;
+    margin-left: 40px;
+    font-size: 15px;
+    color: white;
+    background: #4b4276;
+    border: none;
+    border-radius: 5px;
+    width: 150px;
+}
+
+.staffmaintainance .error{
+    width: 92%;
+    margin: 0px auto;
+    padding: 10px;
+    border: 1px solid #a94442;
+    color: #a94442;
+    background: #f2dede;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.staffmaintainance .success{
+    width: 92%;
+    margin: 0px auto;
+    padding: 10px;
+    border: 1px solid #3c763d;
+    color: #3c763d;
+    background: #dff0d8;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.tab .tablinks{
+    padding: 10px;
+    font-size: 15px;
+    color: white;
+    background: #0f6674;
+    border: none;
+    border-radius: 2px;
+    width: 150px;
+}
+
+@media screen and (max-width: 1500px)
+{
+    .staffmaintainance .registergrp .btn{
+        text-align: center;
+        padding: 15px;
+        margin-left: 10px;
+        margin-bottom: 20px;
+        font-size: 15px;
+        color: white;
+        background: #4b4276;
+        border: none;
+        border-radius: 5px;
+    }   
+}

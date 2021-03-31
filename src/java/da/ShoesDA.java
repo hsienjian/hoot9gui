@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package da;
 
-import domain.Color;
 import domain.Shoes;
-import domain.Staff;
-import java.sql.*;
-import javax.swing.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class ShoesDA {
 
@@ -19,91 +17,83 @@ public class ShoesDA {
     private String tableName = "SHOES";
     private Connection conn;
     private PreparedStatement stmt;
-    private ColorDA colorDA;
-    private StaffDA staffDA;
 
-    public ShoesDA() {
-        colorDA = new ColorDA();
-        staffDA = new StaffDA();
+    public void ShoesDA() {
     }
 
-    public Shoes getShoes(int prodID) {
+    public ArrayList<Shoes> listAllShoes() throws SQLException {
         createConnection();
-        String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID= ?";
+        ArrayList<Shoes> listshoes = new ArrayList<Shoes>();
         Shoes shoes = null;
         try {
-            stmt = conn.prepareStatement(queryStr);
-            stmt.setInt(1, prodID);
+            String selectStt = "SELECT DISTINCT * FROM " + tableName + " ORDER BY BRAND, PROD_NAME";
+            stmt = conn.prepareStatement(selectStt);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                Color color = colorDA.getColor(rs.getInt("COLOR_ID"));
-                Staff staff = staffDA.getStaff(rs.getInt("STAFF_ID"));
-                shoes = new Shoes(prodID, rs.getString("Size"), rs.getString("Product Name"), rs.getString("Brand"), rs.getDouble("Price"), rs.getInt("Stock"), rs.getString("Season"), rs.getString("Img"), rs.getInt("CUST_ID"), rs.getInt("STAFF_ID"));
+            while (rs.next()) {
+                int prod_id = rs.getInt("prod_id");
+                String size = rs.getString("size");
+                String prod_name = rs.getString("prod_name");
+                String brand = rs.getString("brand");
+                Double price = rs.getDouble("price");
+                int stock = rs.getInt("stock");
+                String season = rs.getString("season");
+                String image = rs.getString("img");
+                int color_id = rs.getInt("color_id");
+                int staff_id = rs.getInt("staff_id");
+
+                shoes = new Shoes(prod_id, size, prod_name, brand, price, stock, season, image, color_id, staff_id);
+                listshoes.add(shoes);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return listshoes;
+    }
+
+    public ArrayList<Shoes> getRecord(String prod_name) throws SQLException {
+        Shoes choosen = null;
+        ArrayList<Shoes> shoesdetails = new ArrayList<Shoes>();
+        try {
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_NAME = ?";
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1, prod_name);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                choosen = new Shoes(rs.getInt("PROD_ID"), rs.getString("SIZE"), prod_name, rs.getString("BRAND"), rs.getDouble("PRICE"), rs.getInt("STOCK"), rs.getString("SEASON"), rs.getString("IMG"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
+                shoesdetails.add(choosen);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return shoesdetails;
+    }
+
+    public ArrayList<Shoes> staffHandle(int staffID) throws SQLException {
+        Shoes handled = null;
+        ArrayList<Shoes> shoes = new ArrayList<Shoes>();
+        try {
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName + " WHERE STAFF_ID = ?";
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setInt(1, staffID);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                handled = new Shoes(staffID, rs.getString("SIZE"), rs.getString("PROD_NAME"), rs.getString("BRAND"), rs.getDouble("PRICE"), rs.getInt("STOCK"), rs.getString("SEASON"), rs.getString("IMG"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
+                shoes.add(handled);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
+        } finally {
+            shutDown();
         }
         return shoes;
-    }
-
-    public void addShoes(Shoes shoes) throws SQLException {
-        createConnection();
-        String queryStr = "INSERT INTO " + tableName + " (SIZE, PROD_NAME, BRAND, PRICE, STOCK, SEASON, IMG, COLOR_ID, STAFF_ID) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try {
-            createConnection();
-            stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1, shoes.getSize());
-            stmt.setString(2, shoes.getProdName());
-            stmt.setString(3, shoes.getBrand());
-            stmt.setDouble(4, shoes.getPrice());
-            stmt.setInt(5, shoes.getStock());
-            stmt.setString(6, shoes.getSeason());
-            stmt.setString(7, shoes.getImg());
-            stmt.setInt(8, shoes.getColorID());
-            stmt.setInt(9, shoes.getStaffID());
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-    }
-
-    public void updateShoes(Shoes shoes) throws SQLException {
-        createConnection();
-        String queryStr = "UPDATE " + tableName + " SET SIZE=?, PROD_NAME=?, BRAND=?, PRICE=?, STOCK=?, SEASON=?, IMG=?, COLOR_ID=?, STAFF_ID=? WHERE PROD_ID=?";
-        try {
-            createConnection();
-            stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1, shoes.getSize());
-            stmt.setString(2, shoes.getProdName());
-            stmt.setString(3, shoes.getBrand());
-            stmt.setDouble(4, shoes.getPrice());
-            stmt.setInt(5, shoes.getStock());
-            stmt.setString(6, shoes.getSeason());
-            stmt.setInt(7, shoes.getColorID());
-            stmt.setInt(8, shoes.getStaffID());
-            stmt.setInt(9, shoes.getProdID());
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-    }
-
-    public void deleteShoes(int prodID) throws SQLException {
-        createConnection();
-        String queryStr = "DELETE FROM " + tableName + " WHERE PROD_ID = ?";
-        try {
-            stmt = conn.prepareStatement(queryStr);
-            stmt.setInt(1, prodID);
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
     }
 
     private void createConnection() {

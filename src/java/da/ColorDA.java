@@ -6,8 +6,13 @@
 package da;
 
 import domain.Color;
-import java.sql.*;
-import javax.swing.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class ColorDA {
 
@@ -19,11 +24,32 @@ public class ColorDA {
     private PreparedStatement stmt;
 
     public ColorDA() {
+        createConnection();
     }
 
-    public Color getColor(int colorID) {
+    public ArrayList<Color> listAllColor() throws SQLException {
         createConnection();
-        String queryStr = "SELECT * FROM " + tableName + " WHERE COLOR_ID = ?";
+        ArrayList<Color> listcolor = new ArrayList<Color>();
+        Color color = null;
+        try {
+            String selectStt = "SELECT DISTINCT * FROM " + tableName + " ORDER BY COLOR_NAME";
+            stmt = conn.prepareStatement(selectStt);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                color = new Color(rs.getInt(1), rs.getString(2), rs.getString(3));
+                listcolor.add(color);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return listcolor;
+    }
+
+    public Color getRecord(int colorID) throws SQLException {
+        createConnection();
+        String queryStr = "SELECT * FROM \"COLOR\" WHERE COLOR_ID = ?";
         Color color = null;
         try {
             stmt = conn.prepareStatement(queryStr);
@@ -35,6 +61,9 @@ public class ColorDA {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
+        } finally {
+            shutDown();
         }
         return color;
     }
