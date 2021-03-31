@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="staffmaintainance">
-            <div class="btn" style="text-align: center; width: fit-content">${error}</div>
+            <div class="errorMessage" style="text-align: center; width: fit-content">${error}</div>
             <div class="header">
                 <h2>Add Staff</h2>
             </div>

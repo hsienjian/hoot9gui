@@ -12,7 +12,7 @@
 
 .staffmaintainance .header{
     width: 30%;
-    margin: 50px auto 0px;
+    /*margin: 50px auto 0px;*/
     color: white;
     background: #4b4276;
     text-align: center;
@@ -62,21 +62,23 @@
 }
 
 .staffmaintainance .error{
-    width: 92%;
+    width: 40%;
     margin: 0px auto;
-    padding: 10px;
-    border: 1px solid #a94442;
+    /*padding: 10px;*/
+    /*border: 1px solid #a94442;*/
     color: #a94442;
     background: #f2dede;
     border-radius: 5px;
-    text-align: left;
+    text-align: center;
+/*                margin-left: 30%;
+    width: fit-content*/
 }
 
 .staffmaintainance .success{
-    width: 92%;
+    width: 40%;
     margin: 0px auto;
-    padding: 10px;
-    border: 1px solid #3c763d;
+/*    padding: 10px;
+    border: 1px solid #3c763d;*/
     color: #3c763d;
     background: #dff0d8;
     border-radius: 5px;

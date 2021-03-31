@@ -19,11 +19,25 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+            .error{
+                width: 40%;
+                margin: 0px auto;
+                /*padding: 10px;*/
+                /*border: 1px solid #a94442;*/
+                color: #a94442;
+                background: #f2dede;
+                border-radius: 5px;
+                text-align: center;
+/*                margin-left: 30%;
+                width: fit-content*/
+            }
+        </style>
     </head>
     <body>
     <div id="wrapper">
         <%@include file="console.html" %>
-        <div class="btn-danger" style="margin-left: 30%; width: fit-content">${error}</div>
+        <div class="error">${error}</div>
         <!--<div class="overflow-auto">-->
             
             <div class="row">

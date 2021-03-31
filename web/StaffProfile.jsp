@@ -9,11 +9,39 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/maintainStaff.css">
         <title>Staff Profile</title>
+        <style>
+        .error{
+            width: 32%;
+            margin: 0px auto 30px;
+            margin-bottom: 0px;
+            /*padding: 10px;*/
+            /*border: 1px solid #a94442;*/
+            color: #a94442;
+            background: #f2dede;
+            border-radius: 5px;
+            text-align: center;
+        /*                margin-left: 30%;
+            width: fit-content*/
+        }
+
+        .success{
+            width: 32%;
+            margin: 0px auto;
+        /*    padding: 10px;
+            border: 1px solid #3c763d;*/
+            color: #3c763d;
+            background: #dff0d8;
+            border-radius: 5px;
+            text-align: center;
+        }
+        </style>
     </head>
     <body>
-        <div class="staffmaintainance tabcontent" id="profile" >
-            <div class="btn btn-danger" style="text-align: center; width: fit-content">${error}</div>
-            <div class="btn btn-info" style="text-align: center; width: fit-content">${success}</div>
+        <div style="margin-top:50px; margin-bottom: 0">
+            <div class="error">${error}</div>
+            <div class="success">${success}</div>
+        </div>
+        <div class="staffmaintainance tabcontent" id="profile">
             <div class="header">
                 <h2>Overview of Your Profile</h2>
             </div>
