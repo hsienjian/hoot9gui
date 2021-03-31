@@ -6,7 +6,9 @@
 package da;
 
 import domain.Order;
+import domain.OrderList;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class OrderListDA {
@@ -93,6 +95,27 @@ public class OrderListDA {
         } finally {
             shutDown();
         }
+    }
+
+    public ArrayList<OrderList> getCusOrderList(int orderID) throws SQLException {
+        createConnection();
+        ArrayList<OrderList> cusOrderList = new ArrayList<OrderList>();
+        OrderList orderListObj = null;
+        String orderQuery = "SELECT * FROM " + tableName + " WHERE ORDER_ID = ?";
+        try {
+            stmt = conn.prepareStatement(orderQuery);
+            stmt.setInt(1, orderID);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                orderListObj = new OrderList(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getDouble(4));
+                cusOrderList.add(orderListObj);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return cusOrderList;
     }
 
     private void createConnection() {

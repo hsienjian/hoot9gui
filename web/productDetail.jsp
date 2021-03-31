@@ -1,9 +1,15 @@
+<%@page import="domain.Shoes"%>
+<%@page import="domain.Color"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="da.ShoesDA"%>
+<%@page import="da.ColorDA"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Shoe Details</title>
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -18,64 +24,62 @@
         <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
         <link rel="stylesheet" href="css/styleProduct.css" type="text/css">
     </head>
-    
+
     <body>
-       <section class="product-details spad">
+        <section class="product-details spad">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="product__details__pic">
                             <div class="product__details__pic__item">
-                                <img class="product__details__pic__item--large" src="img/product/details/product-details-1.jpg" alt="">
+                                <img class="product__details__pic__item--large" src="images/kalenji.jpg" alt="">
                             </div>
                             <div class="product__details__pic__slider owl-carousel">
-                                <img data-imgbigurl="images/DiorxJordan.jpg"
-                                    src="images/DiorxJordan.jpg" alt="">
                                 <img data-imgbigurl="images/kalenji.jpg"
-                                    src="images/kalenji.jpg" alt="">
+                                     src="images/kalenji.jpg" alt="">
                                 <img data-imgbigurl="images/brownboot.jpg"
-                                    src="images/brownboot.jpg" alt="">
+                                     src="images/brownboot.jpg" alt="">
                                 <img data-imgbigurl="images/birkenstock.jpg"
-                                    src="images/birkenstock.jpg" alt="">
+                                     src="images/birkenstock.jpg" alt="">
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
+                        <%
+                            ArrayList<Shoes> shoesDetails = (ArrayList<Shoes>) request.getAttribute("shoes");
+                            Color color = (Color) request.getAttribute("color");
+                        %>   
                         <div class="product__details__text">
-                            <h3>Nike Kid</h3>
-                            <div class="product__details__price">150.00 ringgit</div>
-                            <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
-                                vehicula elementum sed sit amet dui. </p>
+                            <% for (int i = 0; i < shoesDetails.size(); i++) {
+                                    Shoes sizes = shoesDetails.get(i);
+                            %>      
+                            <h3><%= sizes.getProdName()%></h3>
+                            <h4><%= sizes.getBrand()%></h4>
+                            <div class="product__details__price"><%=color.getColorName()%></div>
+
+
+                            <p><%=color.getColorName()%></p>
                             <div class="product__details__quantity">
-                                <form action="">                                    
+
+                                <form action="">                        
+
                                     <h4 style="margin-bottom: 10px">Shoes size</h4>
                                     <input type="radio" id="uk4" name="size" value="4 UK">
-                                    <label for="male">4 UK</label><br>
-                                    <input type="radio" id="uk5" name="size" value="5 UK">
-                                    <label for="female">5 UK</label><br>
-                                    <input type="radio" id="uk6" name="size" value="6 UK">
-                                    <label for="other">6 UK</label>
+                                    <label for="size"><%= sizes.getSize()%></label><br>
                                     <div class="quantity">
                                         <div class="pro-qty">
                                             <input type="text" value="1">
                                         </div>
                                     </div>
+
                                 </form>
                             </div>                                                       
                             <a href="#" class="primary-btn">ADD TO CARD</a>
                             <a href="#" class="heart-icon"><span class="fa fa-heart-o"></span></a>
                             <ul>
-                                <li><b>Availability</b> <span>In Stock</span></li>
+                                <li><b>Availability</b><span><%= sizes.getStock()%></span></li>
                                 <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
-                                <li><b>Share on</b>
-                                    <div class="share">
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                        <a href="#"><i class="fa fa-instagram"></i></a>
-                                        <a href="#"><i class="fa fa-pinterest"></i></a>
-                                    </div>
-                                </li>
-                            </ul>
+                            </ul> <% }%>
                         </div>
                     </div>
                     <div class="col-lg-12">
@@ -83,15 +87,15 @@
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
-                                        aria-selected="true">Description</a>
+                                       aria-selected="true">Description</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                                        aria-selected="false">Information</a>
+                                       aria-selected="false">Information</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                        aria-selected="false">Reviews <span>(1)</span></a>
+                                       aria-selected="false">Reviews <span>(1)</span></a>
                                 </li>
                             </ul>
                             <div class="tab-content">
@@ -108,7 +112,7 @@
                                             elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus
                                             et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
                                             vel, ullamcorper sit amet ligula. Proin eget tortor risus.</p>
-                                            <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
+                                        <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
                                             ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet
                                             elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum
                                             porta. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus

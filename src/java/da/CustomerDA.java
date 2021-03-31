@@ -25,7 +25,7 @@ public class CustomerDA {
     public CustomerDA() {
     }
 
-    public Customer getCustomer(int custID) {
+    public Customer getCustomer(int custID) throws SQLException {
         createConnection();
         String queryStr = "SELECT * FROM " + tableName + " WHERE CUST_ID=?";
         Customer customer = null;
@@ -35,10 +35,10 @@ public class CustomerDA {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                customer = new Customer(custID, rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getInt("AGE"), rs.getString("EMAIL"), rs.getString("PASSWORD"), rs.getString("GENDER"), rs.getString("ADDRESS"), rs.getString("PHONE_NO"), rs.getInt("REWARDPOINT"));
+                customer = new Customer(custID, rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getInt("AGE"), rs.getString("EMAIL"), rs.getString("PASSWORD"), rs.getString("GENDER"), rs.getString("ADDRESS"), rs.getString("PHONE_NO"), rs.getInt("REWARD_POINT"));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
         } finally {
             shutDown();
         }

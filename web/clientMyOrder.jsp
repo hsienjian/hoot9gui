@@ -4,6 +4,9 @@
     Author     : Admin-jiahie
 --%>
 
+<%@page import="java.sql.Date"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="da.OrderDA"%>
 <%@page import="domain.Order"%>
@@ -63,23 +66,24 @@
             <div class="row mb-3">
                 <div class="col-md-8 col-sm-12 col-12">
                     <div class="row btn-center">
-                        <form action="#" class="p-2">
-                            <button class="btn btn-dark">Recent</button>
-                        </form>
-                        <form action="#" class="p-2">
-                            <button class="btn btn-dark ">Processing</button>
-                        </form>
-                        <form action="#" class="p-2">
-                            <button class="btn btn-dark">Delivery</button>
-                        </form>
-                        <form action="#" class="p-2">
-                            <button class="btn btn-dark">Completed</button>
-                        </form>
+                        <div class="p-2">
+                            <a href="OrderRecordControl?ordOpt=1" class="btn btn-dark">Recent</a>
+                        </div>
+                        <div class="p-2">
+                            <a href="OrderRecordControl?ordOpt=2" class="btn btn-dark">Processing</a>
+                        </div>
+                        <div class="p-2">
+                            <a href="OrderRecordControl?ordOpt=3" class="btn btn-dark">Delivery</a>
+                        </div>
+                        <div class="p-2">
+                            <a href="OrderRecordControl?ordOpt=4" class="btn btn-dark">Completed</a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-12 col-12">
-                    <form action="#">
+                    <form action="OrderRecordControl" method="GET">
                         <div class="input-group p-2">
+                            <input type="hidden" class="form-control" name="ordOpt" value="5">
                             <input type="text" class="form-control" placeholder="Search by Order ID" name="orderID">
                             <div class="input-group-btn">
                                 <button class="btn btn-default border border-1" type="submit">
@@ -94,135 +98,105 @@
                 </div>
             </div>
         </div>
-
+        <%
+            ArrayList<Order> orderList = (ArrayList<Order>) request.getAttribute("orderList");
+            boolean isEmpty = Boolean.TRUE == request.getAttribute("checkIsEmpty");
+            boolean isNotFound = Boolean.TRUE == request.getAttribute("checkNotFound");
+            String title = (String) request.getAttribute("filterTitle");
+            Integer countPrss = 0;
+            countPrss = (Integer) request.getAttribute("countPrss");
+        %>
         <!--Start Order Status-->
-        <div class="container title-con" style="display:">
-            <span class="h4">Recent</span><br>
+        <%if (!isEmpty) {%>
+        <div class="container title-con">
+            <span class="h4"><%=title%></span><br>
             <hr>
         </div>
-        <div class="container mb-5" style="display:">
-            <%
-                ArrayList<Order> orderList = (ArrayList<Order>) request.getAttribute("orderList");
-            %>
+
+        <div class="container mb-5">
+            <%for (int i = 0; i < orderList.size(); i++) {%>
             <div class="container mb-4 shadow bg-white rounded">
                 <div class="row">
                     <div class="col-md-2">
-                        <p class="h5 text-center setGap-no" style="padding-top:80px;">1</p>
+                        <p class="h5 text-center setGap-no" style="padding-top:80px;"><%=i + 1%></p>
                     </div>
                     <div class="col-md-3 bg-dark rounded">
+                        <%if (orderList.get(i).getStatus().equals("Processing")) {%>
                         <div class="text-center p-3 pt-2 mt-4">
                             <svg t="1616738832490" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5332" data-spm-anchor-id="a313x.7781069.0.i1" width="80" height="80"><path d="M972.288 305.152c0-0.512 0-1.536-0.512-2.048V302.08c-0.512-2.56-1.024-5.632-2.56-8.192 0-1.024-0.512-1.536-1.024-2.048-0.512-1.024-1.024-1.536-1.536-2.56-0.512-1.536-2.048-2.56-3.072-4.096l-3.072-3.072c-0.512-0.512-1.024-1.024-2.048-1.536-0.512-0.512-1.024-0.512-1.536-1.024l-0.512-0.512h-0.512s-0.512-0.512-1.024-0.512-1.024-0.512-1.536-1.024c-0.512-0.512-1.536-1.024-2.048-1.024l-220.672-92.16L527.36 98.816c-7.68-3.584-16.896-3.584-25.6-0.512L35.84 266.752h-1.024c-2.56 1.024-5.632 2.048-8.192 4.608l-1.024 1.024c-0.512 0.512-1.024 0.512-1.024 1.024-0.512 0.512-1.024 1.024-2.048 1.536l-0.512 0.512v1.024l-0.512 0.512c-0.512 0.512-0.512 1.024-1.024 1.024l-1.024 1.024c-1.536 1.536-2.048 3.072-2.56 4.608-0.512 0.512-0.512 1.536-1.024 2.048 0 0.512 0 0.512-0.512 1.024l-1.024 2.56c-0.512 1.024-1.024 2.56-1.024 4.096v1.024c0 1.024-0.512 2.048-0.512 3.072v363.52c0 13.312 7.168 25.088 18.944 30.72l433.152 220.672v1.024h2.048c0.512 0 0.512 0.512 1.024 0.512s1.024 0.512 1.024 0.512c0.512 0 0.512 0 1.024 0.512v0.512h0.512c0.512 0 1.024 0.512 2.048 0.512h0.512c0.512 0 1.024 0.512 2.048 0l0.512 0.512H481.28c1.024 0 3.072 0 4.608-0.512h0.512c1.024 0 1.536 0 2.048-0.512h1.024c1.024 0 2.048-0.512 2.56-1.024h1.024c0.512 0 1.024 0 1.536-0.512 1.024 0 1.536-0.512 2.048-1.024l156.672-70.144c8.192-3.584 14.848-10.752 18.432-19.456 3.072-8.704 3.072-17.92-1.024-26.624-8.192-17.408-28.672-25.088-45.568-17.408l-108.544 48.128v-302.08l387.072-166.4v113.664c0 18.944 15.36 34.816 34.816 34.816s34.816-15.36 34.816-34.816V305.152h-1.024z m-123.392 3.072L481.28 466.432 344.576 401.408l371.712-148.48 132.608 55.296z m-711.68-4.096L512 167.936l112.128 47.104-365.568 145.92-121.344-56.832z m308.736 221.696v299.52L81.92 640V354.304l364.032 171.52z" fill="#ffffff" p-id="5333" data-spm-anchor-id="a313x.7781069.0.i0" class=""></path><path d="M878.08 771.584c-5.12 0-9.216-1.536-12.8-5.12l-39.936-33.792c-4.608-3.584-7.168-9.216-7.168-15.36v-68.608c0-11.264 8.704-19.968 19.968-19.968s19.968 8.704 19.968 19.968v58.88l32.768 27.648c8.704 7.168 9.216 19.456 2.048 28.672-3.072 5.12-9.216 7.68-14.848 7.68z" fill="#f1f1f1" p-id="5334" data-spm-anchor-id="a313x.7781069.0.i2" class="selected"></path><path d="M848.896 872.448c-94.72 0-172.032-77.312-172.032-172.032s77.312-172.032 172.032-172.032 172.032 77.312 172.032 172.032-77.312 172.032-172.032 172.032z m0-290.816c-65.536 0-118.784 53.248-118.784 118.784S783.36 819.2 848.896 819.2s118.784-53.248 118.784-118.784-53.76-118.784-118.784-118.784z" fill="#f1f1f1" p-id="5335" data-spm-anchor-id="a313x.7781069.0.i3" class="selected"></path></svg>
-                            <p class="text-white">Processing</p>
+                            <p class="text-white"><%=orderList.get(i).getStatus()%></p>
                         </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="row pt-2">
-                            <div class="col-12">
-                                <p class="h3">Order ID - <%=orderList.get(0).getOrderID()%></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 pt-2">
-                                <p class="font-light-x1">Place Order Date : 24/06/2021</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 pt-2">
-                                <p class="font-light-x1">Estimate Delivery Date : 26/06/2021</p>
-                            </div>
-                        </div>
-                        <div class="row ">
-                            <div class="col-6 pt-2">
-                                <p class="font-light">Total Price : RM 456</p>
-                            </div>
-                            <div class="col-6 text-right">
-                                <button class="btn btn-dark">View Order</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container mb-4 shadow bg-white rounded">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="h5 text-center setGap-no" style="padding-top:80px;">2</p>
-                    </div>
-                    <div class="col-md-3 bg-dark rounded">
+                        <%} else if (orderList.get(i).getStatus().equals("Delivery")) {%>
                         <div class="text-center p-3 pt-2 mt-4">
                             <svg t="1616740440359" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5971" data-spm-anchor-id="a313x.7781069.0.i18" width="80" height="80"><path d="M1005.056 676.352l-1.024-1.024c-1.024-1.024-1.536-2.048-2.56-2.56L855.04 541.184c-13.312-11.776-33.792-10.752-45.568 2.56-11.776 13.312-10.752 33.792 2.56 45.568l83.968 75.264h-246.272c-17.92 0-32.256 14.336-32.256 32.256s14.336 32.256 32.256 32.256h253.952l-80.896 77.312c-12.8 12.288-13.312 32.768-1.024 45.568 6.144 6.656 13.824 9.728 22.528 10.24 8.192 0 16.896-2.56 23.04-9.216l137.216-131.072c12.288-12.288 12.288-32.768 0.512-45.568z" fill="#f1f1f1" p-id="5972" data-spm-anchor-id="a313x.7781069.0.i16" class=""></path><path d="M972.288 305.152c0-0.512 0-1.536-0.512-2.048V302.08c-0.512-2.56-1.024-5.632-2.56-8.192 0-1.024-0.512-1.536-1.024-2.048-0.512-1.024-1.024-1.536-1.536-2.56-0.512-1.536-2.048-2.56-3.072-4.096l-3.072-3.072c-0.512-0.512-1.024-1.024-2.048-1.536-0.512-0.512-1.024-0.512-1.536-1.024l-0.512-0.512h-0.512s-0.512-0.512-1.024-0.512-1.024-0.512-1.536-1.024c-0.512-0.512-1.536-1.024-2.048-1.024l-220.672-92.16L527.36 98.816c-7.68-3.584-16.896-3.584-25.6-0.512L35.84 266.752h-1.024c-2.56 1.024-5.632 2.048-8.192 4.608l-1.024 1.024c-0.512 0.512-1.024 0.512-1.024 1.024-0.512 0.512-1.024 1.024-2.048 1.536l-0.512 0.512v1.024l-0.512 0.512c-0.512 0.512-0.512 1.024-1.024 1.024l-1.024 1.024c-1.536 1.536-2.048 3.072-2.56 4.608-0.512 0.512-0.512 1.536-1.024 2.048 0 0.512 0 0.512-0.512 1.024l-1.024 2.56c-0.512 1.024-1.024 2.56-1.024 4.096v1.024c0 1.024-0.512 2.048-0.512 3.072v363.52c0 13.312 7.168 25.088 18.944 30.72l433.152 220.672v1.024h2.048c0.512 0 0.512 0.512 1.024 0.512s1.024 0.512 1.024 0.512c0.512 0 0.512 0 1.024 0.512v0.512h0.512c0.512 0 1.024 0.512 2.048 0.512h0.512c0.512 0 1.024 0.512 2.048 0l0.512 0.512H481.28c1.024 0 3.072 0 4.608-0.512h0.512c1.024 0 1.536 0 2.048-0.512h1.024c1.024 0 2.048-0.512 2.56-1.024h1.024c0.512 0 1.024 0 1.536-0.512 1.024 0 1.536-0.512 2.048-1.024l156.672-70.144c8.192-3.584 14.848-10.752 18.432-19.456 3.072-8.704 3.072-17.92-1.024-26.624-8.192-17.408-28.672-25.088-45.568-17.408l-108.544 48.128v-302.08l387.072-166.4v113.664c0 18.944 15.36 34.816 34.816 34.816s34.816-15.36 34.816-34.816V305.152h-1.024z m-123.392 3.072L481.28 466.432 344.576 401.408l371.712-148.48 132.608 55.296z m-711.68-4.096L512 167.936l112.128 47.104-365.568 145.92-121.344-56.832z m308.736 221.696v299.52L81.92 640V354.304l364.032 171.52z" fill="#ffffff" p-id="5973" data-spm-anchor-id="a313x.7781069.0.i15" class="selected"></path></svg>
-                            <p class="text-white">Delivery</p>
+                            <p class="text-white"><%=orderList.get(i).getStatus()%></p>
                         </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="row pt-2">
-                            <div class="col-12">
-                                <p class="h3">Order ID - 3002</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 pt-2">
-                                <p class="font-light-x1">Place Order Date : 24/06/2021</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 pt-2">
-                                <p class="font-light-x1">Estimate Delivery Date : 26/06/2021</p>
-                            </div>
-                        </div>
-                        <div class="row ">
-                            <div class="col-6 pt-2">
-                                <p class="font-light">Total Price : RM 456</p>
-                            </div>
-                            <div class="col-6 text-right">
-                                <button class="btn btn-dark">View Order</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container mb-4 shadow bg-white rounded">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p class="h5 text-center setGap-no" style="padding-top:80px;">3</p>
-                    </div>
-                    <div class="col-md-3 bg-dark rounded">
+                        <%} else if (orderList.get(i).getStatus().equals("Completed")) {%>
                         <div class="text-center p-3 pt-2 mt-4">
                             <svg t="1616740793201" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7517" data-spm-anchor-id="a313x.7781069.0.i26" width="80" height="80"><path d="M972.288 305.152c0-0.512 0-1.536-0.512-2.048V302.08c-0.512-2.56-1.024-5.632-2.56-8.192 0-1.024-0.512-1.536-1.024-2.048-0.512-1.024-1.024-1.536-1.536-2.56-0.512-1.536-2.048-2.56-3.072-4.096l-3.072-3.072c-0.512-0.512-1.024-1.024-2.048-1.536-0.512-0.512-1.024-0.512-1.536-1.024l-0.512-0.512h-0.512s-0.512-0.512-1.024-0.512-1.024-0.512-1.536-1.024c-0.512-0.512-1.536-1.024-2.048-1.024l-220.672-92.16L527.36 98.816c-7.68-3.584-16.896-3.584-25.6-0.512L35.84 266.752h-1.024c-2.56 1.024-5.632 2.048-8.192 4.608l-1.024 1.024c-0.512 0.512-1.024 0.512-1.024 1.024-0.512 0.512-1.024 1.024-2.048 1.536l-0.512 0.512v1.024l-0.512 0.512c-0.512 0.512-0.512 1.024-1.024 1.024l-1.024 1.024c-1.536 1.536-2.048 3.072-2.56 4.608-0.512 0.512-0.512 1.536-1.024 2.048 0 0.512 0 0.512-0.512 1.024l-1.024 2.56c-0.512 1.024-1.024 2.56-1.024 4.096v1.024c0 1.024-0.512 2.048-0.512 3.072v363.52c0 13.312 7.168 25.088 18.944 30.72l433.152 220.672v1.024h2.048c0.512 0 0.512 0.512 1.024 0.512s1.024 0.512 1.024 0.512c0.512 0 0.512 0 1.024 0.512v0.512h0.512c0.512 0 1.024 0.512 2.048 0.512h0.512c0.512 0 1.024 0.512 2.048 0l0.512 0.512H481.28c1.024 0 3.072 0 4.608-0.512h0.512c1.024 0 1.536 0 2.048-0.512h1.024c1.024 0 2.048-0.512 2.56-1.024h1.024c0.512 0 1.024 0 1.536-0.512 1.024 0 1.536-0.512 2.048-1.024l156.672-70.144c8.192-3.584 14.848-10.752 18.432-19.456 3.072-8.704 3.072-17.92-1.024-26.624-8.192-17.408-28.672-25.088-45.568-17.408l-108.544 48.128v-302.08l387.072-166.4v113.664c0 18.944 15.36 34.816 34.816 34.816s34.816-15.36 34.816-34.816V305.152h-1.024z m-123.392 3.072L481.28 466.432 344.576 401.408l371.712-148.48 132.608 55.296z m-711.68-4.096L512 167.936l112.128 47.104-365.568 145.92-121.344-56.832z m308.736 221.696v299.52L81.92 640V354.304l364.032 171.52z" fill="#ffffff" p-id="7518" data-spm-anchor-id="a313x.7781069.0.i23" class=""></path><path d="M997.888 575.488c-15.36-12.8-37.376-11.264-50.688 3.584L798.72 752.64l-76.8-87.552c-6.144-7.168-15.36-11.264-24.576-12.288-9.728-0.512-18.944 2.56-26.112 9.216-14.336 13.312-15.872 35.84-3.072 50.688l104.448 119.296c6.144 7.68 16.384 12.288 27.136 12.288 11.264-0.512 20.48-5.12 26.624-12.8l175.616-204.8c12.288-15.872 10.752-37.888-4.096-51.2z" fill="#fafafa" p-id="7519" data-spm-anchor-id="a313x.7781069.0.i24" class="selected"></path></svg>
-                            <p class="text-white">Completed</p>
+                            <p class="text-white"><%=orderList.get(i).getStatus()%></p>
                         </div>
+                        <%}%>
                     </div>
+                    <%
+                        Date dtObj = orderList.get(i).getDate();  // Start date
+                        String dt = dtObj.toString();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                        Calendar c = Calendar.getInstance();
+                        c.setTime(sdf.parse(dt));
+                        c.add(Calendar.DATE, 4);  // number of days to add
+                        dt = sdf.format(c.getTime());  // dt is now the new date
+                    %>
                     <div class="col-md-7">
                         <div class="row pt-2">
                             <div class="col-12">
-                                <p class="h3">Order ID - 3003</p>
+                                <p class="h3">Order ID - <%=orderList.get(i).getOrderID()%></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 pt-2">
-                                <p class="font-light-x1">Place Order Date : 24/06/2021</p>
+                                <p class="font-light-x1">Order Date : <%=orderList.get(i).getDate()%></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 pt-2">
-                                <p class="font-light-x1">Estimate Delivery Date : 26/06/2021</p>
+                                <p class="font-light-x1">Delivery Date : <%=dt%></p>
                             </div>
                         </div>
                         <div class="row ">
                             <div class="col-6 pt-2">
-                                <p class="font-light">Total Price : RM 456</p>
+                                <p class="font-light">Total Price : RM <%=String.format("%.2f", orderList.get(i).getTtlPrice())%></p>
                             </div>
                             <div class="col-6 text-right">
-                                <button class="btn btn-dark">View Order</button>
+                                <form method="GET" action="OrderRecordControl?">
+                                    <input type="hidden" name="ordOpt" value="6">
+                                    <input type="hidden" name="diliveryDate" value="<%=dt%>">
+                                    <input type="hidden" name="ordID" value="<%=orderList.get(i).getOrderID()%>">
+                                    <button type="submit" class="btn btn-dark">View Order</button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <%}%>
         </div>
+        <%}%>
         <!--End Order Status-->
 
-        <!--Start Error message empty-->
-        <div class="container mb-5" style="display:none;">
+        <!--Start Error message-->
+        <%if (isEmpty) {%>
+        <%if (countPrss > 0) {%>
+        <div class="container mb-5">
+            <hr>
+            <div class="row justify-content-center mt-5">
+                <svg t="1616954159593" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="535" width="80" height="80"><path d="M704.137 63.946c-141.412 0-256.05 114.637-256.05 256.05s114.638 256.05 256.05 256.05 256.05-114.637 256.05-256.05-114.638-256.05-256.05-256.05z m0 446.969c-105.441 0-190.918-85.477-190.918-190.918s85.477-190.918 190.918-190.918 190.918 85.477 190.918 190.918-85.477 190.918-190.918 190.918z" p-id="536" fill="#cdcdcd"></path><path d="M801.219 319.996h-97.082v-97.295c0-17.075-14.357-30.917-32.068-30.917S640 205.626 640 222.701v130.172c0 7.818 3.017 14.953 7.98 20.397 0.065 0.075 0.133 0.147 0.199 0.222 0.073 0.079 0.146 0.16 0.22 0.238 5.644 6.189 13.652 10.06 22.543 10.06h130.276c17.089 0 30.942-14.281 30.942-31.897 0.001-17.616-13.852-31.897-30.941-31.897zM225.408 383.964h124.186c18.43 0 34.371-13.94 34.371-32.371s-15.94-31.371-34.371-31.371H225.408c-18.43 0-33.371 12.94-33.371 31.371s14.941 32.371 33.371 32.371zM192.585 544.731c0 17.408 14.113 31.521 31.521 31.521h192.119c17.409 0 31.521-14.113 31.521-31.521 0-17.409-14.112-31.522-31.521-31.522H224.107c-17.409 0-31.522 14.113-31.522 31.522zM192.585 735.842c0 17.651 14.309 31.96 31.959 31.96h447.633c17.65 0 31.959-14.309 31.959-31.96 0-17.65-14.309-31.959-31.959-31.959H224.545c-17.651 0-31.96 14.308-31.96 31.959z" p-id="537" fill="#cdcdcd"></path><path d="M800.278 639.965c-17.744 0-32.129 14.385-32.129 32.129L768 865c0 16.568-13.432 31-30 31H158c-16.568 0-30-14.432-30-31V222c0-16.568 13.432-30 30-30h223.407c0.88 0.073 1.769 0.119 2.668 0.119 17.708 0 32.064-14.356 32.064-32.064 0-17.694-14.333-32.04-32.021-32.063v-0.001H160.333c-53.572 0-96 43.428-96 97v638.232c0 53.571 42.428 96 96 96h574.828c53.571 0 97-42.429 97-96 0 0-0.161-189.802-0.161-191.129 0-17.744-13.978-32.129-31.722-32.129z" p-id="538" fill="#cdcdcd"></path></svg>            </div>
+            <div class="row justify-content-center pt-3">
+                <p style="color:#cdcdcd;">Order Still in Processing</p>
+            </div>
+        </div>
+        <%} else {%>
+        <div class="container mb-5">
             <hr>
             <div class="row justify-content-center mt-5">
                 <svg t="1616679981762" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3261" width="80" height="80">
@@ -234,19 +208,18 @@
                 <P style="color:#cdcdcd;">You haven't placed any orders yet</P>
             </div>
         </div>
-        <!--End Error message empty-->
-        <!--Start Error message did not have this record-->
-        <div class="container mb-5" style="display:none;">
-            <hr>
+        <%}%>
+        <%} else if (isNotFound) {%>
+        <div class="container mb-5">
             <div class="row justify-content-center mt-5">
                 <svg t="1616744429471" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="14011" width="70" height="70"><path d="M960.253652 703.916984c8.637728 8.636704 8.637728 22.64065 0.001023 31.277354l-281.871739 281.871739c-8.636704 8.636704-22.64065 8.636704-31.278377-0.001023l0 0c-8.636704-8.635681-8.636704-22.64065 0-31.276331l281.871739-281.871739C937.614026 695.279257 951.616948 695.279257 960.253652 703.916984L960.253652 703.916984z" p-id="14012" fill="#cdcdcd"></path><path d="M960.254675 1017.065054c-8.636704 8.637728-22.64065 8.637728-31.277354 0.002047l-281.871739-281.871739c-8.636704-8.636704-8.636704-22.641673 0.001023-31.278377l0 0c8.635681-8.636704 22.64065-8.636704 31.276331 0l281.871739 281.871739C968.892403 994.425428 968.892403 1008.429373 960.254675 1017.065054L960.254675 1017.065054z" p-id="14013" fill="#cdcdcd"></path><path d="M732.397131 248.980631c0 12.216229-9.901511 22.11774-22.115694 22.11774l-398.626883 0c-12.215206 0-22.116717-9.902534-22.116717-22.11774l0 0c0-12.214183 9.902534-22.115694 22.116717-22.115694l398.626883 0C722.49562 226.863914 732.397131 236.766448 732.397131 248.980631L732.397131 248.980631z" p-id="14014" fill="#cdcdcd"></path><path d="M732.397131 492.752634c0 12.216229-9.901511 22.11774-22.115694 22.11774l-398.626883 0c-12.215206 0-22.116717-9.902534-22.116717-22.11774l0 0c0-12.214183 9.902534-22.115694 22.116717-22.115694l398.626883 0C722.49562 470.63694 732.397131 480.539474 732.397131 492.752634L732.397131 492.752634z" p-id="14015" fill="#cdcdcd"></path><path d="M522.024819 721.127971c0 12.216229-9.901511 22.11774-22.115694 22.11774l-188.254571 0c-12.215206 0-22.116717-9.902534-22.116717-22.11774l0 0c0-12.214183 9.902534-22.115694 22.116717-22.115694l188.254571 0C512.124332 699.012278 522.024819 708.914812 522.024819 721.127971L522.024819 721.127971z" p-id="14016" fill="#cdcdcd"></path><path d="M836.267826 0.455371l-648.536676 0c-71.938426 0-130.464377 58.525951-130.464377 130.464377l0 762.109338c0 71.938426 58.525951 130.464377 130.464377 130.464377l355.275539 0c0.473791 0.029676 0.949628 0.050142 1.430582 0.050142 12.446473 0 22.537296-10.090822 22.537296-22.537296 0-12.008498-9.392928-21.819958-21.230534-22.496363-0.00614-0.014326-0.01228-0.027629-0.017396-0.040932l-357.995487 0c-47.110971 0-85.438904-38.327934-85.438904-85.438904l0-762.109338c0-47.110971 38.327934-85.438904 85.438904-85.438904l648.536676 0c47.110971 0 85.438904 38.327934 85.438904 85.438904l0 467.611024c-0.029676 0.471744-0.049119 0.946558-0.049119 1.425466 0 12.446473 10.089799 22.537296 22.537296 22.537296 12.446473 0 22.537296-10.090822 22.537296-22.537296l0-469.036489C966.732204 58.982346 908.206252 0.455371 836.267826 0.455371z" p-id="14017" fill="#cdcdcd"></path></svg>
             </div>
             <div class="row justify-content-center pt-3">
-                <p style="color:#cdcdcd;">Your Order ID does not exist.</p>
+                <p style="color:#cdcdcd;">This Order ID does not exist</p>
             </div>
         </div>
-        <!--End Error message empty did not have this record-->
-
+        <%}%>
+        <!--End Error message-->
 
 
         <%@include  file="components/clientFooter.jsp"%>

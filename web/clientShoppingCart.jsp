@@ -218,7 +218,7 @@
                         </div>
                         <div class="row pb-3 font-size-14">
                             <div class="col-md-6 col-sm-6 col-6 font-light">Shipping</div>
-                            <div class="col-md-6 col-sm-6 col-6 text-right font-light"><span>RM 5.00</span></div>
+                            <div class="col-md-6 col-sm-6 col-6 text-right font-light"><span>RM 0.00</span></div>
                         </div>
                         <div class="border-line-2"></div>
                         <div class="row pb-2 pt-2 font-size-19">
