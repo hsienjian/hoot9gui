@@ -5,137 +5,134 @@
  */
 package domain;
 
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-
-
-@Entity
-@Table(name = "REGISTERED_SUBJECT")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "RegisteredSubject.findAll", query = "SELECT r FROM RegisteredSubject r")
-    , @NamedQuery(name = "RegisteredSubject.findByRegSubjectId", query = "SELECT r FROM RegisteredSubject r WHERE r.regSubjectId = :regSubjectId")})
 /**
  *
- * @author Ruey
+ * @author j.chong
  */
-
 public class Staff {
 
-    private String staffID;
-    private String staffFirstName;
-    private String stafflastName;
-    private int staffAge;
-    private char gender;
-    private int phoneNo;
-    private int roleID;
-    private String roleDesc;
-    private String joinDate;
-    private int workingDays;
+    private Integer staffID;
+    private String firstName;
+    private String lastName;
+    private Integer age;
+    private String email;
+    private String password;
+    private String gender;
+    private String address;
+    private String phoneNo;
+    private String position;
 
     public Staff() {
-
     }
 
-    public Staff(String staffID, String staffFirstName, String stafflastName, int staffAge, char gender, int phoneNo, int roleID, String roleDesc, String joinDate, int workingDays) {
+    public Staff(Integer staffID, String firstName, String lastName, Integer age, String email, String password, String gender, String address, String phoneNo, String position) {
         this.staffID = staffID;
-        this.staffFirstName = staffFirstName;
-        this.stafflastName = stafflastName;
-        this.staffAge = staffAge;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.password = password;
         this.gender = gender;
+        this.address = address;
         this.phoneNo = phoneNo;
-        this.roleID = roleID;
-        this.roleDesc = roleDesc;
-        this.joinDate = joinDate;
-        this.workingDays = workingDays;
+        this.position = position;
     }
 
-    public String getStaffID() {
+    public Staff(String firstName, String lastName, Integer age, String email, String password, String gender, String address, String phoneNo, String position) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+        this.gender = gender;
+        this.address = address;
+        this.phoneNo = phoneNo;
+        this.position = position;
+    }
+
+    public Integer getStaffID() {
         return staffID;
     }
 
-    public void setStaffID(String staffID) {
+    public void setStaffID(Integer staffID) {
         this.staffID = staffID;
     }
 
-    public String getStaffFirstName() {
-        return staffFirstName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setStaffFirstName(String staffFirstName) {
-        this.staffFirstName = staffFirstName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getStafflastName() {
-        return stafflastName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setStafflastName(String stafflastName) {
-        this.stafflastName = stafflastName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public int getStaffAge() {
-        return staffAge;
+    public Integer getAge() {
+        return age;
     }
 
-    public void setStaffAge(int staffAge) {
-        this.staffAge = staffAge;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
-    public char getGender() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
-    public int getPhoneNo() {
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNo() {
         return phoneNo;
     }
 
-    public void setPhoneNo(int phoneNo) {
+    public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
     }
 
-    public int getRoleID() {
-        return roleID;
+    public String getPosition() {
+        return position;
     }
 
-    public void setRoleID(int roleID) {
-        this.roleID = roleID;
-    }
-
-    public String getRoleDesc() {
-        return roleDesc;
-    }
-
-    public void setRoleDesc(String roleDesc) {
-        this.roleDesc = roleDesc;
-    }
-
-    public String getJoinDate() {
-        return joinDate;
-    }
-
-    public void setJoinDate(String joinDate) {
-        this.joinDate = joinDate;
-    }
-
-    public int getWorkingDays() {
-        return workingDays;
-    }
-
-    public void setWorkingDays(int workingDays) {
-        this.workingDays = workingDays;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     @Override
     public String toString() {
-        return "Staff{" + "staffID=" + staffID + ", staffFirstName=" + staffFirstName + ", stafflastName=" + stafflastName + ", staffAge=" + staffAge + ", gender=" + gender + ", phoneNo=" + phoneNo + ", roleID=" + roleID + ", roleDesc=" + roleDesc + ", joinDate=" + joinDate + ", workingDays=" + workingDays + '}';
+        return "domain.Staff[ staffId=" + staffID + "firstName=" + firstName + "lastName=" + lastName + "age=" + age + "email=" + email + "password=" + password + "gender=" + gender + "address=" + address + "phoneNo=" + phoneNo + "position=" + position + " ]";
     }
 
 }

@@ -7,25 +7,37 @@ package domain;
 
 /**
  *
- * @author Asus
+ * @author j.chong
  */
 public class Shoes {
 
-    private int prodID;
+    private Integer prodID;
     private String size;
     private String prodName;
     private String brand;
-    private double price;
-    private String stock;
+    private Double price;
+    private Integer stock;
     private String season;
-    private Color colorID;
-    private Staff staffID;
+    private String img;
+    private Integer colorID;
+    private Integer staffID;
 
     public Shoes() {
-
     }
 
-    public Shoes(int prodID, String size, String prodName, String brand, double price, String stock, String season, Color colorID, Staff staffID) {
+    public Shoes(String size, String prodName, String brand, Double price, Integer stock, String season, String img, Integer colorID, Integer staffID) {
+        this.size = size;
+        this.prodName = prodName;
+        this.brand = brand;
+        this.price = price;
+        this.stock = stock;
+        this.season = season;
+        this.img = img;
+        this.colorID = colorID;
+        this.staffID = staffID;
+    }
+
+    public Shoes(Integer prodID, String size, String prodName, String brand, Double price, Integer stock, String season, String img, Integer colorID, Integer staffID) {
         this.prodID = prodID;
         this.size = size;
         this.prodName = prodName;
@@ -33,85 +45,94 @@ public class Shoes {
         this.price = price;
         this.stock = stock;
         this.season = season;
+        this.img = img;
         this.colorID = colorID;
         this.staffID = staffID;
     }
 
-    public int getProdID() {
+    public Integer getProdID() {
         return prodID;
+    }
+
+    public void setProdID(Integer prodID) {
+        this.prodID = prodID;
     }
 
     public String getSize() {
         return size;
     }
 
-    public String getProdName() {
-        return prodName;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public String getStock() {
-        return stock;
-    }
-
-    public String getSeason() {
-        return season;
-    }
-
-    public Color getColorID() {
-        return colorID;
-    }
-
-    public Staff getStaffID() {
-        return staffID;
-    }
-
-    public void setProdID(int prodID) {
-        this.prodID = prodID;
-    }
-
     public void setSize(String size) {
         this.size = size;
+    }
+
+    public String getProdName() {
+        return prodName;
     }
 
     public void setProdName(String prodName) {
         this.prodName = prodName;
     }
 
+    public String getBrand() {
+        return brand;
+    }
+
     public void setBrand(String brand) {
         this.brand = brand;
     }
 
-    public void setPrice(double price) {
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public void setStock(String stock) {
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
         this.stock = stock;
+    }
+
+    public String getSeason() {
+        return season;
     }
 
     public void setSeason(String season) {
         this.season = season;
     }
 
-    public void setColorID(Color colorID) {
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public Integer getColorID() {
+        return colorID;
+    }
+
+    public void setColorID(Integer colorID) {
         this.colorID = colorID;
     }
 
-    public void setStaffID(Staff staffID) {
+    public Integer getStaffID() {
+        return staffID;
+    }
+
+    public void setStaffID(Integer staffID) {
         this.staffID = staffID;
     }
 
     @Override
     public String toString() {
-        return "Shoes{" + "prodID=" + prodID + ", size=" + size + ", prodName=" + prodName + ", brand=" + brand + ", price=" + price + ", stock=" + stock + ", season=" + season + ", colorID=" + colorID + ", staffID=" + staffID + '}';
+        return "domain.Shoes[ prodId=" + prodID + "size=" + size + "prodName=" + prodName + "brand=" + brand + "price=" + price + "stock=" + stock + "season=" + season + "img=" + img + "colorID=" + colorID + "staffID=" + staffID + " ]";
     }
 
 }

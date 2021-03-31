@@ -27,11 +27,11 @@ public class CustomerDA {
     public CustomerDA() {
     }
 
-    public Customer getCustomer(int custID) {
-        createConnection();
-        String queryStr = "SELECT * FROM " + tableName + " WHERE CUST_ID=?";
+    public Customer getCustomer(int custID) throws SQLException {
         Customer customer = null;
         try {
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName + " WHERE CUST_ID=?";
             stmt = conn.prepareStatement(queryStr);
             stmt.setInt(1, custID);
             ResultSet rs = stmt.executeQuery();
@@ -40,17 +40,17 @@ public class CustomerDA {
                 customer = new Customer(custID, rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getInt("AGE"), rs.getString("EMAIL"), rs.getString("PASSWORD"), rs.getString("GENDER"), rs.getString("ADDRESS"), rs.getString("PHONE_NO"), rs.getInt("REWARDPOINT"));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
         } finally {
             shutDown();
         }
         return customer;
     }
 
-    public void addCustomer(Customer customer) {
-        createConnection();
-        String queryStr = "INSERT INTO " + tableName + " (FIRST_NAME, LAST_NAME, AGE, EMAIL, PASSWORD, GENDER, ADDRESS, PHONE_NO, REWARD_POINT) VALUES(?,?,?,?,?,?,?,?,?)";
+    public void addCustomer(Customer customer) throws SQLException {
         try {
+            createConnection();
+            String queryStr = "INSERT INTO " + tableName + " (FIRST_NAME, LAST_NAME, AGE, EMAIL, PASSWORD, GENDER, ADDRESS, PHONE_NO, REWARD_POINT) VALUES(?,?,?,?,?,?,?,?,?)";
             stmt = conn.prepareStatement(queryStr);
             stmt.setString(1, customer.getFirstName());
             stmt.setString(2, customer.getLastName());
@@ -63,16 +63,16 @@ public class CustomerDA {
             stmt.setInt(9, customer.getRewardPoint());
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
         } finally {
             shutDown();
         }
     }
 
-    public void updateCustomer(Customer customer) {
-        createConnection();
-        String queryStr = "UPDATE " + tableName + " SET FIRST_NAME=?, LAST_NAME=?, AGE=?, EMAIL=?, PASSWORD=?, GENDER=?, ADDRESS=?, PHONE_NO=?, REWARD_POINT=? WHERE CUST_ID=?";
+    public void updateCustomer(Customer customer) throws SQLException {
         try {
+            createConnection();
+            String queryStr = "UPDATE " + tableName + " SET FIRST_NAME=?, LAST_NAME=?, AGE=?, EMAIL=?, PASSWORD=?, GENDER=?, ADDRESS=?, PHONE_NO=?, REWARD_POINT=? WHERE CUST_ID=?";
             stmt = conn.prepareStatement(queryStr);
             stmt.setString(1, customer.getFirstName());
             stmt.setString(2, customer.getLastName());
@@ -86,41 +86,41 @@ public class CustomerDA {
             stmt.setInt(10, customer.getCustID());
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
         } finally {
             shutDown();
         }
     }
 
-    public void deleteCustomer(int custID) {
-        createConnection();
-        String queryStr = "DELETE FROM " + tableName + " WHERE CUST_ID=?";
+    public void deleteCustomer(int custID) throws SQLException {
         try {
+            createConnection();
+            String queryStr = "DELETE FROM " + tableName + " WHERE CUST_ID=?";
             stmt = conn.prepareStatement(queryStr);
             stmt.setInt(1, custID);
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
         } finally {
             shutDown();
         }
     }
 
-    private void createConnection() {
+    private void createConnection() throws SQLException {
         try {
             conn = DriverManager.getConnection(host, user, password);
             System.out.println("***TRACE: Connection established.");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
         }
     }
 
-    private void shutDown() {
+    private void shutDown() throws SQLException {
         if (conn != null) {
             try {
                 conn.close();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+                throw ex;
             }
         }
     }
