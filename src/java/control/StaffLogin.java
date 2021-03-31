@@ -34,30 +34,25 @@ public class StaffLogin extends HttpServlet {
             throws ServletException, IOException {
         StringBuffer errorMsg = new StringBuffer();
         HttpSession session = request.getSession();
-        Object activeStaff = session.getAttribute("activeStaff");
 
-        if (activeStaff == null) {
-            String email = request.getParameter("staff_email");
-            String pw = request.getParameter("staff_pw");
-            StaffDA staffDA = new StaffDA();
-            Staff staff = staffDA.getStaff(email);
+        String email = request.getParameter("staff_email");
+        String pw = request.getParameter("staff_pw");
+        StaffDA staffDA = new StaffDA();
+        Staff staff = staffDA.getStaff(email);
 
-            if (staff == null) {
-                errorMsg.append("Invalid Staff Email.\n");
-                request.setAttribute("errorMsg", errorMsg);
-                RequestDispatcher rd = request.getRequestDispatcher("staff_login.jsp");
-                rd.include(request, response);
-            } else {
-                if (!staff.getPassword().equals(pw)) {
-                    errorMsg.append("Incorrect Staff Password.\n");
-                    request.setAttribute("errorMsg", activeStaff);
-                    RequestDispatcher rd = request.getRequestDispatcher("staff_login.jsp");
-                    rd.include(request, response);
-                } else {
-                    session.setAttribute("activeStaff", email);
-                    response.sendRedirect("staff.html");
-                }
-            }
+        if (staff == null) {
+            errorMsg.append("Invalid Staff Email.\n");
+            request.setAttribute("errorMsg", errorMsg);
+        } else if (!staff.getPassword().equals(pw)) {
+            errorMsg.append("Incorrect Staff Password.\n");
+            request.setAttribute("errorMsg", errorMsg);
+        } else {
+            session.setAttribute("activeStaff", email);
+        }
+
+        if (session.getAttribute("activeStaff") == null) {
+            RequestDispatcher rd = request.getRequestDispatcher("staff_login.jsp");
+            rd.include(request, response);
         } else {
             response.sendRedirect("staff.html");
         }

@@ -8,49 +8,53 @@ and open the template in the editor.
     Author     : j.chong
 */
 
-body {
-    margin: 0px !important;
-    background-color: whitesmoke !important;
+.title{
+    transform: translate(65px, 15px);
+    width: max-content;
 }
-.btn{
+
+.btn.close-btn, .btn.menu-btn{
     cursor: pointer;
-    outline: unset;
-    border: unset;
-    background-color: unset;
+    outline: none !important;
+    border: none !important;
+    box-shadow: unset !important;
+    background-color: unset !important;
 }
 .menu-btn {
     position: absolute;
-    font-size: 24px;
-    transform: translate(20px, 15px);
+    font-size: 24px !important;
+    transform: translate(8px, 8px);
 }
 .close-btn {
-    font-size: 28px;
-    transform: translate(48px, -40px);
+    font-size: 24px !important;
+    transform: translate(35px, -10px);
 }
 .copyright {
     width: max-content;
     position: fixed;
     padding: 20px 15px;
-    font-size: 12px;
+    font-size: 10px;
     bottom: 0px;
 }
 .staff-nav {
+    position: absolute;
     transform: translateX(-270px);
     transition: 0.4s;
     width: 270px;
     min-height: 100vh;
     height: max-content;
     background-color: rgb(224,255,255);
+    z-index: 50;
 }
 .staff-nav>ul {
     list-style: none;
-    margin: 0px 20px;
-    padding: 25px 0px;
+    margin: 0px 25px;
+    padding: 30px 0px;
 }
 .staff-nav>ul>li {
     height: max-content;
     padding: 0px 10px;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
     cursor: pointer;
 }
 .staff-nav>ul i {

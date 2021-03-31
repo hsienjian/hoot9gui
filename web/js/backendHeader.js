@@ -13,7 +13,7 @@ function hideMenu() {
     document.getElementById("menuBtn").style.opacity = "1";
 }
 function handleCollapse(element, icon) {
-    console.log(event.target.getAttribute('id'));
+//    console.log(event.target.getAttribute('id'));
     if (event.target.getAttribute('name') === element || event.target.getAttribute('id') === icon){
         if ($("#" + element).css("maxHeight") === "0px") {
             var height = document.getElementById(element).scrollHeight;

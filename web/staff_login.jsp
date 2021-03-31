@@ -67,6 +67,10 @@
         <%
             Object activeStaff = session.getAttribute("activeStaff");
             Object errorMsg = request.getAttribute("errorMsg");
+            
+            if (session.getAttribute("activeStaff") != null) {
+                response.sendRedirect("staff.html");
+            }
         %>
     </head>
     <body
@@ -80,7 +84,7 @@
                     <label>Email : </label>
                     <input name="staff_email" type="email" />
                 </div>
-                <% if ( activeStaff == null) { %>
+                <% session.removeAttribute("activeStaff"); if ( activeStaff == null) { %>
                     <font style="position:absolute;font-weight:600" color="#B22222"><%= (errorMsg == null)?"":errorMsg %></font>
                 <% } else { 
                     String site = "http://localhost:8080/build/staff.html";
