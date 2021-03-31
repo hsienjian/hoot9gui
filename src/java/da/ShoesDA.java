@@ -11,10 +11,10 @@ import javax.swing.JOptionPane;
 
 public class ShoesDA {
 
-    private String host = "jdbc:derby://localhost:1527/guidb";
-    private String user = "guidb";
-    private String password = "guidb";
-    private String tableName = "SHOES";
+    private final String host = "jdbc:derby://localhost:1527/guidb";
+    private final String user = "guidb";
+    private final String password = "guidb";
+    private final String tableName = "SHOES";
     private Connection conn;
     private PreparedStatement stmt;
 
@@ -96,12 +96,28 @@ public class ShoesDA {
         return shoes;
     }
 
-    private void createConnection() {
+    public void restock(int prodID, int stock) throws SQLException {
+        createConnection();
+        String queryStr = "UPDATE " + tableName + " SET STOCK=? WHERE PROD_ID=?";
+        try {
+            createConnection();
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setDouble(1, stock);
+            stmt.setDouble(2, prodID);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+    }
+
+    private void createConnection() throws SQLException {
         try {
             conn = DriverManager.getConnection(host, user, password);
             System.out.println("***TRACE: Connection established.");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
         }
     }
 
