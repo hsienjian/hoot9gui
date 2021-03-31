@@ -25,6 +25,18 @@ public class Shoes {
     public Shoes() {
     }
 
+    public Shoes(String size, String prodName, String brand, Double price, Integer stock, String season, String img, Integer colorID, Integer staffID) {
+        this.size = size;
+        this.prodName = prodName;
+        this.brand = brand;
+        this.price = price;
+        this.stock = stock;
+        this.season = season;
+        this.img = img;
+        this.colorID = colorID;
+        this.staffID = staffID;
+    }
+
     public Shoes(Integer prodID, String size, String prodName, String brand, Double price, Integer stock, String season, String img, Integer colorID, Integer staffID) {
         this.prodID = prodID;
         this.size = size;

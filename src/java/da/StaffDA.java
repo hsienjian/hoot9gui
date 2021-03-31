@@ -21,29 +21,11 @@ public class StaffDA {
     public void StaffDA() {
     }
 
-    public Staff getStaff(String email) {
-        createConnection();
-        String queryStr = "SELECT * FROM " + tableName + " WHERE EMAIL=?";
-        Staff staff = null;
-        try {
-            stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                staff = new Staff(rs.getInt("STAFF_ID"), rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getInt("AGE"), rs.getString("EMAIL"), rs.getString("PASSWORD"), rs.getString("GENDER"), rs.getString("ADDRESS"), rs.getString("PHONE_NO"), rs.getString("POSITION"));
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-        return staff;
-    }
-
-    public Staff getStaff(int staffID) {
-        createConnection();
+    public ArrayList<Staff> listAllStaff() throws SQLException {
         ArrayList<Staff> listStaff = new ArrayList<Staff>();
         Staff staff = null;
         try {
+            createConnection();
             String selectStt = "SELECT * FROM " + tableName + " ORDER BY STAFF_ID";
             stmt = conn.prepareStatement(selectStt);
             ResultSet rs = stmt.executeQuery();
@@ -59,7 +41,25 @@ public class StaffDA {
         return listStaff;
     }
 
-    public Staff getRecord(int staff_id) throws SQLException {
+    public Staff getStaff(String email) throws SQLException {
+        Staff staff = null;
+        try {
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName + " WHERE EMAIL=?";
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                staff = new Staff(rs.getInt("STAFF_ID"), rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getInt("AGE"), rs.getString("EMAIL"), rs.getString("PASSWORD"), rs.getString("GENDER"), rs.getString("ADDRESS"), rs.getString("PHONE_NO"), rs.getString("POSITION"));
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        }
+        return staff;
+    }
+
+    public Staff getStaff(int staff_id) throws SQLException {
         Staff choosen = null;
         try {
             createConnection();
@@ -71,7 +71,6 @@ public class StaffDA {
                 choosen = new Staff(staff_id, rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getInt("AGE"), rs.getString("EMAIL"), rs.getString("PASSWORD"), rs.getString("GENDER"), rs.getString("ADDRESS"), rs.getString("PHONE_NO"), rs.getString("POSITION"));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             throw ex;
         } finally {
             shutDown();
@@ -80,8 +79,8 @@ public class StaffDA {
     }
 
     public void updateRecord(Staff staff) throws SQLException {
-        createConnection();
         try {
+            createConnection();
             String updateStt = "UPDATE " + tableName + " SET FIRST_NAME=? , LAST_NAME=? , AGE=? , EMAIL=? , PASSWORD=? , GENDER=? , ADDRESS=? , PHONE_NO=? , POSITION=? WHERE STAFF_ID=?";
             stmt = conn.prepareStatement(updateStt);
             stmt.setString(1, staff.getFirstName());
@@ -96,7 +95,6 @@ public class StaffDA {
             stmt.setInt(10, staff.getStaffID());
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             throw ex;
         } finally {
             shutDown();
@@ -104,8 +102,8 @@ public class StaffDA {
     }
 
     public void addRecord(Staff staff) throws SQLException {
-        createConnection();
         try {
+            createConnection();
             String insertStt = "INSERT INTO " + tableName + " (FIRST_NAME, LAST_NAME, AGE, EMAIL, PASSWORD, GENDER, ADDRESS, PHONE_NO, POSITION) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
             stmt = conn.prepareStatement(insertStt);
             stmt.setString(1, staff.getFirstName());
@@ -119,16 +117,16 @@ public class StaffDA {
             stmt.setString(9, staff.getPosition());
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            throw ex;
         } finally {
             shutDown();
         }
     }
 
     public void deleteStaff(int staffID) throws SQLException {
-        createConnection();
-        String queryStr = "DELETE FROM " + tableName + " WHERE STAFF_ID = ?";
         try {
+            createConnection();
+            String queryStr = "DELETE FROM " + tableName + " WHERE STAFF_ID = ?";
             stmt = conn.prepareStatement(queryStr);
             stmt.setInt(1, staffID);
             stmt.executeUpdate();
@@ -151,7 +149,6 @@ public class StaffDA {
                 oldpswd = rs.getString("PASSWORD");
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             throw ex;
         } finally {
             shutDown();
@@ -187,7 +184,6 @@ public class StaffDA {
                 found = new Staff(rs.getInt("STAFF_ID"), rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getInt("AGE"), staffEmail, staffPW, rs.getString("GENDER"), rs.getString("ADDRESS"), rs.getString("PHONE_NO"), rs.getString("POSITION"));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             throw ex;
         } finally {
             shutDown();
@@ -195,21 +191,21 @@ public class StaffDA {
         return found;
     }
 
-    private void createConnection() {
+    private void createConnection() throws SQLException {
         try {
             conn = DriverManager.getConnection(host, user, password);
             System.out.println("***TRACE: Connection established.");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
         }
     }
 
-    private void shutDown() {
+    private void shutDown() throws SQLException {
         if (conn != null) {
             try {
                 conn.close();
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+                throw ex;
             }
         }
     }
