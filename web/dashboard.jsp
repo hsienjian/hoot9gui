@@ -57,7 +57,7 @@
             
         %>
         <div id="wrapper">
-            <div class="wrap-content">
+            <div class="wrap-content container">
 <%for (int j = 0; j < orderList.size(); j++) {%>
                 <div class="row ">
                     <div class="col-3 ">
