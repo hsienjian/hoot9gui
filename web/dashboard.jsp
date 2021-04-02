@@ -31,7 +31,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="css/console.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -48,28 +47,30 @@
         <%
             CustomerDA customerDa = new CustomerDA();
             OrderDA orderDa = new OrderDA();
-            //OrderListDA orderlistDa = new OrderListDA();
+            OrderListDA orderListDa = new OrderListDA();
             //ShoesDA shoesDa = new ShoesDA();
             ArrayList<Customer> Customer = customerDa.getCustomer();
             ArrayList<Order> orderList = orderDa.listRecord();
-            //ArrayList<OrderList> cusOrderList = orderlistDa.CusOrderList();
+            ArrayList<OrderList> custOrderList = orderListDa.CusOrderList();
             //ArrayList<Shoes> shoesdetails = shoesDa.getRecord();
             
             
         %>
         <div id="wrapper">
             <div class="wrap-content">
-
+<%for (int j = 0; j < orderList.size(); j++) {%>
                 <div class="row ">
                     <div class="col-3 ">
                         <div class="card text-center">
                             <div class="card-body bg-light">
                                 <h5 class="card-title">Revenue</h5>
-                                <p class="card-text">123<!-- implement result --></p>
+                                <p class="card-text"><%= orderList.get(j).getTtlPrice() %> </p>
                                 <a href="#" class="btn btn-primary b-full">View</a>
                             </div>
                         </div>
                     </div>
+                                 <% 
+                                                }%>
                     <div class="col-3">
                         <div class="card text-center ">
                             <div class="card-body bg-light">
@@ -97,6 +98,7 @@
                             </div>
                         </div>
                     </div>
+                   
                 </div>
                 <div class="table-wrapper ">
                     <label for="Sort">Sort By:</label>
@@ -117,9 +119,9 @@
                                             <thead class="table-light">
                                                 <tr>
                                                     <th scope="col" class="align-middle">Order ID </th>
+                                                    <th scope="col" class="align-middle">Order Date</th>
                                                     <th scope="col" class="align-middle">Customer Name </th>
                                                     <th scope="col" class="align-middle">Phone No</th>
-                                                    <th scope="col" class="align-middle">Total Item</th>
                                                     <th scope="col" class="align-middle">Total (RM)</th>
                                                     <th scope="col" class="align-middle">Status</th>
                                                 </tr>
@@ -129,12 +131,12 @@
                                                 <%for (i = 0; i < orderList.size(); i++) {%>
                                                 <tr>
                                                     <td><%=orderList.get(i).getOrderID()%></td>
+                                                    <td><%=orderList.get(i).getDate() %></td>
                                                     <td><%=Customer.get(i).getFirstName()%> <%=Customer.get(i).getLastName()%></td>
                                                     <td><%=Customer.get(i).getPhoneNo()%></td>
-                                                    <td></td>
-                                                    <td>2000</td>
+                                                    <td><%=orderList.get(i).getTtlPrice() %> </td>
                                                     <td>
-                                                        <a href="#" type="button" class="btn btn-primary" style="width: 80px">Pending</a>
+                                                        <a href="#" type="button" class="btn btn-primary" style="width: 80px"><%=orderList.get(i).getStatus() %></a>
                                                     </td>
                                                 </tr>
                                                 <% }

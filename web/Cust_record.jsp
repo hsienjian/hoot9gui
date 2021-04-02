@@ -19,6 +19,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <title>Customer Record</title>
+        <link rel="stylesheet" href="./css/backendHeader.css">
+        <script src="./js/backendHeader.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -28,89 +34,6 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
         
-        <script>
-            function showMenu() {
-                document.getElementById("menuNav").style.transform = "translateX(0px)";
-                document.getElementById("menuBtn").style.opacity = "0";
-            }
-            function hideMenu() {
-                document.getElementById("menuNav").style.transform = "translateX(-270px)";
-                document.getElementById("menuBtn").style.opacity = "1";
-            }
-            function handleCollapse(element, icon) {
-                console.log(event.target.getAttribute('id'));
-                if (event.target.getAttribute('name') === element || event.target.getAttribute('id') === icon){
-                    if ($("#" + element).css("maxHeight") === "0px") {
-                        var height = document.getElementById(element).scrollHeight;
-                        document.getElementById(element).style.maxHeight = height + "px";
-                        document.getElementById(element).style.overflow = "auto";
-                        document.getElementById(icon).style.transform = "rotate(180deg)";
-                    }else {
-                        document.getElementById(element).style.maxHeight = "0px";
-                        document.getElementById(icon).style.transform = "rotate(0deg)";
-                    }
-                }
-            }
-        </script>
-        <style>
-            body {
-                margin: 0px;
-                background-color: whitesmoke;
-            }
-            .btn{
-                cursor: pointer;
-                outline: unset;
-                border: unset;
-                background-color: unset;
-            }
-            .menu-btn {
-                position: absolute;
-                font-size: 24px;
-                transform: translate(20px, 15px);
-            }
-            .close-btn {
-                font-size: 28px;
-                transform: translate(48px, -40px);
-            }
-            .copyright {
-                width: 2max-content;
-                position: fixed;
-                padding: 20px 15px;
-                font-size: 12px;
-                bottom: 0px;
-            }
-            .staff-nav {
-                transform: translateX(-270px);
-                transition: 0.4s;
-                width: 270px;
-                min-height: 100vh;
-                height: max-content;
-                background-color: rgb(224,255,255, 0.8);
-            }
-            .staff-nav>ul {
-                list-style: none;
-                margin: 0px 20px;
-                padding: 25px 0px;
-            }
-            .staff-nav>ul>li {
-                height: max-content;
-                padding: 0px 10px;
-                margin-bottom: 35px;
-                cursor: pointer;
-            }
-            .staff-nav>ul i {
-                float: right;
-            }
-            .collapse-ul{
-                transition: 0.3s;
-                max-height: 0px;
-                overflow: hidden;
-                padding-left: 35px;
-            }
-            .collapse-ul li{
-                margin-top: 15px;
-            }
-        </style>
     </head>
     <body>
         <jsp:include page="/components/backendHeader.jsp" />
@@ -118,7 +41,7 @@
             CustomerDA customerDa = new CustomerDA();
             ArrayList<Customer> Customer = customerDa.getCustomer();
         %>
-        <div class="wrap-content">
+        <div class="wrap-content container">
                 <table>
                     <div class="mb-3">
                         <div class="row">
@@ -166,8 +89,6 @@
                 </table>
             </div>
         </div>
-        <h1>Hello World!</h1>
-        <h1>Hello World!Hello World!Hello World!Hello World!Hello World!Hello World!</h1>
       
     </body>
 </html>

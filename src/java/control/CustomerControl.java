@@ -5,6 +5,9 @@
  */
 package control;
 
+import da.CustomerDA;
+import da.OrderDA;
+import da.OrderListDA;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -18,6 +21,17 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CustomerControl extends HttpServlet {
 
+    private CustomerDA customerDA;
+    private OrderDA orderDA;
+    private OrderListDA orderlistDA;
+
+    @Override
+    public void init() throws ServletException {
+        customerDA = new CustomerDA();
+        orderDA = new OrderDA();
+        orderlistDA = new OrderListDA();
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
