@@ -21,6 +21,9 @@
         <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
         <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
         <link rel="stylesheet" href="css/styleProduct.css" type="text/css">
+        <link rel="stylesheet" href="css/clientFooter.css">
+        <link rel="stylesheet" href="css/clientHeader1.css">
+        <link rel="stylesheet" href="css/clientSidebar1.css">
         <script>
             function selectChange(val) {
                 //Set the value of action in action attribute of form element.
@@ -30,7 +33,7 @@
         </script>
     </head>
     <body>
-
+        <%@include  file="components/clientHeader.jsp"%>
         <section class="product spad">
             <div class="container">
                 <div class="row">
@@ -103,7 +106,7 @@
                                                 <option value="300">Low to High</option>
                                                 <option value="200">Above RM 200</option>
                                                 <option value="100">Below RM 200</option>
-                                            </select> 
+                                            </select>
                                         </form>
                                     </div>
                                 </div>
@@ -114,10 +117,12 @@
                                             <button type="submit" class="site-btn">SEARCH</button>
                                         </form>
                                     </div>
-                                </div>                
+                                </div>
                             </div>
                         </div>
-                        <div class="row">  
+
+                        <div class="row">
+
                             <%
 
                                 ArrayList<Shoes> listRecord = shoes.listAllShoes();
@@ -151,7 +156,8 @@
                     </div>
                 </div>
             </div>
-        </section>   
+        </section>
+        <%@include  file="components/clientFooter.jsp" %>
     </body>
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>
@@ -162,4 +168,5 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/checkHover.js"></script>
 </html>

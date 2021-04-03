@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : staff_login
     Created on : Mar 17, 2021, 11:29:48 AM
     Author     : j.chong
@@ -67,7 +67,7 @@
         <%
             Object activeStaff = session.getAttribute("activeStaff");
             Object errorMsg = request.getAttribute("errorMsg");
-            
+
             if (session.getAttribute("activeStaff") != null) {
                 response.sendRedirect("staff.html");
             }
@@ -84,12 +84,13 @@
                     <label>Email : </label>
                     <input name="staff_email" type="email" />
                 </div>
-                <% session.removeAttribute("activeStaff"); if ( activeStaff == null) { %>
-                    <font style="position:absolute;font-weight:600" color="#B22222"><%= (errorMsg == null)?"":errorMsg %></font>
-                <% } else { 
-                    String site = "http://localhost:8080/build/staff.html";
+                <% session.removeAttribute("activeStaff");
+                    if (activeStaff == null) {%>
+                <font style="position:absolute;font-weight:600" color="#B22222"><%= (errorMsg == null) ? "" : errorMsg%></font>
+                <% } else {
+                    String site = "http://localhost:8080/build/staff.jsp";
                     response.setStatus(response.SC_MOVED_TEMPORARILY);
-                    response.setHeader("location",site); 
+                    response.setHeader("location",site);
                 }%>
                 <div class="form-group">
                     <label>Password : </label>

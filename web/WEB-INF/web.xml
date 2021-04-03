@@ -16,6 +16,14 @@
         <servlet-name>StaffLogin</servlet-name>
         <servlet-class>control.StaffLogin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CartControl</servlet-name>
+        <servlet-class>control.CartControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ColorControl</servlet-name>
+        <servlet-class>control.ColorControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShoesControl</servlet-name>
         <url-pattern>/ShoesControl</url-pattern>
@@ -31,6 +39,14 @@
     <servlet-mapping>
         <servlet-name>StaffLogin</servlet-name>
         <url-pattern>/StaffLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartControl</servlet-name>
+        <url-pattern>/CartControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ColorControl</servlet-name>
+        <url-pattern>/ColorControl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

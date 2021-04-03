@@ -127,7 +127,7 @@
                         <div class="row">  
                             <div class="col-md-12"> 
                                 <!--Start product List-->
-                                <%for (int i = 0; i < 5; i++) { %>
+                                <%for (int i = 0; i < 5; i++) {%>
                                 <div class="row product-container ml-0 mr-0 pt-4 pb-0">
                                     <div class="col-md-4 col-sm-12">
                                         <img class="product-img img-thumbnail border-0" style="padding-top:90px;" src="images/adidas.jpg" alt="pic1">
@@ -166,7 +166,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="form-group col-md-5 col-sm-4 col-4 mb-0">
-                                                        <button class="btn pt-0 pb-0 pl-0 pr-0" type="button" data-toggle="modal" data-target="#myModal">
+                                                        <button class="btn pt-0 pb-0 pl-0 pr-0" type="button" data-toggle="modal" data-target="#myModal<%=i%>">
                                                             <svg t="1616598933519" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3871" width="28" height="28">
                                                             <path d="M779.3 228.2h-113v-35.4c0-34.9-28.4-63.3-63.3-63.3H425c-34.9 0-63.3 28.4-63.3 63.3v35.4h-113c-32.9 0-59.7 26.8-59.7 59.7v38.5c0 32.9 26.8 59.7 59.7 59.7h1.8v412.8c0 54.1 44 98.1 98.1 98.1h330.9c54.1 0 98.1-44 98.1-98.1V386.1h1.8c32.9 0 59.7-26.8 59.7-59.7v-38.5c-0.1-32.9-26.8-59.7-59.8-59.7z m-374.9-35.4c0-11.4 9.2-20.6 20.6-20.6h178c11.4 0 20.6 9.2 20.6 20.6v35.4H404.4v-35.4z m330.4 606c0 30.5-24.8 55.4-55.4 55.4H348.5c-30.5 0-55.4-24.8-55.4-55.4V386.1h441.7v412.7z m61.5-472.4c0 9.4-7.6 17-17 17H248.7c-9.4 0-17-7.6-17-17v-38.5c0-9.4 7.6-17 17-17h530.7c9.4 0 17 7.6 17 17v38.5z" p-id="3872" fill="#dc3545"></path><path d="M377.9 462.3h42.7v317.5h-42.7zM492.6 462.3h42.7v317.5h-42.7zM607.4 462.3h42.7v317.5h-42.7z" p-id="3873" fill="#dc3545"></path>
                                                             </svg>
@@ -174,7 +174,7 @@
                                                         </button>
                                                     </div>
                                                     <!--Start Modal-->
-                                                    <div id="myModal" class="modal">
+                                                    <div id="myModal<%=i%>" class="modal">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">

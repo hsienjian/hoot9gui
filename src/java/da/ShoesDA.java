@@ -228,9 +228,9 @@ public class ShoesDA {
     }
 
     public Shoes getOrderShoes(int prodID) throws SQLException {
-        createConnection();
         Shoes orderShoes = null;
         try {
+            createConnection();
             String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID = ?";
             stmt = conn.prepareStatement(queryStr);
             stmt.setInt(1, prodID);
@@ -244,5 +244,26 @@ public class ShoesDA {
             shutDown();
         }
         return orderShoes;
+    }
+
+    public Shoes checkShoesStock(String shoesName, String shoesSize, Integer colorID) throws SQLException {
+        Shoes shoes = null;
+        try {
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_NAME = ? AND SIZE = ? AND COLOR_ID = ?";
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1, shoesName);
+            stmt.setString(2, shoesSize);
+            stmt.setInt(3, colorID);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                shoes = new Shoes(rs.getInt("PROD_ID"), rs.getString("SIZE"), rs.getString("PROD_NAME"), rs.getDouble("PRICE"), rs.getInt("STOCK"), rs.getString("IMG"), rs.getInt("COLOR_ID"), null);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return shoes;
     }
 }
