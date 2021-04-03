@@ -69,6 +69,9 @@ public class ShoesControl extends HttpServlet {
             case 5:
                 colors(request, response);
                 break;
+            case 6:
+                seasons(request, response);
+                break;
         }
     }
 
@@ -76,13 +79,16 @@ public class ShoesControl extends HttpServlet {
         ArrayList<Shoes> allshoes = null;
         ArrayList<Shoes> brands = null;
         ArrayList<Color> colors = null;
+        ArrayList<Shoes> seasons = null;
         try {
             allshoes = shoesDA.listAllShoes();
             brands = shoesDA.brands();
             colors = colorDA.listAllColor();
+            seasons = shoesDA.seasons();
             request.setAttribute("allshoes", allshoes);
             request.setAttribute("brand", brands);
             request.setAttribute("color", colors);
+            request.setAttribute("season", seasons);
             RequestDispatcher dispatcher = request.getRequestDispatcher("viewProduct.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException ex) {
@@ -123,12 +129,14 @@ public class ShoesControl extends HttpServlet {
         String prodBrand = request.getParameter("department");
         ArrayList<Shoes> brand = null;
         ArrayList<Color> colors = null;
+        ArrayList<Shoes> season = null;
         ArrayList<Shoes> choosen = new ArrayList<Shoes>();
         ArrayList<Shoes> filtered = new ArrayList<Shoes>();
         Shoes finalResult = null;
         try {
             colors = colorDA.listAllColor();
             brand = shoesDA.brands();
+            season = shoesDA.seasons();
             choosen = shoesDA.listAllShoes();
             for (int i = 0; i < choosen.size(); i++) {
                 if (prodBrand.equals(choosen.get(i).getBrand())) {
@@ -139,6 +147,7 @@ public class ShoesControl extends HttpServlet {
             request.setAttribute("allshoes", filtered);
             request.setAttribute("brand", brand);
             request.setAttribute("color", colors);
+            request.setAttribute("season", season);
             RequestDispatcher dispatcher = request.getRequestDispatcher("viewProduct.jsp");
             dispatcher.include(request, response);
 
@@ -153,6 +162,7 @@ public class ShoesControl extends HttpServlet {
         ArrayList<Shoes> filtered = new ArrayList<Shoes>();
         ArrayList<Color> color = null;
         ArrayList<Shoes> brand = null;
+        ArrayList<Shoes> season = null;
         String above = "Abv450";
         String below = "Blw450";
         Shoes finalResult1 = null;
@@ -161,6 +171,7 @@ public class ShoesControl extends HttpServlet {
         try {
             color = colorDA.listAllColor();
             brand = shoesDA.brands();
+            season = shoesDA.seasons();
             choosen = shoesDA.listAllShoes();
             if (prodPrice.equals(above)) {
                 for (int i = 0; i < choosen.size(); i++) {
@@ -180,6 +191,7 @@ public class ShoesControl extends HttpServlet {
             request.setAttribute("allshoes", filtered);
             request.setAttribute("color", color);
             request.setAttribute("brand", brand);
+            request.setAttribute("season", season);
             RequestDispatcher dispatcher = request.getRequestDispatcher("viewProduct.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException ex) {
@@ -191,10 +203,12 @@ public class ShoesControl extends HttpServlet {
         String searchInput = request.getParameter("wanted");
         ArrayList<Color> color = null;
         ArrayList<Shoes> brand = null;
+        ArrayList<Shoes> season = null;
         ArrayList<Shoes> prodResult = new ArrayList<Shoes>();
         try (PrintWriter out = response.getWriter()) {
             color = colorDA.listAllColor();
             brand = shoesDA.brands();
+            season = shoesDA.seasons();
             if (searchInput != null) {
                 prodResult = shoesDA.searchProd(searchInput);
                 if (prodResult.isEmpty()) {
@@ -203,6 +217,7 @@ public class ShoesControl extends HttpServlet {
                 request.setAttribute("allshoes", prodResult);
                 request.setAttribute("color", color);
                 request.setAttribute("brand", brand);
+                request.setAttribute("season", season);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("viewProduct.jsp");
                 dispatcher.forward(request, response);
             }
@@ -215,12 +230,14 @@ public class ShoesControl extends HttpServlet {
         int prodColor = Integer.parseInt(request.getParameter("department"));
         ArrayList<Color> color = null;
         ArrayList<Shoes> brand = null;
+        ArrayList<Shoes> season = null;
         ArrayList<Shoes> choosen = new ArrayList<Shoes>();
         ArrayList<Shoes> filtered = new ArrayList<Shoes>();
         Shoes finalResult = null;
         try {
             color = colorDA.listAllColor();
             brand = shoesDA.brands();
+            season = shoesDA.seasons();
             choosen = shoesDA.listAllShoes();
             for (int i = 0; i < choosen.size(); i++) {
                 if (prodColor == choosen.get(i).getColorID()) {
@@ -231,6 +248,38 @@ public class ShoesControl extends HttpServlet {
             request.setAttribute("allshoes", filtered);
             request.setAttribute("color", color);
             request.setAttribute("brand", brand);
+            request.setAttribute("season", season);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("viewProduct.jsp");
+            dispatcher.include(request, response);
+
+        } catch (SQLException ex) {
+            ex.getMessage();
+        }
+    }
+
+    private void seasons(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String prodSeason = request.getParameter("department");
+        ArrayList<Color> color = null;
+        ArrayList<Shoes> brand = null;
+        ArrayList<Shoes> season = null;
+        ArrayList<Shoes> choosen = new ArrayList<Shoes>();
+        ArrayList<Shoes> filtered = new ArrayList<Shoes>();
+        Shoes finalResult = null;
+        try {
+            color = colorDA.listAllColor();
+            brand = shoesDA.brands();
+            season = shoesDA.seasons();
+            choosen = shoesDA.listAllShoes();
+            for (int i = 0; i < choosen.size(); i++) {
+                if (prodSeason.equals(choosen.get(i).getSeason())) {
+                    finalResult = new Shoes(choosen.get(i).getProdID(), choosen.get(i).getSize(), choosen.get(i).getProdName(), choosen.get(i).getBrand(), choosen.get(i).getPrice(), choosen.get(i).getStock(), choosen.get(i).getSeason(), choosen.get(i).getImg(), choosen.get(i).getColorID(), choosen.get(i).getStaffID());
+                    filtered.add(finalResult);
+                }
+            }
+            request.setAttribute("allshoes", filtered);
+            request.setAttribute("color", color);
+            request.setAttribute("brand", brand);
+            request.setAttribute("season", season);
             RequestDispatcher dispatcher = request.getRequestDispatcher("viewProduct.jsp");
             dispatcher.include(request, response);
 

@@ -177,6 +177,26 @@ public class ShoesDA {
         return colors;
     }
 
+    public ArrayList<Shoes> seasons() throws SQLException {
+        ArrayList<Shoes> seasons = new ArrayList<Shoes>();
+        Shoes department = null;
+        try {
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY SEASON )";
+            stmt = conn.prepareStatement(queryStr);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                department = new Shoes(rs.getInt("PROD_ID"), rs.getString("SIZE"), rs.getString("PROD_NAME"), rs.getString("BRAND"), rs.getDouble("PRICE"), rs.getInt("STOCK"), rs.getString("SEASON"), rs.getString("IMG"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
+                seasons.add(department);
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return seasons;
+    }
+
     public ArrayList<Shoes> getRecord(String prod_name) throws SQLException {
         Shoes choosen = null;
         ArrayList<Shoes> shoesdetails = new ArrayList<Shoes>();
