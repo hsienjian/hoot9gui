@@ -67,19 +67,11 @@
                                     <select id="available" name="orderStatus">                      
                                     <% for(int i=0; i < shoesDetails.size(); i++){
                                         Shoes sizes = shoesDetails.get(i); 
-                                    %> 
-                                            <option value='<%= sizes.getSize() %>'><%= sizes.getSize() %></option>
-                                         &nbsp;                             
-                                     <% } %>
-                                    </select> &nbsp;&nbsp;&nbsp; 
-                                    <select id="available" name="orderColor">                      
-                                    <% for(int i=0; i < colorChoice.size(); i++){
                                         Color colors = colorChoice.get(i); 
                                     %> 
-                                            <option value='<%= colors.getColorName() %>'><%= colors.getColorName() %></option>
-                                         &nbsp;                             
+                                        <option value='<%= sizes.getSize() %>'><%= sizes.getSize() %><%= colors.getColorName() %></option>                            
                                      <% } %>
-                                    </select>
+                                    </select> &nbsp;&nbsp;&nbsp; 
                                 </form>
                             </div>         
                             <li style="margin-bottom: 10px"><b>Shipping</b>&nbsp;&nbsp;&nbsp;<span>07 days shipping. &nbsp;&nbsp;&nbsp; <samp>Free pickup today</samp></span></li>
