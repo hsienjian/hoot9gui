@@ -125,7 +125,8 @@ public class StaffControl extends HttpServlet {
                     Staff updProfile = null;
                     updProfile = new Staff(id, fname, lname, age, email, password, gender, address, phNum, position);
                     staffDA.updateRecord(updProfile);
-                    response.sendRedirect("StaffControl?option=0");
+                    request.setAttribute("success", staffID + " staff information is successfully saved");
+                    request.getRequestDispatcher("StaffControl?option=0").forward(request, response);
                 }
             } else {
                 out.println("<div> no id and age </div>");
@@ -154,6 +155,7 @@ public class StaffControl extends HttpServlet {
             } else {
                 Staff addStaff = new Staff(fname, lname, age, email, password, gender, address, phNum, position);
                 staffDA.addRecord(addStaff);
+                request.setAttribute("success", "New User is successfully added.");
                 request.getRequestDispatcher("StaffControl?option=0").forward(request, response);
             }
         } catch (Exception ex) {
@@ -217,7 +219,7 @@ public class StaffControl extends HttpServlet {
         String confirmPWD = request.getParameter("confirmPWD");
 
         int id = 0, age = 0;
-        try {
+        try (PrintWriter out = response.getWriter()) {
             id = Integer.parseInt(staffID);
             age = Integer.parseInt(staffAge);
             String oldpassword = staffDA.getPassword(id);

@@ -9,15 +9,15 @@
 <div id="myNav" class="overlay">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <div class="sidebar-nav container-fluid">
-        <a href="#">Home</a>
-        <a href="viewProduct.jsp">Shoe</a>
+        <a href="home.jsp">Home</a>
+        <a href="ShoesControl?option=0">Shoes</a>
     </div>
 </div>
 <nav class="navbar navbar-expand fixed-top navbar-dark bg-white">
     <div class="container-fluid">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav" >
             <li class="nav-item active">
-                <a class="side-bar nav-link pointer" onclick="openNav()">
+                <a class="side-bar nav-link pointer" onclick="openNav()"  style="background-color:#FFFFFF !important;">
                     <svg t="1615555886450" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="22275" width="30" height="30"><path d="M232.369231 282.813046h559.261538a31.507692 31.507692 0 0 0 0-63.015384h-559.261538a31.507692 31.507692 0 0 0 0 63.015384zM791.630769 480.492308h-559.261538a31.507692 31.507692 0 0 0 0 63.015384h559.261538a31.507692 31.507692 0 0 0 0-63.015384zM791.630769 741.186954h-559.261538a31.507692 31.507692 0 0 0 0 63.015384h559.261538a31.507692 31.507692 0 0 0 0-63.015384z" p-id="22276" fill="#bfbfbf"></path></svg>
                 </a>
             </li>
