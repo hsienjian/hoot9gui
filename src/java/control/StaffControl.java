@@ -125,7 +125,8 @@ public class StaffControl extends HttpServlet {
                     Staff updProfile = null;
                     updProfile = new Staff(id, fname, lname, age, email, password, gender, address, phNum, position);
                     staffDA.updateRecord(updProfile);
-                    response.sendRedirect("StaffControl?option=0");
+                    request.setAttribute("success", staffID + " staff information is successfully saved");
+                    request.getRequestDispatcher("StaffControl?option=0").forward(request, response);
                 }
             } else {
                 out.println("<div> no id and age </div>");
@@ -154,6 +155,7 @@ public class StaffControl extends HttpServlet {
             } else {
                 Staff addStaff = new Staff(fname, lname, age, email, password, gender, address, phNum, position);
                 staffDA.addRecord(addStaff);
+                request.setAttribute("success", "New User is successfully added.");
                 request.getRequestDispatcher("StaffControl?option=0").forward(request, response);
             }
         } catch (Exception ex) {
@@ -224,9 +226,6 @@ public class StaffControl extends HttpServlet {
             if (!oldpassword.equals(password)) {
                 request.setAttribute("error", "The Current Password is not the same! Please try again later.");
                 request.getRequestDispatcher("StaffControl?option=5").forward(request, response);
-//                out.print("<div>Old PassWord" + oldpassword + "</div>");
-//                out.print("<div>Current PassWord" + password + "</div>");
-//                out.print("<div>New PassWord" + newPWD + "</div>");
             } else if (newPWD.equals(password)) {
                 request.setAttribute("error", "The Current Password and New Password are the same! Please try again later.");
                 request.getRequestDispatcher("StaffControl?option=5").forward(request, response);

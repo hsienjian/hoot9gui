@@ -7,8 +7,8 @@
 <div id="myNav" class="overlay">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <div class="sidebar-nav container-fluid">
-        <a href="#">Home</a>
-        <a href="#">Shoe</a>
+        <a href="home.jsp">Home</a>
+        <a href="ShoesControl?option=0">Shoes</a>
     </div>
 </div>
 <nav class="navbar navbar-expand fixed-top navbar-dark bg-white">

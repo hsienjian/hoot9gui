@@ -22,11 +22,10 @@
             <button class="btn close-btn" id="closeBtn" onclick="hideMenu()"><i class="fa fa-times" aria-hidden="true"></i></button>
             <ul>
                 <li>Dashboard</li>
-                <li>Profile</li>
+                <li><a href="StaffControl?option=5&staffID=2003">Profile</a></li>
                 <li name="collapse-ul-1" onClick="handleCollapse('collapse-ul-1', 'fa-angle-down-1')">Staff Management<i id="fa-angle-down-1" class="fa fa-angle-down" aria-hidden="true"></i>
                     <ul class="collapse-ul" id="collapse-ul-1">
-                        <a href='#'><li>Register New Staff</li></a>
-                        <a href='#'><li>View Staff Info</li></a>
+                        <a href="StaffControl?option=0"><li>View Staff Info</li></a>
                     </ul>
                 </li>
                 <li name="collapse-ul-2" onClick="handleCollapse('collapse-ul-2', 'fa-angle-down-2')">Product Management<i id="fa-angle-down-2" class="fa fa-angle-down" aria-hidden="true"></i>
@@ -34,6 +33,7 @@
                         <a href='/build/productManagement?action=retrieveAll'><li>Register New Product</li></a>
                         <a href='#'><li>Restock Product</li></a>
                         <a href='#'><li>Edit Product Details</li></a>
+                        <a href="OrderControl?option=0"><li>Order Status</li></a>
                     </ul>
                 </li>
                 <li name="collapse-ul-3" onclick="handleCollapse('collapse-ul-3', 'fa-angle-down-3')">Report<i id="fa-angle-down-3" class="fa fa-angle-down" aria-hidden="true"></i>
