@@ -128,4 +128,24 @@ public class ColorDA {
             }
         }
     }
+
+    public Color getColorByName(String colorName) throws SQLException {
+        Color color = null;
+        try {
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName + " WHERE COLOR_NAME = ?";
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1, colorName);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                color = new Color(rs.getInt("COLOR_ID"), rs.getString("COLOR_NAME"), rs.getString("COLOR_CODE"));
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return color;
+    }
 }

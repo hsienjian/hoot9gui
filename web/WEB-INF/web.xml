@@ -24,6 +24,10 @@
         <servlet-name>StaffControl</servlet-name>
         <servlet-class>control.StaffControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CartControl</servlet-name>
+        <servlet-class>control.CartControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShoesControl</servlet-name>
         <url-pattern>/ShoesControl</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>StaffControl</servlet-name>
         <url-pattern>/StaffControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartControl</servlet-name>
+        <url-pattern>/CartControl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

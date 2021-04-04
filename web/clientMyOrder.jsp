@@ -99,7 +99,9 @@
             </div>
         </div>
         <%
+            
             ArrayList<Order> orderList = (ArrayList<Order>) request.getAttribute("orderList");
+            if(orderList == null){orderList = new ArrayList<Order>(); response.sendRedirect("OrderRecordControl?ordOpt=1");}
             boolean isEmpty = Boolean.TRUE == request.getAttribute("checkIsEmpty");
             boolean isNotFound = Boolean.TRUE == request.getAttribute("checkNotFound");
             String title = (String) request.getAttribute("filterTitle");
