@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : backendHeader
     Created on : Mar 17, 2021, 11:37:16 AM
     Author     : j.chong
@@ -31,7 +31,7 @@
                 </li>
                 <li name="collapse-ul-2" onClick="handleCollapse('collapse-ul-2', 'fa-angle-down-2')">Product Management<i id="fa-angle-down-2" class="fa fa-angle-down" aria-hidden="true"></i>
                     <ul class="collapse-ul" id="collapse-ul-2">
-                        <a href='/build/productManagement?action=retrieveAll'><li>Register New Product</li></a>
+                        <a href='/hoot9gui/productManagement?action=retrieveAll'><li>Register New Product</li></a>
                         <a href='#'><li>Restock Product</li></a>
                         <a href='#'><li>Edit Product Details</li></a>
                     </ul>
@@ -45,6 +45,10 @@
                 </li>
             </ul>
             <footer class="copyright">
+                <form action="StaffLogin" method="GET">
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
+                <br>
                 <i class="fa fa-copyright" aria-hidden="true"></i>
                 Website is Copyright-proctected by Hoot9e
                 <i class="fa fa-copyright" aria-hidden="true"></i>

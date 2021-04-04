@@ -66,6 +66,26 @@ public class ColorDA {
         return color;
     }
 
+    public Color getColor(String colorCode) throws SQLException {
+        Color color = null;
+        try {
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName + " WHERE COLOR_CODE = ?";
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setString(1, colorCode);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                color = new Color(rs.getInt("COLOR_ID"), rs.getString("COLOR_NAME"), rs.getString("COLOR_CODE"));
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return color;
+    }
+
     public void addColor(Color color) throws SQLException {
         try {
             createConnection();

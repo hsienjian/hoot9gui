@@ -92,9 +92,10 @@ public class ShoesDA {
             stmt.setDouble(4, shoes.getPrice());
             stmt.setInt(5, shoes.getStock());
             stmt.setString(6, shoes.getSeason());
-            stmt.setInt(7, shoes.getColorID());
-            stmt.setInt(8, shoes.getStaffID());
-            stmt.setInt(9, shoes.getProdID());
+            stmt.setString(7, shoes.getImg());
+            stmt.setInt(8, shoes.getColorID());
+            stmt.setInt(9, shoes.getStaffID());
+            stmt.setInt(10, shoes.getProdID());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             throw ex;
@@ -162,7 +163,6 @@ public class ShoesDA {
                 shoesdetails.add(choosen);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             throw ex;
         } finally {
             shutDown();

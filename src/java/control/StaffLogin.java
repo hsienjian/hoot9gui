@@ -22,6 +22,14 @@ import javax.servlet.http.HttpSession;
  */
 public class StaffLogin extends HttpServlet {
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.removeAttribute("activeStaff");
+        response.sendRedirect("/hoot9gui/staff_login.jsp");
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -58,7 +66,7 @@ public class StaffLogin extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("staff_login.jsp");
             rd.include(request, response);
         } else {
-            response.sendRedirect("staff.html");
+            response.sendRedirect("dashboard.jsp");
         }
     }
 }
