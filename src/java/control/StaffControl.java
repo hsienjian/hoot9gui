@@ -111,15 +111,40 @@ public class StaffControl extends HttpServlet {
         String phNum = request.getParameter("phNum");
         String position = request.getParameter("position");
         String password = request.getParameter("password");
-
+        ArrayList<Staff> staffCheck = null;
         int id = 0, age = 0;
         try (PrintWriter out = response.getWriter()) {
+            int invalidEmail = 0;
+            int invalidPhone = 0;
             if (staffID != null && staffAge != null) {
                 id = Integer.parseInt(staffID);
                 age = Integer.parseInt(staffAge);
                 String oldpassword = staffDA.getPassword(id);
+                if (email != null && phNum != null) {
+                    staffCheck = staffDA.listAllStaff();
+                    for (int i = 0; i < staffCheck.size(); i++) {
+                        if (id == staffCheck.get(i).getStaffID()) {
+                            continue;
+                        } else {
+                            if (email.equals(staffCheck.get(i).getEmail())) {
+                                invalidEmail++;
+                            }
+                            if (phNum.equals(staffCheck.get(i).getPhoneNo())) {
+                                invalidPhone++;
+                            }
+                        }
+                    }
+                    if (invalidEmail > 0) {
+                        request.setAttribute("error", "Email existed! Please enter another email.");
+                        request.getRequestDispatcher("StaffControl?option=0").forward(request, response);
+                    }
+                    if (invalidPhone > 0) {
+                        request.setAttribute("error", "Phone Number existed! Please enter another phone number.");
+                        request.getRequestDispatcher("StaffControl?option=0").forward(request, response);
+                    }
+                }
                 if (!oldpassword.equals(password)) {
-                    request.setAttribute("error", "The Current Password for stuff " + staffID + " is Wrong! Please try again later.");
+                    request.setAttribute("error", "The Current Password for staff " + staffID + " is Wrong! Please try again later.");
                     request.getRequestDispatcher("StaffControl?option=0").forward(request, response);
                 } else {
                     Staff updProfile = null;
@@ -147,8 +172,28 @@ public class StaffControl extends HttpServlet {
         String position = request.getParameter("position");
         String password = request.getParameter("password");
         String cmfPass = request.getParameter("confirmPWD");
-
+        ArrayList<Staff> staffCheck = null;
         try {
+            int invalidEmail = 0;
+            int invalidPhone = 0;
+            if (email != null) {
+                staffCheck = staffDA.listAllStaff();
+                for (int i = 0; i < staffCheck.size(); i++) {
+                    if (email.equals(staffCheck.get(i).getEmail())) {
+                        invalidEmail++;
+                    }
+                    if (phNum.equals(staffCheck.get(i).getPhoneNo())) {
+                        invalidPhone++;
+                    }
+                }
+                if (invalidEmail > 0) {
+                    request.setAttribute("error", "Email existed! Please enter another email.");
+                    request.getRequestDispatcher("AddStaff.jsp").forward(request, response);
+                } else if (invalidPhone > 0) {
+                    request.setAttribute("error", "Phone Number existed! Please enter another phone number.");
+                    request.getRequestDispatcher("AddStaff.jsp").forward(request, response);
+                }
+            }
             if (!cmfPass.equals(password)) {
                 request.setAttribute("error", "Your Information is not added due to the incorrect Password and Confirmation Password! Please try again!");
                 request.getRequestDispatcher("AddStaff.jsp").forward(request, response);
