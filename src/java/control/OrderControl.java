@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Asus
+ * @author KhorWenXin
  */
 public class OrderControl extends HttpServlet {
 
@@ -69,7 +69,6 @@ public class OrderControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("orderAction");
         int option = Integer.parseInt(request.getParameter("option"));
 
         switch (option) {
@@ -83,7 +82,7 @@ public class OrderControl extends HttpServlet {
     }
 
     private void listOfOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try (PrintWriter out = response.getWriter()) {
+        try {
             ArrayList<Order> order = null;
             order = orderDA.listRecord();
             request.setAttribute("order", order);

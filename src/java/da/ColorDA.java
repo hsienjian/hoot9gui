@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class ColorDA {
 
@@ -31,7 +30,7 @@ public class ColorDA {
         Color color = null;
         try {
             createConnection();
-            String selectStt = "SELECT DISTINCT * FROM " + tableName + " ORDER BY COLOR_NAME";
+            String selectStt = "SELECT * FROM " + tableName;
             stmt = conn.prepareStatement(selectStt);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -115,26 +114,6 @@ public class ColorDA {
         } finally {
             shutDown();
         }
-    }
-
-    public Color getRecord(int colorID) throws SQLException {
-        createConnection();
-        String queryStr = "SELECT * FROM " + tableName + " WHERE COLOR_ID = ?";
-        Color color = null;
-        try {
-            stmt = conn.prepareStatement(queryStr);
-            stmt.setInt(1, colorID);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                color = new Color(colorID, rs.getString(2), rs.getString(3));
-            }
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-        return color;
     }
 
     public void deleteColor(int colorID) throws SQLException {

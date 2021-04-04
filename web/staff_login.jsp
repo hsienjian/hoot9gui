@@ -67,7 +67,6 @@
         <%
             Object activeStaff = session.getAttribute("activeStaff");
             Object errorMsg = request.getAttribute("errorMsg");
-
             if (activeStaff != null) {
                 response.sendRedirect("dashboard.jsp");
             }

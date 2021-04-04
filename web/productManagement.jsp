@@ -16,11 +16,11 @@
     ArrayList<Staff> staffs = (ArrayList<Staff>) request.getAttribute("staffs");
     ArrayList<Color> colorsType = (ArrayList<Color>) request.getAttribute("colorsType");
 
-    String staff = (String) session.getAttribute("activeStaff");
+    String staffEmail = (String) session.getAttribute("activeStaff");
     response.setHeader("cache-Control", "no-cache,no-store,must-revalidate");
     response.setHeader("Pragma", "no-cache");
     response.setHeader("Expires", "0");
-    if (staff == null) {
+    if (staffEmail == null) {
         response.sendRedirect("/hoot9gui/staff_login.jsp");
     }
 
@@ -289,7 +289,7 @@
                             <label>Image : </label>
                             <input name="img" type="file" />
                             </br>
-                            <input name="staff" type="hidden" value="<%= staff%>"/>
+                            <input name="staff" type="hidden" value="<%= staffEmail%>"/>
                             <input name="action" type="hidden" value="addShoes"/>
                             <div class="modal-footer">
                                 <button onClick="modal_toggle('addShoes_modal', 'close')" class="btn btn-secondary">Cancel</button>
