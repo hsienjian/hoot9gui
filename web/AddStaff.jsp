@@ -17,7 +17,8 @@
         <style>
             .errorMsg{
                 width: 100%;
-                margin: 0px auto 20px;
+                margin: 0px auto;
+                margin-top: 0px;
                 color: #a94442;
                 background: #f2dede;
                 text-align: center;
@@ -27,12 +28,10 @@
     <body>
         <jsp:include page="/components/backendHeader.jsp" />
         <div class="staffmaintainance">
-            
             <div class="errorMsg">${error}</div>
             <div id="headerForm">
                 <h2>Add Staff</h2>
             </div>
-            
             <form class="form-detail" action="StaffControl" method="GET" enctype="multipart/form-data" id="addForm">                       
                 <div class="form-left">
                     <div class="registergrp">
@@ -78,7 +77,7 @@
                         <label for="password">Confirm Password :</label>
                         <input type="password" id="password" name="confirmPWD" required /><br>
                     </div>
-                    <div class="registergrp" style="margin-bottom: 40px">
+                    <div class="registergrp" style="margin-top: 30px; margin-bottom: 0px">
                         <input type="hidden" name="option" value="3">
                         <button class="btn" id="submitBtn" name="addStaff">Add Staff</button>
                         <a href="StaffControl?option=0" class="btn" name="cancel">Back to Staff Page</a>

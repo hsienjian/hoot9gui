@@ -189,12 +189,12 @@ public class StaffControl extends HttpServlet {
     }
 
     private void staffProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int staffID = Integer.parseInt(request.getParameter("staffID"));
+        String staffEmail = request.getParameter("email");
         ArrayList<Shoes> duty = new ArrayList<Shoes>();
         try {
-            duty = shoesDA.staffHandle(staffID);
             Staff profile = null;
-            profile = staffDA.getStaff(staffID);
+            profile = staffDA.getStaff(staffEmail);
+            duty = shoesDA.staffHandle(profile.getStaffID());
             request.setAttribute("profile", profile);
             request.setAttribute("duty", duty);
             RequestDispatcher dispatcher = request.getRequestDispatcher("StaffProfile.jsp");

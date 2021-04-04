@@ -21,7 +21,7 @@
         <style>
         .error{
             width: 100%;
-            margin: 0px auto 20px;
+            margin: 0px auto;
             color: #a94442;
             background: #f2dede;
             border-radius: 5px;
@@ -30,7 +30,7 @@
 
         .success{
             width: 100%;
-            margin: 0px auto 20px;
+            margin: 0px auto;
             color: #3c763d;
             background: #dff0d8;
             border-radius: 5px;
@@ -55,10 +55,7 @@
                         <label for="staff_ID">Your ID :</label> ${profile.staffID}<br>
                     </div>
                     <div class="registergrp">
-                        <label for="first_name">First Name :</label> ${profile.firstName}<br>
-                    </div>
-                    <div class="registergrp">
-                        <label for="last_name">Last Name :</label> ${profile.lastName}<br>
+                        <label for="name">Name :</label> ${profile.lastName} ${profile.firstName}<br>
                     </div>
                     <div class="registergrp">
                         <label for="age">Age :</label> ${profile.age}<br>
