@@ -235,7 +235,7 @@
                             </td>
                         </tr>
                         <% i++;
-                            }%>
+                            } %>
                     </tbody>
                 </table>
             </div>
@@ -252,7 +252,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="productManagement" method="GET" enctype="multipart/form-data">
+                        <form action="productManagement" method="POST" enctype="multipart/form-data">
                             <label>Product Name : </label>
                             <input name="product_name" type="text"  placeholder="Product Name"/>
                             </br>

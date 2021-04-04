@@ -13,7 +13,6 @@
 <%
     Shoes selected_shoes = (Shoes) request.getAttribute("selected_shoes");
     Color selected_color = (Color) request.getAttribute("selected_color");
-    Staff selected_staff = (Staff) request.getAttribute("selected_staff");
     ArrayList<Color> colorsType = (ArrayList<Color>) request.getAttribute("colorsType");
 
     String staff = (String) session.getAttribute("activeStaff");
@@ -73,6 +72,16 @@
         </style>
     </head>
     <body>
+        <%for (Color c : colorsType) {%>
+        <script>
+
+            if (<%=c.getColorID()%> == <%=selected_shoes.getColorID()%>) {
+                console.log("true");
+                console.log(<%=c.getColorID()%>);
+            }
+
+        </script>
+        <%}%>
         <jsp:include page="/components/backendHeader.jsp" />
         <h3 class="title">Edit Product Details</h3>
 
@@ -97,7 +106,7 @@
             </div>
             <hr/>
             <div class="product_details_form">
-                <form action="productManagement" method="GET">
+                <form action="productManagement" method="POST" enctype="multipart/form-data">
                     <label>Product Name : </label>
                     <input name="product_name" type="text" value="<%=selected_shoes.getProdName()%>"/>
                     </br>
@@ -120,9 +129,13 @@
                     <select name="color">
                         <%
                             for (Color c : colorsType) {
+                                if (c.getColorID().intValue() == selected_shoes.getColorID().intValue()) {
                         %>
+                        <option style="background-color:<%= c.getColorCode()%>" value="<%= c.getColorCode()%>" Selected><%= c.getColorName()%></option>
+                        <%  } else {%>
                         <option style="background-color:<%= c.getColorCode()%>" value="<%= c.getColorCode()%>"><%= c.getColorName()%></option>
-                        <% }%>
+                        <%  }
+                            }%>
                     </select>
                     </br>
                     <a href="/hoot9gui/createColor.jsp" class="createColorLink">+ New Color</a>
