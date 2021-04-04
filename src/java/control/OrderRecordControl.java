@@ -121,7 +121,6 @@ public class OrderRecordControl extends HttpServlet {
                     checkIsEmpty = true;
                 }
             }
-
             request.setAttribute("orderList", recentOrderList);
             request.setAttribute("filterTitle", filterTitle);
             request.setAttribute("checkIsEmpty", checkIsEmpty);

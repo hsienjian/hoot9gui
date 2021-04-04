@@ -18,6 +18,11 @@ public class Color {
     public Color() {
     }
 
+    public Color(String colorName, String colorCode) {
+        this.colorName = colorName;
+        this.colorCode = colorCode;
+    }
+
     public Color(Integer colorID, String colorName, String colorCode) {
         this.colorID = colorID;
         this.colorName = colorName;
