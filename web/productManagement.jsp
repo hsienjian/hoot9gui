@@ -11,11 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-    ArrayList<Shoes> shoes = (ArrayList<Shoes>) request.getAttribute("shoes");
-    ArrayList<Color> colors = (ArrayList<Color>) request.getAttribute("colors");
-    ArrayList<Staff> staffs = (ArrayList<Staff>) request.getAttribute("staffs");
-    ArrayList<Color> colorsType = (ArrayList<Color>) request.getAttribute("colorsType");
-
+    //redirect user back to staff_login.jsp if no user session found
     String staffEmail = (String) session.getAttribute("activeStaff");
     response.setHeader("cache-Control", "no-cache,no-store,must-revalidate");
     response.setHeader("Pragma", "no-cache");
@@ -23,6 +19,11 @@
     if (staffEmail == null) {
         response.sendRedirect("/hoot9gui/staff_login.jsp");
     }
+
+    ArrayList<Shoes> shoes = (ArrayList<Shoes>) request.getAttribute("shoes");
+    ArrayList<Color> colors = (ArrayList<Color>) request.getAttribute("colors");
+    ArrayList<Staff> staffs = (ArrayList<Staff>) request.getAttribute("staffs");
+    ArrayList<Color> colorsType = (ArrayList<Color>) request.getAttribute("colorsType");
 
     String msg = "";
     if ((String) session.getAttribute("addShoes_status") != null) {
@@ -170,7 +171,6 @@
                     }
                 }
             }
-            //console.log(hittedRowID);
         }
     </script>
     <body>
@@ -184,10 +184,7 @@
         <% } %>
         <div class="product-control-panel">
             <button type="button" class="mr-2 btn btn-primary" onClick="modal_toggle('addShoes_modal', 'show')"><i class="fas fa-plus"></i> Product</button>
-            <form class="form-inline my-2 my-lg-0">
-                <input onKeyUp="search(event)" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            <input onKeyUp="search(event)" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
         </div>
         <div class="product-table px-0 mx-0 mb-3 overflow-auto">
             <div class="table-responsive">
