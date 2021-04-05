@@ -5,17 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.time.LocalDate" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="domain.Customer" %>
 <%@page import="da.CustomerDA" %>
-
 <%@page import="domain.Order" %>
 <%@page import="da.OrderDA" %>
-
 <%@page import="domain.OrderList" %>
 <%@page import="da.OrderListDA" %>
-
 <%@page import="domain.Shoes" %>
 <%@page import="da.ShoesDA" %>
 
@@ -58,24 +56,28 @@
         %>
         <div id="wrapper">
             <div class="wrap-content container">
-<%for (int j = 0; j < orderList.size(); j++) {%>
+<%for (int j = 4; j < orderList.size(); j++) {%>
+   <% double ttlPrice = 0; 
+        ttlPrice += orderList.get(j).getTtlPrice();
+        LocalDate date = LocalDate.now(); 
+   %>
+    
                 <div class="row ">
                     <div class="col-3 ">
                         <div class="card text-center">
                             <div class="card-body bg-light">
-                                <h5 class="card-title">Revenue</h5>
-                                <p class="card-text"><%= orderList.get(j).getTtlPrice() %> </p>
+                                <h5 class="card-title">Last Order Value</h5>
+                                <p class="card-text"><%= ttlPrice %> </p>
                                 <a href="#" class="btn btn-primary b-full">View</a>
                             </div>
                         </div>
                     </div>
-                                 <% 
-                                                }%>
+                             
                     <div class="col-3">
                         <div class="card text-center ">
                             <div class="card-body bg-light">
-                                <h5 class="card-title">Total Order </h5>
-                                <p class="card-text">123<!-- implement result --></p>
+                                <h5 class="card-title">Last Order ID</h5>
+                                <p class="card-text"><%= orderList.get(j).getOrderID() %> </p>
                                 <a href="#" class="btn btn-primary b-full">View</a>
                             </div>
                         </div>
@@ -83,8 +85,8 @@
                     <div class="col-3">
                         <div class="card text-center">
                             <div class="card-body bg-light">
-                                <h5 class="card-title">Order Pending</h5>
-                                <p class="card-text">123<!-- implement result --></p>
+                                <h5 class="card-title">Last Order Status</h5>
+                                <p class="card-text"><%= orderList.get(j).getStatus() %><!-- implement result --></p>
                                 <a href="#" class="btn btn-primary b-full">View</a>
                             </div>
                         </div>
@@ -92,13 +94,13 @@
                     <div class="col-3 ">
                         <div class="card text-center">
                             <div class="card-body bg-light">
-                                <h5 class="card-title">Total Product</h5>
-                                <p class="card-text">123<!-- implement result --></p>
+                                <h5 class="card-title">Current Date</h5>
+                                <p class="card-text"><%= date.getDayOfMonth()%> <%= date.getMonth()%> <%= date.getYear() %><!-- implement result --></p>
                                 <a href="#" class="btn btn-primary b-full" >View</a>
                             </div>
                         </div>
                     </div>
-                   
+                   <% } %>   
                 </div>
                 <div class="table-wrapper ">
                     <label for="Sort">Sort By:</label>
@@ -136,7 +138,7 @@
                                                     <td><%=Customer.get(i).getPhoneNo()%></td>
                                                     <td><%=orderList.get(i).getTtlPrice() %> </td>
                                                     <td>
-                                                        <a href="#" type="button" class="btn btn-primary" style="width: 80px"><%=orderList.get(i).getStatus() %></a>
+                                                        <a href="#" type="button" class="btn btn-secondary" style="width: 100px"><%=orderList.get(i).getStatus() %></a>
                                                     </td>
                                                 </tr>
                                                 <% }

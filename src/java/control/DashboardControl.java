@@ -5,9 +5,14 @@
  */
 package control;
 
+import da.OrderDA;
+import domain.Order;
+import domain.OrderList;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +24,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DashboardControl extends HttpServlet {
 
+    private OrderDA orderDA;
+    public void init() throws ServletException {
+        orderDA = new OrderDA();
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -69,9 +78,8 @@ public class DashboardControl extends HttpServlet {
             case 2:
                 OrderPending(request,response);
                 break;
-            case 3:
-                TotalProduct(request,response);
-                break;
+           
+            
         }
     }
 
@@ -99,36 +107,78 @@ public class DashboardControl extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-     private void Revenue(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try (PrintWriter out = response.getWriter()) {
+     private int Revenue(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        double ttlPrice = Double.parseDouble(request.getParameter("ttlPrice"));
+        double tPrice = 0 ;
+         try (PrintWriter out = response.getWriter()) {
+            Order order = null;
+            order = orderDA.getOrder(ttlPrice);
             
+            request.setAttribute("ttlPrice", order);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("dashboard.jsp");
+            dispatcher.forward(request, response);
+            
+            for (int i=0; i<orderDA.listRecord().size(); i++ ){
+                if ( orderDA.getOrder(ttlPrice) !=null ){
+                    tPrice += orderDA.getOrder(i).getTtlPrice() ;
+                }
+                
+            }
+
         } catch (SQLException ex) {
             ex.getMessage();
         }
+        return (int) tPrice;
     }
      
-       private void TotalOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try (PrintWriter out = response.getWriter()) {
+       private int TotalOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int Torder = Integer.parseInt(request.getParameter("Order_ID"));
+        double tOrder = 0 ;
+           try (PrintWriter out = response.getWriter()) {
             
+         
+            Order order = null;
+            order = orderDA.getOrder(Torder);
+            
+            request.setAttribute("Order_ID", order);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("dashboard.jsp");
+            dispatcher.forward(request, response);
+            for (int i=0; i<orderDA.listRecord().size(); i++ ){
+                if ( orderDA.getOrder(Torder) !=null ){
+                    tOrder += orderDA.getOrder(i).getOrderID();
+                }
+                
+            }
         } catch (SQLException ex) {
             ex.getMessage();
         }
+        return Torder;
     }
        
-         private void OrderPending(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try (PrintWriter out = response.getWriter()) {
+         private int OrderPending(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+             int status = Integer.parseInt(request.getParameter("Status"));
+             String tPrice = null  ;
+             try (PrintWriter out = response.getWriter()) {
             
+         
+            Order order = null;
+            order = orderDA.getOrder(status);
+            
+            request.setAttribute("status", order);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("dashboard.jsp");
+            dispatcher.forward(request, response);
+            for (int i=0; i<orderDA.listRecord().size(); i++ ){
+                if ( orderDA.getOrder(status) !=null ){
+                    tPrice += orderDA.getOrder(i).getStatus() ;
+                }
+                
+            }
         } catch (SQLException ex) {
             ex.getMessage();
         }
+        return status;
     }
          
-           private void TotalProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try (PrintWriter out = response.getWriter()) {
-            
-        } catch (SQLException ex) {
-            ex.getMessage();
-        }
-    }
+
 
 }
