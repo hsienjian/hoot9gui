@@ -141,18 +141,18 @@ public class StaffControl extends HttpServlet {
                     if (invalidPhone > 0) {
                         request.setAttribute("error", "Phone Number existed! Please enter another phone number.");
                         request.getRequestDispatcher("StaffControl?option=0").forward(request, response);
+                    } else if (!oldpassword.equals(password)) {
+                        request.setAttribute("error", "The Current Password for staff " + staffID + " is Wrong! Please try again later.");
+                        request.getRequestDispatcher("StaffControl?option=0").forward(request, response);
+                    } else {
+                        Staff updProfile = null;
+                        updProfile = new Staff(id, fname, lname, age, email, password, gender, address, phNum, position);
+                        staffDA.updateRecord(updProfile);
+                        request.setAttribute("success", staffID + " staff information is successfully saved");
+                        request.getRequestDispatcher("StaffControl?option=0").forward(request, response);
                     }
                 }
-                if (!oldpassword.equals(password)) {
-                    request.setAttribute("error", "The Current Password for staff " + staffID + " is Wrong! Please try again later.");
-                    request.getRequestDispatcher("StaffControl?option=0").forward(request, response);
-                } else {
-                    Staff updProfile = null;
-                    updProfile = new Staff(id, fname, lname, age, email, password, gender, address, phNum, position);
-                    staffDA.updateRecord(updProfile);
-                    request.setAttribute("success", staffID + " staff information is successfully saved");
-                    request.getRequestDispatcher("StaffControl?option=0").forward(request, response);
-                }
+
             } else {
                 out.println("<div> no id and age </div>");
             }
@@ -189,20 +189,21 @@ public class StaffControl extends HttpServlet {
                 if (invalidEmail > 0) {
                     request.setAttribute("error", "Email existed! Please enter another email.");
                     request.getRequestDispatcher("AddStaff.jsp").forward(request, response);
-                } else if (invalidPhone > 0) {
+                }
+                if (invalidPhone > 0) {
                     request.setAttribute("error", "Phone Number existed! Please enter another phone number.");
                     request.getRequestDispatcher("AddStaff.jsp").forward(request, response);
+                } else if (!cmfPass.equals(password)) {
+                    request.setAttribute("error", "Your Information is not added due to the incorrect Password and Confirmation Password! Please try again!");
+                    request.getRequestDispatcher("AddStaff.jsp").forward(request, response);
+                } else {
+                    Staff addStaff = new Staff(fname, lname, age, email, password, gender, address, phNum, position);
+                    staffDA.addRecord(addStaff);
+                    request.setAttribute("success", "New User is successfully added.");
+                    request.getRequestDispatcher("StaffControl?option=0").forward(request, response);
                 }
             }
-            if (!cmfPass.equals(password)) {
-                request.setAttribute("error", "Your Information is not added due to the incorrect Password and Confirmation Password! Please try again!");
-                request.getRequestDispatcher("AddStaff.jsp").forward(request, response);
-            } else {
-                Staff addStaff = new Staff(fname, lname, age, email, password, gender, address, phNum, position);
-                staffDA.addRecord(addStaff);
-                request.setAttribute("success", "New User is successfully added.");
-                request.getRequestDispatcher("StaffControl?option=0").forward(request, response);
-            }
+
         } catch (Exception ex) {
             ex.getMessage();
         }
