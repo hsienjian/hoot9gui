@@ -39,14 +39,14 @@
                         <div class="product__details__pic">
                             
                             <div class="product__details__pic__item">
-                                <img class="product__details__pic__item--large" src="<%= shoesDetails.get(0).getImg()%>" alt="">
+                                <img class="product__details__pic__item--large" src="./images/<%= shoesDetails.get(0).getImg()%>" alt="">
                             </div>
                             <div class="product__details__pic__slider owl-carousel">
                                 <% for(int i=0; i < shoesDetails.size(); i++){
                                         Shoes images = shoesDetails.get(i); 
                                     %> 
-                                <img data-imgbigurl="<%= images.getImg()%>"
-                                    src="<%= images.getImg()%>" alt="">
+                                <img data-imgbigurl="./images/<%= images.getImg()%>"
+                                    src="./images/<%= images.getImg()%>" alt="">
                                 <% } %> 
                             </div>
                             
