@@ -37,7 +37,7 @@ public class CustomerDA {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                customer = new Customer(custID, rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getInt("AGE"), rs.getString("EMAIL"), rs.getString("PASSWORD"), rs.getString("GENDER"), rs.getString("ADDRESS"), rs.getString("PHONE_NO"), rs.getInt("REWARDPOINT"));
+                customer = new Customer(custID, rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getInt("AGE"), rs.getString("EMAIL"), rs.getString("PASSWORD"), rs.getString("GENDER"), rs.getString("ADDRESS"), rs.getString("PHONE_NO"), rs.getInt("REWARD_POINT"));
             }
         } catch (SQLException ex) {
             throw ex;

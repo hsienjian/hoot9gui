@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class StaffDA {
 
@@ -156,41 +155,6 @@ public class StaffDA {
         return oldpswd;
     }
 
-//    public void updatePassword(String password, int id) throws SQLException {
-//        createConnection();
-//        try {
-//            String updatePWD = "UPDATE " + tableName + " SET PASSWORD=? WHERE STAFF_ID=?";
-//            stmt = conn.prepareStatement(updatePWD);
-//            stmt.setString(1, password);
-//            stmt.setInt(2, id);
-//            stmt.executeUpdate();
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-//            throw ex;
-//        } finally {
-//            shutDown();
-//        }
-//    }
-    public Staff searchStaff(String staffEmail, String staffPW) throws SQLException {
-        Staff found = null;
-        try {
-            createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE EMAIL = ? , PASSWORD = ?";
-            stmt = conn.prepareStatement(queryStr);
-            stmt.setString(1, staffEmail);
-            stmt.setString(2, staffPW);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                found = new Staff(rs.getInt("STAFF_ID"), rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getInt("AGE"), staffEmail, staffPW, rs.getString("GENDER"), rs.getString("ADDRESS"), rs.getString("PHONE_NO"), rs.getString("POSITION"));
-            }
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-        return found;
-    }
-
     private void createConnection() throws SQLException {
         try {
             conn = DriverManager.getConnection(host, user, password);
@@ -209,4 +173,5 @@ public class StaffDA {
             }
         }
     }
+
 }

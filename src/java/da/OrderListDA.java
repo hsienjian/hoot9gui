@@ -9,7 +9,6 @@ import domain.Order;
 import domain.OrderList;
 import java.sql.*;
 import java.util.*;
-import javax.swing.*;
 
 public class OrderListDA {
 
@@ -97,6 +96,7 @@ public class OrderListDA {
     }
 
     private void createConnection() throws SQLException {
+
         try {
             conn = DriverManager.getConnection(host, user, password);
             System.out.println("***TRACE: Connection established.");

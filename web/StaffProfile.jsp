@@ -6,29 +6,31 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- Backend Header -->
+        <link rel="stylesheet" href="./css/backendHeader.css">
+        <script src="./js/backendHeader.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="css/clientFooter.css">
+        <link href="css/maintainStaff.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="css/maintainStaff.css">
         <title>Staff Profile</title>
         <style>
         .error{
-            width: 32%;
-            margin: 0px auto 30px;
-            margin-bottom: 0px;
-            /*padding: 10px;*/
-            /*border: 1px solid #a94442;*/
+            width: 100%;
+            margin: 0px auto;
             color: #a94442;
             background: #f2dede;
             border-radius: 5px;
             text-align: center;
-        /*                margin-left: 30%;
-            width: fit-content*/
         }
 
         .success{
-            width: 32%;
+            width: 100%;
             margin: 0px auto;
-        /*    padding: 10px;
-            border: 1px solid #3c763d;*/
             color: #3c763d;
             background: #dff0d8;
             border-radius: 5px;
@@ -37,24 +39,23 @@
         </style>
     </head>
     <body>
-        <div style="margin-top:50px; margin-bottom: 0">
-            <div class="error">${error}</div>
-            <div class="success">${success}</div>
-        </div>
+        <jsp:include page="/components/backendHeader.jsp" />
+        <div class="error">${error}</div>
+        <div class="success">${success}</div>
+        
         <div class="staffmaintainance tabcontent" id="profile">
-            <div class="header">
+            
+            <div id="headerForm">
                 <h2>Overview of Your Profile</h2>
             </div>
+            
             <form class="form-detail">
                 <div class="form-left">
                     <div class="registergrp">
                         <label for="staff_ID">Your ID :</label> ${profile.staffID}<br>
                     </div>
                     <div class="registergrp">
-                        <label for="first_name">First Name :</label> ${profile.firstName}<br>
-                    </div>
-                    <div class="registergrp">
-                        <label for="last_name">Last Name :</label> ${profile.lastName}<br>
+                        <label for="name">Name :</label> ${profile.lastName} ${profile.firstName}<br>
                     </div>
                     <div class="registergrp">
                         <label for="age">Age :</label> ${profile.age}<br>
@@ -87,10 +88,10 @@
             </form>
         </div>
         <div class="staffmaintainance tabcontent" id="setpassword">
-            
-            <div class="header">
+            <div id="headerForm">
                 <h2>Set Password</h2>
             </div>
+            
             <form class="form-detail" action="StaffControl" method="GET" enctype="multipart/form-data">                       
                 <div class="form-left">
                     <div class="registergrp">
@@ -105,7 +106,7 @@
                         <label for="password">Confirm Password :</label>
                         <input type="password" name="confirmPWD" required /><br>
                     </div>
-                    <div class="registergrp" style="margin-bottom: 40px">
+                    <div class="registergrp">
                         <input type="hidden" name="staffID" value="${profile.staffID}" />
                         <input type="hidden" name="fname" value="${profile.firstName}" />
                         <input type="hidden" name="lname" value="${profile.lastName}" />
@@ -116,7 +117,7 @@
                         <input type="hidden" name="phNum" value="${profile.phoneNo}" />
                         <input type="hidden" name="position" value="${profile.position}" />
                         <input type="hidden" name="option" value="6" />
-                        <button type="submit" class="btn" name="updatepswd">Save</button>
+                        <button type="submit" class="btn" name="updatepswd">Save Password</button>
                         <!--<button type="submit" class="btn" name="updateprod">Reset</button>-->
                     </div>
                 </div>
@@ -126,6 +127,8 @@
             <button class="tablinks" onclick="openProfile(event, 'profile')" id="defaultOpen">Profile</button>
             <button class="tablinks" onclick="openProfile(event, 'setpassword')">Set Password</button>
         </div>
+
+        <%@include  file="components/clientFooter.jsp"%>
     </body>
     <script>
         function openProfile(evt, staff) {
@@ -143,4 +146,15 @@
         }
         document.getElementById("defaultOpen").click();
     </script>
+    
+    <!-- Js Plugins -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <!--<script src="js/checkHover.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
 </html>

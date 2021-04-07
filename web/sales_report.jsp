@@ -4,6 +4,12 @@
     Author     : Forge-15
 --%>
 
+<%@page import="domain.OrderList"%>
+<%@page import="da.OrderListDA"%>
+<%@page import="domain.Order"%>
+<%@page import="domain.Customer"%>
+<%@page import="da.OrderDA"%>
+<%@page import="da.CustomerDA"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.time.LocalDate" %>
 <%@page import="java.util.ArrayList"%>
@@ -29,20 +35,75 @@
     </head>
     <body>
         <jsp:include page="/components/backendHeader.jsp" />
-        <% LocalDate date = LocalDate.now(); %>
+          <%
+            CustomerDA customerDa = new CustomerDA();
+            OrderDA orderDa = new OrderDA();
+            OrderListDA OrderListDa = new OrderListDA();
+            ArrayList<Customer> Customer = customerDa.getCustomer();
+            ArrayList<Order> orderList = orderDa.listRecord();
+            ArrayList<OrderList> custOrderList = OrderListDa.CusOrderList();
+        %>
+        <% LocalDate date = LocalDate.now();
+           double tPrice = 0;
+           int tQTY = 0;
+        %>
         
         <div class="report-wrapper container">
             <div class="report-header align-items-start">
-                <div class="row col">
-                    <div class="justify-content-md-center d-flex">
-                        <img  src="images/hoot9elogo-01.png" alt="Company Logo">
+                <div class="row justify-content-between">
+                    <div class="d-flex col-4">
                         <h1 >Sales Report</h1>
-                        <h2 >Current Date: <%= date.getDayOfMonth()%> <%= date.getMonth()%> <%= date.getYear() %></h2>
                     </div>
+                        <div class="col-4">
+                            <img  src="images/hoot9elogo-01.png" alt="Company Logo">
+                        </div>
+                        <div class="col-4">
+                            <h1 >Current Date: <br> <%= date.getDayOfMonth()%> <%= date.getMonth()%> <%= date.getYear() %></h2>
+                        </div>
                     
-                    
+                     
                 </div>
-                
+                <table>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover ">
+                                    <thead class="table-success">
+                                        <tr>
+                                            <th scope="col" class="align-middle">Sales Order No</th>
+                                            <th scope="col" class="align-middle">Date</th>
+                                            <th scope="col" class="align-middle">Customer ID</th>
+                                            <th scope="col" class="align-middle">Customer Name</th>
+                                            <th scope="col" class="align-middle">Total Price (RM)</th>
+                                            <th scope="col" class="align-middle">Reward Point</th>
+                                            <th scope="col" class="align-middle">Sum of Total Price (RM)</th>
+                                            <th scope="col" class="align-middle">Sum of Quantity </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        <%for(int i=0; i<Customer.size(); i++) { %>
+                                        <% tPrice +=   orderList.get(i).getTtlPrice();  %>
+                                        <% tQTY += custOrderList.get(i).getQty(); %>
+                                        <tr>
+                                            <td><%=i+1 %></td>
+                                            <td><%=orderList.get(i).getDate()%></td>
+                                            <td><%=Customer.get(i).getCustID() %></td>
+                                            <td><%=Customer.get(i).getFirstName() %> <%=Customer.get(i).getLastName() %></td>
+                                            <td><%=orderList.get(i).getTtlPrice()%></td>
+                                            <td><%=Customer.get(i).getRewardPoint() %></td>
+                                            <td><%=  tPrice %></td>
+                                             <td><%= tQTY %></td>
+                                        </tr>
+
+                                    </tbody>
+                                    <% }  %>
+                            </div>
+                        </div>
+                    </div>           
+
+            </table>
             </div>
         </div>
     </body>

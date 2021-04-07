@@ -59,7 +59,7 @@
                                                 <th scope="col" class="align-middle">Address</th>
                                                 <th scope="col" class="align-middle">Phone No</th>
                                                 <th scope="col" class="align-middle">Reward Point</th>
-                                                <th scope="col" class="align-middle">View Customer Order</th>
+                                                <th scope="col" class="align-middle">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -77,7 +77,7 @@
                                                 <td><%=Customer.get(i).getRewardPoint() %></td>
                                                 
                                                 <td>
-                                                    <a href="#" type="button" class="btn btn-primary" >View Order</a>
+                                                    <a href="CustomerControl?option=1&custID=<%=Customer.get(i).getCustID() %> " type="button" class="btn btn-primary" >Edit</a>
                                                 </td>
                                             </tr>
                                                 <% } %>

@@ -19,6 +19,16 @@
 
 
 <!DOCTYPE html>
+<%
+    String staffEmail = (String) session.getAttribute("activeStaff");
+    response.setHeader("cache-Control", "no-cache,no-store,must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Expires", "0");
+    if (staffEmail == null) {
+        response.sendRedirect("/hoot9gui/staff_login.jsp");
+    }
+%>
+
 <html>
     <head>
         <title>Product Management Page</title>
@@ -45,11 +55,11 @@
         <%
             CustomerDA customerDa = new CustomerDA();
             OrderDA orderDa = new OrderDA();
-            OrderListDA orderListDa = new OrderListDA();
+            OrderListDA OrderListDa = new OrderListDA();
             //ShoesDA shoesDa = new ShoesDA();
             ArrayList<Customer> Customer = customerDa.getCustomer();
             ArrayList<Order> orderList = orderDa.listRecord();
-            ArrayList<OrderList> custOrderList = orderListDa.CusOrderList();
+            ArrayList<OrderList> custOrderList = OrderListDa.CusOrderList();
             //ArrayList<Shoes> shoesdetails = shoesDa.getRecord();
             
             
@@ -77,7 +87,7 @@
                         <div class="card text-center ">
                             <div class="card-body bg-light">
                                 <h5 class="card-title">Last Order ID</h5>
-                                <p class="card-text"><%= orderList.get(j).getOrderID() %> </p>
+                                <p class="card-text"><%= orderList.get(j).getOrderID()  %> </p>
                                 <a href="#" class="btn btn-primary b-full">View</a>
                             </div>
                         </div>
@@ -100,7 +110,7 @@
                             </div>
                         </div>
                     </div>
-                   <% } %>   
+                   <% } %>
                 </div>
                 <div class="table-wrapper ">
                     <label for="Sort">Sort By:</label>

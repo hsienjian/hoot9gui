@@ -1,12 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>DashboardControl</servlet-name>
-        <servlet-class>control.DashboardControl</servlet-class>
+        <servlet-name>ShoesControl</servlet-name>
+        <servlet-class>control.ShoesControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderRecordControl</servlet-name>
+        <servlet-class>control.OrderRecordControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>productManagement</servlet-name>
+        <servlet-class>control.productManagement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffLogin</servlet-name>
+        <servlet-class>control.StaffLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderControl</servlet-name>
+        <servlet-class>control.OrderControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StaffControl</servlet-name>
+        <servlet-class>control.StaffControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerControl</servlet-name>
+        <servlet-class>control.CustomerControl</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>DashboardControl</servlet-name>
-        <url-pattern>/DashboardControl</url-pattern>
+        <servlet-name>ShoesControl</servlet-name>
+        <url-pattern>/ShoesControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderRecordControl</servlet-name>
+        <url-pattern>/OrderRecordControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>productManagement</servlet-name>
+        <url-pattern>/productManagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffLogin</servlet-name>
+        <url-pattern>/StaffLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderControl</servlet-name>
+        <url-pattern>/OrderControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StaffControl</servlet-name>
+        <url-pattern>/StaffControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerControl</servlet-name>
+        <url-pattern>/CustomerControl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -7,7 +7,7 @@
             <div class="container-fluid" style="padding-top: 40px;">
                 <div class="row ml-3 font-white">
                     <div class="social-media col-xl-8 col-md-8">
-                        <h4 class="header-footer pb-2">SOCIAL MEDIA</h4>
+                        <p class="h4 header-footer pb-2 font-white">SOCIAL MEDIA</p>
                         <a id="social-link" href="#">
                             <p class="text-white"><svg t="1615658972153" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1152" width="22" height="22"><path d="M967.509333 0H56.490667C25.301333 0 0 25.301333 0 56.490667v911.018666C0 998.741333 25.301333 1024 56.490667 1024h490.410666v-396.544H413.397333v-154.496h133.504V358.826667c0-132.224 80.810667-204.16 198.784-204.16 56.533333 0 105.130667 4.138667 119.296 6.016v138.24h-81.962666c-64 0-76.458667 30.762667-76.458667 75.562666v98.602667h152.917333l-19.84 154.88H706.56V1024h260.906667c31.274667 0 56.533333-25.258667 56.533333-56.490667V56.490667C1024 25.301333 998.741333 0 967.509333 0" fill="#ffffff" p-id="1153"></path></svg>&nbsp;&nbsp;&nbsp;Facebook</p>
                         </a>
@@ -20,8 +20,8 @@
                     </div>
                     <div class="border-line-1"></div>
                     <div class="about-us col-xl-4 col-md-4">
-                        <h4 class="header-footer">ABOUT US</h4>
-                        <p class="font-reduce-size">
+                        <p class="h4 header-footer font-white">ABOUT US</p>
+                        <p class="font-reduce-size font-white">
                             HOOT9e is a shoe shop because facing
                             COVID-19 period we bring our business
                             to online to make our customers able to
@@ -35,7 +35,7 @@
             <div class="container-fluid mt-5">
                 <div class="row">
                     <div class="col-12 text-center font-white"style="border-top: 1px solid #797979;">
-                        <p class="p-3 mb-0">Copyright 2021 &#169; HOOT9e Design</p>
+                        <p class="p-3 mb-0 font-white">Copyright 2021 &#169; HOOT9e Design</p>
                     </div>     
                 </div>
             </div>
