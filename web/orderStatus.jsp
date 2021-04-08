@@ -84,7 +84,7 @@
                             var y = x[l];
                             for (var j = 0; j < search.length; j++) {
                                 var z = y[j];
-                                if (z === search[j]) {
+                                if (z.toLowerCase() === search[j].toLowerCase()) {
                                     exist = 1;
                                 } else {
                                     exist = 0;

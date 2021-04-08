@@ -36,6 +36,19 @@ import javax.servlet.http.Part;
 @MultipartConfig
 public class productManagement extends HttpServlet {
 
+    private StaffDA staffDA;
+    private ShoesDA shoesDA;
+    private ColorDA colorDA;
+    private HttpSession session;
+    private RequestDispatcher rd;
+
+    @Override
+    public void init() throws ServletException {
+        shoesDA = new ShoesDA();
+        colorDA = new ColorDA();
+        staffDA = new StaffDA();
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -49,13 +62,14 @@ public class productManagement extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
+        session = request.getSession();
 
-        ShoesDA shoesDA = new ShoesDA();
-        ColorDA colorDA = new ColorDA();
-        StaffDA staffDA = new StaffDA();
-        HttpSession session = request.getSession();
-        RequestDispatcher rd;
-
+//        if (session.getAttribute("activeStaff")) {
+//            response.setHeader("cache-Control", "no-cache,no-store,must-revalidate");
+//            response.setHeader("Pragma", "no-cache");
+//            response.setHeader("Expires", "0");
+//            response.sendRedirect("/hoot9gui/staff_login.jsp");
+//        } else {
         switch (action) {
             case "retrieveAll":
                 ArrayList<Shoes> shoes = new ArrayList<Shoes>();
@@ -75,7 +89,7 @@ public class productManagement extends HttpServlet {
                     request.setAttribute("staffs", staffs);
                     request.setAttribute("colorsType", colorsType);
                     rd = request.getRequestDispatcher("productManagement.jsp");
-                    rd.include(request, response);
+                    rd.forward(request, response);
                 } catch (SQLException ex) {
                     request.getRequestDispatcher("getShoes_error.html");
                 }
@@ -113,6 +127,7 @@ public class productManagement extends HttpServlet {
                     response.sendRedirect("http://localhost:8080/hoot9gui/productManagement?action=retrieveAll");
                 }
                 break;
+
             case "restock":
                 Integer prodID = Integer.parseInt(request.getParameter("product_id"));
                 Integer new_stock = Integer.parseInt(request.getParameter("restock_amount"));
@@ -124,7 +139,7 @@ public class productManagement extends HttpServlet {
                         response.sendRedirect("http://localhost:8080/hoot9gui/productManagement?action=shoesDetails&id=" + prodID + "&destination=restockProduct.jsp");
                     } else {
                         shoesDA.restock(prodID, new_stock);
-                        session.setAttribute("restock_status", "Shoes : " + prodID + "has Updated from " + current_stock + " to " + new_stock + ".");
+                        session.setAttribute("restock_status", "Shoes : " + prodID + " has Updated from " + current_stock + " to " + new_stock + ".");
                         response.sendRedirect("http://localhost:8080/hoot9gui/productManagement?action=retrieveAll");
                     }
                 } catch (SQLException ex) {
@@ -146,6 +161,7 @@ public class productManagement extends HttpServlet {
                 } catch (SQLException ex) {
                 }
         }
+//    }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

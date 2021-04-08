@@ -128,7 +128,7 @@
                         var y = x[l];
                         for (var j = 0; j < search.length; j++) {
                             var z = y[j];
-                            if (z === search[j]) {
+                            if (z.toLowerCase() === search[j].toLowerCase()) {
                                 exist = 1;
                             } else {
                                 exist = 0;
@@ -289,7 +289,6 @@
                             <input name="staff" type="hidden" value="<%= staffEmail%>"/>
                             <input name="action" type="hidden" value="addShoes"/>
                             <div class="modal-footer">
-                                <button onClick="modal_toggle('addShoes_modal', 'close')" class="btn btn-secondary">Cancel</button>
                                 <input type="submit" class="btn btn-primary" value="submit"></input>
                             </div>
                         </form>

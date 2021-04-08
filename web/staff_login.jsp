@@ -21,7 +21,6 @@
                 height: 190px;
                 margin: 30vh auto;
                 border-radius: 20px;
-                overflow: hidden;
                 background-color: rgba(0,0,0,0.5);
             }
             .staff-login-img, .staff-login-img img {
