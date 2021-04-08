@@ -74,7 +74,7 @@
                                             <td><%=Customer.get(i).getFirstName()%> <%=Customer.get(i).getLastName()%></td>
                                             <td><%=Customer.get(i).getPhoneNo()%></td>
                                             <td>
-                                                <a href="#" type="button" class="btn btn-primary" >View Order Details</a>
+                                                <a href="OrderControl?option=0" type="button" class="btn btn-primary" >View Order Details</a>
                                             </td>
                                             <% }
                                                 }%>

@@ -44,7 +44,7 @@
                 <li
                     <ul class="collapse-ul" id="collapse-ul-4">
                         <a href='/hoot9gui/CustomerControl?option=0'><li>View Customer Record</li></a>
-                        <a href='#'><li>View Sales Record</li></a>
+                        <a href='/hoot9gui/CustomerControl?option=3'><li>View Sales Record</li></a>
                     </ul>
                 </li>
             </ul>
