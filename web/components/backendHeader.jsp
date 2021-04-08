@@ -36,9 +36,9 @@
                 </li>
                 <li name="collapse-ul-3" onclick="handleCollapse('collapse-ul-3', 'fa-angle-down-3')">Report<i id="fa-angle-down-3" class="fa fa-angle-down" aria-hidden="true"></i>
                     <ul class="collapse-ul" id="collapse-ul-3">
-                        <a href='#'><li>Generate New Report</li></a>
-                        <a href='#'><li>Generate Sales Report</li></a>
-                        <a href='#'><li>Generate Customer Report</li></a>
+                        
+                        <a href='/hoot9gui/ReportControl?option=0'><li>Generate Sales Report</li></a>
+                        <a href='/hoot9gui/ReportControl?option=1'><li>Generate Customer Report</li></a>
                     </ul>
                 </li>
                 <li

@@ -72,7 +72,7 @@ public class CustomerControl extends HttpServlet {
                 editCustomer(request,response);
                 break;
             case 3:
-                toCustomerReport(request,response);
+                toSalesRecord(request,response);
                 break; 
                
                 
@@ -81,7 +81,7 @@ public class CustomerControl extends HttpServlet {
         
     }
 
-    private void toCustomerReport (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void toSalesRecord (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
        
             
             response.sendRedirect("Sales_record.jsp");
