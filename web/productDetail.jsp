@@ -8,6 +8,7 @@
 <% String message = (String) request.getAttribute("message");%>
 <% boolean chkSuccessAdd = Boolean.TRUE == session.getAttribute("chkSuccessAdd");%>
 <% boolean chkError = Boolean.TRUE == session.getAttribute("chkError");%>
+<% Integer cusID = (Integer) session.getAttribute("cusID");%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -89,8 +90,12 @@
                                 <input id="shoesSize" type="hidden" value="" name="shoesSize">
                                 <input id="shoesQty" type="hidden" value="" name="shoesQty">                            
                                 <input id="cartAction" type="hidden" value="addToCart" name="cartAction">                            
-                                <input id="colorName" type="hidden" value="" name="colorName">                            
+                                <input id="colorName" type="hidden" value="" name="colorName">  
+                                <%if (cusID != null) {%>
                                 <input type="button" onclick="submitFunction()" class="btn primary-btn" value="ADD TO CART">
+                                <%} else {%>
+                                <input type="button" class="btn primary-btn" value="ADD TO CART" disabled>
+                                <%}%>
                                 <a href="#" class="heart-icon primary-btn" style="background-color: red;"><span style="color: white" class="fa fa-heart-o"></span></a>
                             </form>
                         </div> 
@@ -229,7 +234,7 @@
             </div>
         </div>
         <!--End Modal display Error-->
-        
+
         <%@include  file="components/clientFooter.jsp"%>
     </body>
     <!-- Js Plugins -->
