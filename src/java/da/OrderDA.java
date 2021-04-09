@@ -85,6 +85,7 @@ public class OrderDA {
         } finally {
             shutDown();
         }
+
     }
 
     private void createConnection() throws SQLException {
@@ -145,6 +146,25 @@ public class OrderDA {
         }
     }
 
+    public Order getOrder(double ttlPrice) throws SQLException {
+        Order order = null;
+        try {
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName + " WHERE ORDER_ID = ?";
+            stmt = conn.prepareStatement(queryStr);
+            stmt.setDouble(1, ttlPrice);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                order = new Order(rs.getInt(1), rs.getDate(2), ttlPrice, rs.getString(4), rs.getInt(5));
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return order;
+    }
+    
     public Order getCusOrder(int cusID, int orderID) throws SQLException {
         createConnection();
         Order order = null;

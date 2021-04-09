@@ -218,6 +218,28 @@ public class ShoesDA {
         }
         return shoesdetails;
     }
+    
+        public ArrayList<Shoes> getRecord() throws SQLException {
+        Shoes choosen = null;
+        ArrayList<Shoes> shoesdetails = new ArrayList<Shoes>();
+        try {
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_NAME = ?";
+            stmt = conn.prepareStatement(queryStr);
+            
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                choosen = new Shoes(rs.getInt("PROD_ID"), rs.getString("SIZE"),  rs.getString("PRODNAME"), rs.getString("BRAND"), rs.getDouble("PRICE"), rs.getInt("STOCK"), rs.getString("SEASON"), rs.getString("IMG"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
+                shoesdetails.add(choosen);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return shoesdetails;
+    }
 
     public ArrayList<Shoes> staffHandle(int staffID) throws SQLException {
         Shoes handled = null;
@@ -246,7 +268,7 @@ public class ShoesDA {
         Shoes searched = null;
         try {
             createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_NAME LIKE '%" + searching + "%' AND PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY PROD_NAME ) ";
+            String queryStr = "SELECT * FROM " + tableName + " WHERE UPPER(PROD_NAME) LIKE '%" + searching + "%' AND PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY PROD_NAME ) ";
             stmt = conn.prepareStatement(queryStr);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
