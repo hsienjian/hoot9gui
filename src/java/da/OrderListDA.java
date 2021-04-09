@@ -44,15 +44,15 @@ public class OrderListDA {
         return order;
     }
 
-    public void addOrderList(Order order) throws SQLException {
+    public void addOrderList(OrderList orderlist) throws SQLException {
         try {
             createConnection();
-            String insertColor = "INSERT INTO " + tableName + " (DATE, TOTAL_PRICE, STATUS, CUST_ID) VALUES( ?, ?, ?, ?)";
+            String insertColor = "INSERT INTO " + tableName + " (PROD_ID, ORDER_ID, QTY, SUBTOTAL) VALUES( ?, ?, ?, ?)";
             stmt = conn.prepareStatement(insertColor);
-            stmt.setDate(1, order.getDate());
-            stmt.setDouble(2, order.getTtlPrice());
-            stmt.setString(3, order.getStatus());
-            stmt.setInt(4, order.getCustID());
+            stmt.setInt(1, orderlist.getProdID());
+            stmt.setInt(2, orderlist.getOrderID());
+            stmt.setInt(3, orderlist.getQty());
+            stmt.setDouble(4, orderlist.getSubTtlPrice());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             throw ex;

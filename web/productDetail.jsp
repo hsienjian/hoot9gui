@@ -61,19 +61,19 @@
                             <div style="padding-bottom: 10px;">
                                 <h3  style="margin-top: 30px"><%= shoesDetails.get(0).getProdName()%></h3>
                                 <h3><%= shoesDetails.get(0).getBrand()%></h3>
-                                <h5 id="shoesPrice">RM<%= shoesDetails.get(0).getPrice()%></h5>
+                                <h5>RM<%= shoesDetails.get(0).getPrice()%></h5>
                             </div> 
 
 
                             <div class="product__details__quantity" style="margin-bottom: 10px">
                                 <h4 style="margin-bottom: 10px">Shoe sizes & colors</h4>
                                 <form action="" style="display: flex">
-                                    <select id="available-size-color" name="available-size-color" onchange="changePrice()">                      
+                                    <select id="available-size-color" name="available-size-color">                      
                                         <% for (int i = 0; i < shoesDetails.size(); i++) {
                                                 Shoes sizes = shoesDetails.get(i);
                                                 Color colors = colorChoice.get(i);
                                         %> 
-                                        <option value='<%=sizes.getPrice()%>|<%=sizes.getSize()%>|<%=colors.getColorName()%>'><%= sizes.getSize()%><%= colors.getColorName()%></option>                            
+                                        <option value='<%=sizes.getSize()%>|<%=colors.getColorName()%>'><%= sizes.getSize()%><%= colors.getColorName()%></option>                            
                                         <% }%>
                                     </select> &nbsp;&nbsp;&nbsp; 
                                 </form>
@@ -229,6 +229,7 @@
             </div>
         </div>
         <!--End Modal display Error-->
+        
         <%@include  file="components/clientFooter.jsp"%>
     </body>
     <!-- Js Plugins -->
@@ -267,15 +268,10 @@
                                         var sizeValue = size.options[size.selectedIndex].value;
                                         var sizeColorSplit = sizeValue.split("|");
                                         var qty = document.getElementById("shoes-qty").value;
-                                        document.getElementById("shoesSize").value = sizeColorSplit[1];
-                                        document.getElementById("colorName").value = sizeColorSplit[2];
+                                        document.getElementById("shoesSize").value = sizeColorSplit[0];
+                                        document.getElementById("colorName").value = sizeColorSplit[1];
                                         document.getElementById("shoesQty").value = qty;
                                         document.getElementById("addToCartForm").submit();
-                                    }
-                                    function changePrice() {
-                                        var optionValue = document.getElementById("available-size-color").value;
-                                        var price = optionValue.split("|");
-                                        document.getElementById("shoesPrice").innerHTML = "RM" + price[0];
                                     }
 
                                     $(document).ready(function () {

@@ -115,12 +115,20 @@
         <%@include file="components/clientHeader.jsp"%>
         <%
             ArrayList<Shoes> cartList = (ArrayList<Shoes>) session.getAttribute("cartProd");
-            ArrayList<Color> prodColor = (ArrayList<Color>) request.getAttribute("prodColor");
-            ArrayList<Double> prodSubTtl = (ArrayList<Double>) request.getAttribute("prodSubTtl");
+            ArrayList<Color> prodColor = (ArrayList<Color>) session.getAttribute("prodColor");
+            ArrayList<Double> prodSubTtl = (ArrayList<Double>) session.getAttribute("prodSubTtl");
             Double orderSubTtl = (Double) request.getAttribute("orderSubTtl");
             Double orderTtl = (Double) request.getAttribute("orderTtl");
             Double shippingFee = (Double) request.getAttribute("shippingFee");
             boolean isEmpty = Boolean.TRUE == request.getAttribute("checkEmpty");
+            String message = (String) request.getAttribute("message");
+            boolean chkSuccessAdd = Boolean.TRUE == session.getAttribute("chkSuccessAdd");
+            boolean chkError = Boolean.TRUE == session.getAttribute("chkError");
+            boolean chkRanOutStock = Boolean.TRUE == session.getAttribute("chkRanOutStock");
+            ArrayList<Integer> ranOutStockIndex = (ArrayList<Integer>) session.getAttribute("ranOutStockIndex");
+            if (ranOutStockIndex == null) {
+                ranOutStockIndex = new ArrayList<Integer>();
+            }
         %>
         <div class="container-fluid text-center title-con font-style-dinot" style="margin-top: 120px;">
             <span class="h2">CHECKOUT</span><br>
@@ -149,7 +157,7 @@
                                 <%for (int i = 0; i < cartList.size(); i++) {%>
                                 <div class="row product-container ml-0 mr-0 pt-4 pb-0">
                                     <div class="col-md-4 col-sm-12">
-                                        <img class="product-img img-thumbnail border-0" style="padding-top:90px;" src="<%=cartList.get(i).getImg()%>" alt="pic1">
+                                        <img class="product-img img-thumbnail border-0" style="padding-top:90px;" src="images/<%=cartList.get(i).getImg()%>" alt="pic1">
                                     </div>
                                     <div class="col-md-8 col-sm-12 pr-4">
                                         <p class="h3 font-weight-bold"><%=cartList.get(i).getProdName()%></p>
@@ -178,7 +186,7 @@
                                                         <input type="hidden" value="<%=i%>" name="indexProd">
                                                         <input type="hidden" value="" name="updateQty<%=i%>" id="updateQty<%=i%>">
                                                         <input type="hidden" value="<%=cartList.get(i).getProdID()%>" name="shoesID">
-                                                            <button class="btn pt-0 pb-0 pl-0 pr-0" type="button" onclick="submitFunction(<%=i%>)">
+                                                        <button class="btn pt-0 pb-0 pl-0 pr-0" type="button" onclick="submitFunction(<%=i%>)">
                                                             <svg t="1616597917580" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1697" width="25" height="25">
                                                             <path d="M704.15 384a32 32 0 0 0 32 32H896a32 32 0 0 0 32-32V224a32 32 0 0 0-64 0v66.92C788.5 171.29 655 96 511.9 96c-229.37 0-416 186.62-416 416s186.63 416 416 416a415.67 415.67 0 0 0 413.32-368.4l0.47-4.22A32 32 0 0 0 897.4 520c-17.06-1.56-33.4 10.69-35.34 28.28l-0.44 4.13A351.68 351.68 0 0 1 511.9 864c-194.09 0-352-157.91-352-352s157.91-352 352-352c131.54 0 253.6 75.16 313.41 192h-89.16a32 32 0 0 0-32 32z" p-id="1698" fill="#8a8a8a"></path>
                                                             </svg>
@@ -255,8 +263,12 @@
                         <div class="border-line-2"></div>
                         <div class="row pt-3 pb-3">
                             <div class="col-md-12 col-sm-12 col-12">
-                                <form>
-                                    <button type="button" class="btn text-white btn-block" style="border-radius: 50px !important;background-color:#000000;">
+                                <form action="PaymentControl" method="POST">
+                                    <input type="hidden" value="reviewOrder" name="paymentAction">
+                                    <input type="hidden" value="<%=orderSubTtl%>" name="orderSubTtl">
+                                    <input type="hidden" value="<%=shippingFee%>" name="shippingFee">
+                                    <input type="hidden" value="<%=orderTtl%>" name="orderTtl">
+                                    <button type="submit" class="btn text-white btn-block" style="border-radius: 50px !important;background-color:#000000;">
                                         Checkout
                                     </button>
                                 </form>
@@ -267,6 +279,115 @@
             </div>
         </div> 
         <%}%>
+        <!--GetValue-->             
+        <input type="hidden" value="<%=chkSuccessAdd%>" id="chkSuccess">
+        <input type="hidden" value="<%=chkError%>" id="chkError">
+        <input type="hidden" value="<%=chkRanOutStock%>" id="chkRanOutStock">
+        <%
+            session.setAttribute("chkSuccessAdd", false);
+            session.setAttribute("chkError", false);
+            session.setAttribute("chkRanOutStock", false);
+        %>
+        <!--Start Modal display Success add-->
+        <div class="modal hide fade" id="myModal-1">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body pb-0">
+                        <div class="container-fluid text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <svg t="1617291725035" class="icon" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1648" width="90" height="90"><path d="M511.9455 958.712809c-247.065724 0-448.054313-200.987589-448.054313-448.060313 0-247.065724 200.987589-448.054313 448.054313-448.054313 247.072724 0 448.060313 200.987589 448.060313 448.054313C960.005813 757.72422 759.017224 958.712809 511.9455 958.712809L511.9455 958.712809zM511.9455 126.893372c-211.60762 0-383.758124 172.150504-383.758124 383.758124 0 211.58062 172.150504 383.765124 383.758124 383.765124 211.58062 0 383.765124-172.184504 383.765124-383.765124C895.709624 299.043876 723.52512 126.893372 511.9455 126.893372L511.9455 126.893372zM511.9455 126.893372" p-id="1649" data-spm-anchor-id="a313x.7781069.0.i7" class="selected" fill="#a5dc86"></path><path d="M726.94813 391.825148c-12.545037-12.448036-32.837096-12.322036-45.249133 0.254001L448.388314 627.94784l-103.280303-106.122311c-12.350036-12.707037-32.612096-12.932038-45.249133-0.640002-12.678037 12.322036-12.965038 32.612096-0.640002 45.251133l126.032369 129.522379c0.064 0.093 0.190001 0.093 0.254001 0.190001 0.064 0.064 0.097 0.191001 0.161 0.254001 2.017006 1.988006 4.512013 3.204009 6.88102 4.547013 1.250004 0.674002 2.241007 1.793005 3.52001 2.305007 3.873011 1.601005 8.000023 2.398007 12.096035 2.398007 4.063012 0 8.131024-0.796002 11.969035-2.334007 1.250004-0.513002 2.208006-1.539005 3.39401-2.178006 2.398007-1.344004 4.898014-2.525007 6.94502-4.542013 0.063-0.064 0.098-0.196001 0.190001-0.259001 0.064-0.094 0.161-0.128 0.259001-0.191001l256.253751-259.041759C739.626167 424.499244 739.494166 404.242184 726.94813 391.825148L726.94813 391.825148zM726.94813 391.825148" p-id="1650" data-spm-anchor-id="a313x.7781069.0.i0" class="" fill="#a5dc86"></path></svg>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3>Success!!!</h3>
+                                    <p><%=message%></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer pt-0" style="border-top: 0px !important;">
+                        <div class="container-fluid">
+                            <div class="row text-center">
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" style="border-radius: 50px !important;">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Modal display Success add-->
+
+        <!--Start Modal display Error-->
+        <div class="modal hide fade" id="myModal-2">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body pb-0">
+                        <div class="container-fluid text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <svg t="1617293083897" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2892" width="90" height="90"><path d="M512 1023.998046A511.999023 511.999023 0 0 1 312.610948 41.080156a511.999023 511.999023 0 0 1 398.778104 942.839689 508.993158 508.993158 0 0 1-199.389052 40.078201z m0-943.841643C273.534702 80.156403 80.15738 274.53568 80.15738 511.999023s193.377322 431.84262 431.84262 431.84262 431.84262-193.377322 431.84262-431.84262S749.463343 80.156403 512 80.156403z" fill="#dc3545" p-id="2893"></path><path d="M320.626588 743.450636a40.078201 40.078201 0 0 1-28.054741-68.132942l381.744869-381.744869a40.383798 40.383798 0 0 1 57.111437 57.111437L349.683284 731.427176a40.078201 40.078201 0 0 1-29.056696 12.02346z" fill="#dc3545" p-id="2894"></path><path d="M702.371457 743.450636a40.078201 40.078201 0 0 1-28.054741-12.02346L292.571847 349.682307a40.383798 40.383798 0 0 1 57.111437-57.111437l380.742914 382.746824a40.078201 40.078201 0 0 1-28.054741 68.132942z" fill="#dc3545" p-id="2895"></path></svg>                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3>Oops...</h3>
+                                    <p><%=message%> </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer pt-0" style="border-top: 0px !important;">
+                        <div class="container-fluid">
+                            <div class="row text-center">
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" style="border-radius: 50px !important;">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Modal display Error-->
+        <!--Start Modal display Error-->
+        <div class="modal hide fade" id="myModal-3">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body pb-0">
+                        <div class="container-fluid text-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <svg t="1617293083897" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2892" width="90" height="90"><path d="M512 1023.998046A511.999023 511.999023 0 0 1 312.610948 41.080156a511.999023 511.999023 0 0 1 398.778104 942.839689 508.993158 508.993158 0 0 1-199.389052 40.078201z m0-943.841643C273.534702 80.156403 80.15738 274.53568 80.15738 511.999023s193.377322 431.84262 431.84262 431.84262 431.84262-193.377322 431.84262-431.84262S749.463343 80.156403 512 80.156403z" fill="#dc3545" p-id="2893"></path><path d="M320.626588 743.450636a40.078201 40.078201 0 0 1-28.054741-68.132942l381.744869-381.744869a40.383798 40.383798 0 0 1 57.111437 57.111437L349.683284 731.427176a40.078201 40.078201 0 0 1-29.056696 12.02346z" fill="#dc3545" p-id="2894"></path><path d="M702.371457 743.450636a40.078201 40.078201 0 0 1-28.054741-12.02346L292.571847 349.682307a40.383798 40.383798 0 0 1 57.111437-57.111437l380.742914 382.746824a40.078201 40.078201 0 0 1-28.054741 68.132942z" fill="#dc3545" p-id="2895"></path></svg>                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <h3>Oops...</h3>
+                                    <p>Unable Checkout - Insufficient stock!!!</p>
+                                    <p>Please remove from cart or try later!!!</p>
+                                    <%for (int i = 0; i < ranOutStockIndex.size(); i++) {%>
+                                    <p><%=i+1%>. <%=cartList.get(ranOutStockIndex.get(i)).getProdName()%> <%=cartList.get(ranOutStockIndex.get(i)).getSize()%> <%=prodColor.get(ranOutStockIndex.get(i)).getColorName()%></p>
+                                    <%}%>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer pt-0" style="border-top: 0px !important;">
+                        <div class="container-fluid">
+                            <div class="row text-center">
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" style="border-radius: 50px !important;">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End Modal display Error-->
+
         <%@include  file="components/clientFooter.jsp"%>
 
     </body>
@@ -277,25 +398,45 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="js/checkHover.js"></script>
     <script>
-        function submitFunction(i) {
-            var qty = document.getElementById("quantity"+i).value;
-            document.getElementById("updateQty"+i).value = qty;
-            document.getElementById("updateForm"+i).submit();
-        }
-        $(document).ready(function () {
-            function alignModal() {
-                var modalDialog = $(this).find(".modal-dialog");
+                                                            function submitFunction(i) {
+                                                                var qty = document.getElementById("quantity" + i).value;
+                                                                document.getElementById("updateQty" + i).value = qty;
+                                                                document.getElementById("updateForm" + i).submit();
+                                                            }
+                                                            $(document).ready(function () {
+                                                                function alignModal() {
+                                                                    var modalDialog = $(this).find(".modal-dialog");
 
-                // Applying the top margin on modal to align it vertically center
-                modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
-            }
-            // Align modal when it is displayed
-            $(".modal").on("shown.bs.modal", alignModal);
+                                                                    // Applying the top margin on modal to align it vertically center
+                                                                    modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
+                                                                }
+                                                                // Align modal when it is displayed
+                                                                $(".modal").on("shown.bs.modal", alignModal);
 
-            // Align modal when user resize the window
-            $(window).on("resize", function () {
-                $(".modal:visible").each(alignModal);
-            });
-        });
+                                                                // Align modal when user resize the window
+                                                                $(window).on("resize", function () {
+                                                                    $(".modal:visible").each(alignModal);
+                                                                });
+                                                            });
+                                                            $(window).on('load', function () {
+                                                                var success = document.getElementById("chkSuccess").value
+                                                                var error = document.getElementById("chkError").value
+                                                                var chkRanOutStock = document.getElementById("chkRanOutStock").value
+                                                                if (success == "true") {
+                                                                    $('#myModal-1').modal('show');
+                                                                } else {
+                                                                    $('#myModal-1').modal('hide');
+                                                                }
+                                                                if (error == "true") {
+                                                                    $('#myModal-2').modal('show');
+                                                                } else {
+                                                                    $('#myModal-2').modal('hide');
+                                                                }
+                                                                if (chkRanOutStock == "true") {
+                                                                    $('#myModal-3').modal('show');
+                                                                } else {
+                                                                    $('#myModal-3').modal('hide');
+                                                                }
+                                                            });
     </script>
 </html>

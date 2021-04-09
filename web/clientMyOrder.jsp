@@ -101,12 +101,9 @@
         <%
             
             ArrayList<Order> orderList = (ArrayList<Order>) request.getAttribute("orderList");
-            if(orderList == null){orderList = new ArrayList<Order>(); response.sendRedirect("OrderRecordControl?ordOpt=1");}
             boolean isEmpty = Boolean.TRUE == request.getAttribute("checkIsEmpty");
             boolean isNotFound = Boolean.TRUE == request.getAttribute("checkNotFound");
             String title = (String) request.getAttribute("filterTitle");
-            Integer countPrss = 0;
-            countPrss = (Integer) request.getAttribute("countPrss");
         %>
         <!--Start Order Status-->
         <%if (!isEmpty) {%>
@@ -188,16 +185,7 @@
 
         <!--Start Error message-->
         <%if (isEmpty) {%>
-        <%if (countPrss > 0) {%>
-        <div class="container mb-5">
-            <hr>
-            <div class="row justify-content-center mt-5">
-                <svg t="1616954159593" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="535" width="80" height="80"><path d="M704.137 63.946c-141.412 0-256.05 114.637-256.05 256.05s114.638 256.05 256.05 256.05 256.05-114.637 256.05-256.05-114.638-256.05-256.05-256.05z m0 446.969c-105.441 0-190.918-85.477-190.918-190.918s85.477-190.918 190.918-190.918 190.918 85.477 190.918 190.918-85.477 190.918-190.918 190.918z" p-id="536" fill="#cdcdcd"></path><path d="M801.219 319.996h-97.082v-97.295c0-17.075-14.357-30.917-32.068-30.917S640 205.626 640 222.701v130.172c0 7.818 3.017 14.953 7.98 20.397 0.065 0.075 0.133 0.147 0.199 0.222 0.073 0.079 0.146 0.16 0.22 0.238 5.644 6.189 13.652 10.06 22.543 10.06h130.276c17.089 0 30.942-14.281 30.942-31.897 0.001-17.616-13.852-31.897-30.941-31.897zM225.408 383.964h124.186c18.43 0 34.371-13.94 34.371-32.371s-15.94-31.371-34.371-31.371H225.408c-18.43 0-33.371 12.94-33.371 31.371s14.941 32.371 33.371 32.371zM192.585 544.731c0 17.408 14.113 31.521 31.521 31.521h192.119c17.409 0 31.521-14.113 31.521-31.521 0-17.409-14.112-31.522-31.521-31.522H224.107c-17.409 0-31.522 14.113-31.522 31.522zM192.585 735.842c0 17.651 14.309 31.96 31.959 31.96h447.633c17.65 0 31.959-14.309 31.959-31.96 0-17.65-14.309-31.959-31.959-31.959H224.545c-17.651 0-31.96 14.308-31.96 31.959z" p-id="537" fill="#cdcdcd"></path><path d="M800.278 639.965c-17.744 0-32.129 14.385-32.129 32.129L768 865c0 16.568-13.432 31-30 31H158c-16.568 0-30-14.432-30-31V222c0-16.568 13.432-30 30-30h223.407c0.88 0.073 1.769 0.119 2.668 0.119 17.708 0 32.064-14.356 32.064-32.064 0-17.694-14.333-32.04-32.021-32.063v-0.001H160.333c-53.572 0-96 43.428-96 97v638.232c0 53.571 42.428 96 96 96h574.828c53.571 0 97-42.429 97-96 0 0-0.161-189.802-0.161-191.129 0-17.744-13.978-32.129-31.722-32.129z" p-id="538" fill="#cdcdcd"></path></svg>            </div>
-            <div class="row justify-content-center pt-3">
-                <p style="color:#cdcdcd;">Order Still in Processing</p>
-            </div>
-        </div>
-        <%} else {%>
+
         <div class="container mb-5">
             <hr>
             <div class="row justify-content-center mt-5">
@@ -210,7 +198,6 @@
                 <P style="color:#cdcdcd;">You haven't placed any orders yet</P>
             </div>
         </div>
-        <%}%>
         <%} else if (isNotFound) {%>
         <div class="container mb-5">
             <div class="row justify-content-center mt-5">

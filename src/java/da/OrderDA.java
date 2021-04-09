@@ -40,12 +40,13 @@ public class OrderDA {
     public void addOrder(Order order) throws SQLException {
         try {
             createConnection();
-            String insertColor = "INSERT INTO " + tableName + " (DATE, TOTAL_PRICE, STATUS, CUST_ID) VALUES( ?, ?, ?, ?, ?)";
-            stmt = conn.prepareStatement(insertColor);
-            stmt.setDate(1, order.getDate());
-            stmt.setDouble(2, order.getTtlPrice());
-            stmt.setString(3, order.getStatus());
-            stmt.setInt(4, order.getCustID());
+            String sqlQuery = "INSERT INTO " + tableName + " (ORDER_ID, DATE, TOTAL_PRICE, STATUS, CUST_ID) VALUES( ?, ?, ?, ?, ?)";
+            stmt = conn.prepareStatement(sqlQuery);
+            stmt.setInt(1, order.getOrderID());
+            stmt.setDate(2, order.getDate());
+            stmt.setDouble(3, order.getTtlPrice());
+            stmt.setString(4, order.getStatus());
+            stmt.setInt(5, order.getCustID());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             throw ex;
@@ -186,4 +187,21 @@ public class OrderDA {
         return cusOrderList;
     }
 
+    public Integer countOrder() throws SQLException {
+        Integer countOrder = 0;
+        try {
+            createConnection();
+            String queryStr = "SELECT COUNT(*) AS total FROM " + tableName;
+            stmt = conn.prepareStatement(queryStr);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                countOrder = rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return countOrder;
+    }
 }

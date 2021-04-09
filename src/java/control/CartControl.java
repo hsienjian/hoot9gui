@@ -28,13 +28,11 @@ public class CartControl extends HttpServlet {
 
     private ShoesDA shoesDa;
     private ColorDA colorDa;
-    private Integer cusID;
     private final Double SHIPPING_FEE = 0.0;
 
     public void init() throws ServletException {
         shoesDa = new ShoesDA();
         colorDa = new ColorDA();
-        this.cusID = 1001;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -87,6 +85,7 @@ public class CartControl extends HttpServlet {
     }
 
     private void addToCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         //Sucess or Error message
         String message = "";
         //Declaraction of getParameter and boolean for success and error condition
@@ -99,9 +98,12 @@ public class CartControl extends HttpServlet {
         Integer orderQty = Integer.parseInt(request.getParameter("shoesQty"));
         try {
             HttpSession session = request.getSession();
+            Integer cusID = (Integer) session.getAttribute("cusID");
             Color colorObj = colorDa.getColorByName(colorName);
             Shoes shoes = shoesDa.checkShoesStock(shoesName, shoesSize, colorObj.getColorID());
+
             if (shoes != null) {
+
                 shoes.setStaffID(cusID);
                 if (orderQty > shoes.getStock()) {
                     message = "Stocks ran out!Please try again later";
@@ -118,6 +120,7 @@ public class CartControl extends HttpServlet {
                         chkSuccessAdd = true;
                         session.setAttribute("allCartProd", allCartProd);
                         ArrayList<Shoes> cartProd = (ArrayList<Shoes>) session.getAttribute("allCartProd");
+
                         //check the allprodcart arraylist have this userID's cart or not
                         for (int i = 0; i < cartProd.size(); i++) {
                             if (!cartProd.get(i).getStaffID().equals(cusID)) {
@@ -146,6 +149,7 @@ public class CartControl extends HttpServlet {
                         }
                         session.setAttribute("allCartProd", allCartProd);
                         ArrayList<Shoes> cartProd = (ArrayList<Shoes>) session.getAttribute("allCartProd");
+
                         //check the allprodcart arraylist have this userID's cart or not
                         for (int i = 0; i < cartProd.size(); i++) {
                             if (!cartProd.get(i).getStaffID().equals(cusID)) {
@@ -175,6 +179,7 @@ public class CartControl extends HttpServlet {
 
     private void displayCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         boolean checkEmpty = true;
+        String message = request.getParameter("message");
         String url = "clientShoppingCart.jsp";
         ArrayList<Color> prodColor = new ArrayList<Color>();
         Color color = new Color();
@@ -182,8 +187,11 @@ public class CartControl extends HttpServlet {
         Double orderSubTtl = 0.00;
         Double orderTtl = 0.00;
         HttpSession session = request.getSession(false);
+        Integer cusID = (Integer) session.getAttribute("cusID");
         ArrayList<Shoes> cartProd = (ArrayList<Shoes>) session.getAttribute("allCartProd");
+
         if (cartProd != null) {
+
             //check the allprodcart arraylist have this userID's cart or not
             for (int i = 0; i < cartProd.size(); i++) {
                 if (!cartProd.get(i).getStaffID().equals(cusID)) {
@@ -191,18 +199,20 @@ public class CartControl extends HttpServlet {
                     i--;
                 }
             }
+
             //after calculate each prod subtotal price and get the color name by id
-            for (int i = 0; i < cartProd.size(); i++) {
-                try {
+            try {
+                for (int i = 0; i < cartProd.size(); i++) {
                     prodSubTtl.add(calProdSubTtl(cartProd.get(i).getPrice(), cartProd.get(i).getStock()));
                     color = colorDa.getColor(cartProd.get(i).getColorID());
                     prodColor.add(color);
-                } catch (SQLException ex) {
-                    try (PrintWriter out = response.getWriter()) {
-                        out.println(ex.getMessage());
-                    }
+                }
+            } catch (SQLException ex) {
+                try (PrintWriter out = response.getWriter()) {
+                    out.println(ex.getMessage());
                 }
             }
+
             //after calculate each prod subtotal price and get the color name by id
             for (int i = 0; i < prodSubTtl.size(); i++) {
                 orderSubTtl += prodSubTtl.get(i);
@@ -214,15 +224,17 @@ public class CartControl extends HttpServlet {
             } else {
                 checkEmpty = true;
             }
+
         } else {
             cartProd = new ArrayList<Shoes>();
         }
         request.setAttribute("checkEmpty", checkEmpty);
-        request.setAttribute("prodColor", prodColor);
-        request.setAttribute("prodSubTtl", prodSubTtl);
+        session.setAttribute("prodColor", prodColor);
+        session.setAttribute("prodSubTtl", prodSubTtl);
         request.setAttribute("orderSubTtl", orderSubTtl);
         request.setAttribute("shippingFee", SHIPPING_FEE);
         request.setAttribute("orderTtl", orderTtl);
+        request.setAttribute("message", message);
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);
 
@@ -231,33 +243,42 @@ public class CartControl extends HttpServlet {
     private void removeCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         String shoesID = request.getParameter("shoesID");
-        String url = "CartControl?cartAction=displayCart";
+        Integer cusID = (Integer) session.getAttribute("cusID");
         ArrayList<Shoes> allCartProd = (ArrayList<Shoes>) session.getAttribute("allCartProd");
         int index = isExisting(shoesID, cusID, allCartProd);
         if (index >= 0) {
             allCartProd.remove(index);
         }
         session.setAttribute("allCartProd", allCartProd);
-
+        String url = "CartControl?cartAction=displayCart&message=";
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);
 
     }
 
     private void updateCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String shoesID = request.getParameter("shoesID");
-        String indexProd = request.getParameter("indexProd");
-        Integer updateQty = Integer.parseInt(request.getParameter("updateQty" + indexProd));
-        String url = "CartControl?cartAction=displayCart";
+        String message = "";
+        HttpSession session = request.getSession(false);
         try {
-            HttpSession session = request.getSession(false);
+            Integer cusID = (Integer) session.getAttribute("cusID");
+            String shoesID = request.getParameter("shoesID");
+            String indexProd = request.getParameter("indexProd");
+            Integer updateQty = Integer.parseInt(request.getParameter("updateQty" + indexProd));
             ArrayList<Shoes> allCartProd = (ArrayList<Shoes>) session.getAttribute("allCartProd");
             int index = isExisting(shoesID, cusID, allCartProd);
             Shoes shoes = shoesDa.getShoes(Integer.parseInt(shoesID));
             if (shoes != null) {
                 if (index != -1) {
-                    if (shoes.getStock() > updateQty && updateQty > 0) {
+                    if (shoes.getStock() < updateQty) {
+                        message = "Update decline stock ran out!!!";
+                        session.setAttribute("chkError", true);
+                    } else if (updateQty < 0) {
+                        message = "Update decline invalid quantity!!!";
+                        session.setAttribute("chkError", true);
+                    } else {
                         allCartProd.get(index).setStock(updateQty);
+                        message = "Success Update!!!";
+                        session.setAttribute("chkSuccessAdd", true);
                         session.setAttribute("allCartProd", allCartProd);
                     }
                 }
@@ -266,8 +287,11 @@ public class CartControl extends HttpServlet {
             try (PrintWriter out = response.getWriter()) {
                 out.println(ex.getMessage());
             }
+        } catch (NumberFormatException e) {
+            message = "Update decline invalid input!!";
+            session.setAttribute("chkError", true);
         }
-
+        String url = "CartControl?cartAction=displayCart&message=" + message;
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }
@@ -296,4 +320,5 @@ public class CartControl extends HttpServlet {
         }
         return -1;
     }
+
 }

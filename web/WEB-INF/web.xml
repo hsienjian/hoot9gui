@@ -28,6 +28,10 @@
         <servlet-name>CartControl</servlet-name>
         <servlet-class>control.CartControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PaymentControl</servlet-name>
+        <servlet-class>control.PaymentControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShoesControl</servlet-name>
         <url-pattern>/ShoesControl</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>CartControl</servlet-name>
         <url-pattern>/CartControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentControl</servlet-name>
+        <url-pattern>/PaymentControl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -24,6 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,7 +37,6 @@ public class OrderRecordControl extends HttpServlet {
     private CustomerDA cusDa;
     private ShoesDA shoesDa;
     private ColorDA colorDa;
-    private Integer cusID;
 
     public void init() throws ServletException {
         orderDa = new OrderDA();
@@ -44,7 +44,6 @@ public class OrderRecordControl extends HttpServlet {
         cusDa = new CustomerDA();
         shoesDa = new ShoesDA();
         colorDa = new ColorDA();
-        this.cusID = 1001;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -87,19 +86,17 @@ public class OrderRecordControl extends HttpServlet {
     private void showRecentOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> recentOrderList = new ArrayList<Order>();
         try {
+            HttpSession session = request.getSession(false);
+            Integer cusID = (Integer) session.getAttribute("cusID");
             recentOrderList = orderDa.getCusOrderList(cusID);
             String filterTitle = "";
             String url = "clientMyOrder.jsp";
             Boolean checkIsEmpty = (recentOrderList.isEmpty() ? true : false);
-            Integer countPrss = 0;
 
             if (!checkIsEmpty) {
 
                 //filter Processing and Delivery Status
                 for (int i = 0; i < recentOrderList.size(); i++) {
-                    if (recentOrderList.get(i).getStatus().equals("Processing")) {
-                        countPrss++;
-                    }
                     if (recentOrderList.get(i).getStatus().equals("Completed")) {
                         recentOrderList.remove(i);
                         i--;
@@ -108,12 +105,13 @@ public class OrderRecordControl extends HttpServlet {
                 if (!recentOrderList.isEmpty()) {
                     filterTitle = "Recent";
                     checkIsEmpty = false;
+                } else {
+                    checkIsEmpty = true;
                 }
             }
 
             request.setAttribute("orderList", recentOrderList);
             request.setAttribute("filterTitle", filterTitle);
-            request.setAttribute("countPrss", countPrss);
             request.setAttribute("checkIsEmpty", checkIsEmpty);
             RequestDispatcher dispatcher = request.getRequestDispatcher(url);
             dispatcher.forward(request, response);
@@ -128,26 +126,24 @@ public class OrderRecordControl extends HttpServlet {
     private void showPrssOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> prssOrderList = new ArrayList<Order>();
         try {
+            HttpSession session = request.getSession(false);
+            Integer cusID = (Integer) session.getAttribute("cusID");
             prssOrderList = orderDa.getCusOrderList(cusID);
             String filterTitle = "";
             String url = "clientMyOrder.jsp";
             Boolean checkIsEmpty = (prssOrderList.isEmpty() ? true : false);
-            Integer countPrss = 0;
 
             if (!checkIsEmpty) {
                 filterTitle = "Processing";
                 //filter Processing Status
                 for (int i = 0; i < prssOrderList.size(); i++) {
-                    if (prssOrderList.get(i).getStatus().equals("Processing")) {
-                        countPrss++;
-                    }
 
                     if (prssOrderList.get(i).getStatus().equals("Completed") || prssOrderList.get(i).getStatus().equals("Delivery")) {
                         prssOrderList.remove(i);
                         i--;
                     }
                 }
-                if (!prssOrderList.isEmpty()) {
+                if (prssOrderList.size() != 0) {
                     filterTitle = "Processing";
                     checkIsEmpty = false;
                 } else {
@@ -158,7 +154,6 @@ public class OrderRecordControl extends HttpServlet {
             request.setAttribute("orderList", prssOrderList);
             request.setAttribute("filterTitle", filterTitle);
             request.setAttribute("checkIsEmpty", checkIsEmpty);
-            request.setAttribute("countPrss", countPrss);
             RequestDispatcher dispatcher = request.getRequestDispatcher(url);
             dispatcher.forward(request, response);
         } catch (SQLException ex) {
@@ -172,18 +167,16 @@ public class OrderRecordControl extends HttpServlet {
     private void showDeliveryOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> deliveryOrderList = new ArrayList<Order>();
         try {
+            HttpSession session = request.getSession(false);
+            Integer cusID = (Integer) session.getAttribute("cusID");
             deliveryOrderList = orderDa.getCusOrderList(cusID);
             String filterTitle = "";
             String url = "clientMyOrder.jsp";
             Boolean checkIsEmpty = (deliveryOrderList.isEmpty() ? true : false);
-            Integer countPrss = 0;
 
             if (!checkIsEmpty) {
                 //filter Delivery Status
                 for (int i = 0; i < deliveryOrderList.size(); i++) {
-                    if (deliveryOrderList.get(i).getStatus().equals("Processing")) {
-                        countPrss++;
-                    }
                     if (deliveryOrderList.get(i).getStatus().equals("Completed") || deliveryOrderList.get(i).getStatus().equals("Processing")) {
                         deliveryOrderList.remove(i);
                         i--;
@@ -200,7 +193,6 @@ public class OrderRecordControl extends HttpServlet {
 
             request.setAttribute("orderList", deliveryOrderList);
             request.setAttribute("filterTitle", filterTitle);
-            request.setAttribute("countPrss", countPrss);
             request.setAttribute("checkIsEmpty", checkIsEmpty);
             RequestDispatcher dispatcher = request.getRequestDispatcher(url);
             dispatcher.forward(request, response);
@@ -214,11 +206,12 @@ public class OrderRecordControl extends HttpServlet {
     private void showCompletedOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> completedOrderList = new ArrayList<Order>();
         try {
+            HttpSession session = request.getSession(false);
+            Integer cusID = (Integer) session.getAttribute("cusID");
             completedOrderList = orderDa.getCusOrderList(cusID);
             String filterTitle = "";
             String url = "clientMyOrder.jsp";
             Boolean checkIsEmpty = (completedOrderList.isEmpty() ? true : false);
-            Integer countPrss = 0;
             if (!checkIsEmpty) {
                 //filter Completed Status
                 for (int i = 0; i < completedOrderList.size(); i++) {
@@ -238,7 +231,6 @@ public class OrderRecordControl extends HttpServlet {
             request.setAttribute("orderList", completedOrderList);
             request.setAttribute("filterTitle", filterTitle);
             request.setAttribute("checkIsEmpty", checkIsEmpty);
-            request.setAttribute("countPrss", countPrss);
             RequestDispatcher dispatcher = request.getRequestDispatcher(url);
             dispatcher.forward(request, response);
         } catch (SQLException ex) {
@@ -256,7 +248,6 @@ public class OrderRecordControl extends HttpServlet {
         String filterTitle = "";
         String url = "clientMyOrder.jsp";
         Order orderObj = null;
-        Integer countPrss = 0;
         //if validateArr[0] == true that mean it contain SpeacialCharacter
         //if validateArr[1] == true that mean it contain Digits
         //if validateArr[2] == true that mean it contain Space
@@ -269,6 +260,8 @@ public class OrderRecordControl extends HttpServlet {
             orderObj = null;
         } else {
             try {
+                HttpSession session = request.getSession(false);
+                Integer cusID = (Integer) session.getAttribute("cusID");
                 orderObj = orderDa.getCusOrder(cusID, Integer.parseInt(orderID));
             } catch (SQLException ex) {
                 try (PrintWriter out = response.getWriter()) {
@@ -287,13 +280,14 @@ public class OrderRecordControl extends HttpServlet {
         request.setAttribute("orderList", order);
         request.setAttribute("filterTitle", filterTitle);
         request.setAttribute("checkNotFound", checkIsEmpty);
-        request.setAttribute("countPrss", countPrss);
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }
 
     private void showOrderDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            HttpSession session = request.getSession(false);
+            Integer cusID = (Integer) session.getAttribute("cusID");
             //Declaration and initial
             String orderID = request.getParameter("ordID");
             String deliveryDate = request.getParameter("diliveryDate");
