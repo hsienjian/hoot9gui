@@ -58,11 +58,9 @@
             OrderDA orderDa = new OrderDA();
             OrderListDA OrderListDa = new OrderListDA();
             Customer customer = (Customer) request.getAttribute("customer");
-            //ShoesDA shoesDa = new ShoesDA();
             ArrayList<Customer> Customer = customerDa.getCustomer();
             ArrayList<Order> orderList = orderDa.listRecord();
             ArrayList<OrderList> custOrderList = OrderListDa.CusOrderList();
-            //ArrayList<Shoes> shoesdetails = shoesDa.getRecord();
             
             
         %>

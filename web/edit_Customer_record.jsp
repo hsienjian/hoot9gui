@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : add_Customer_record
     Created on : 05-Apr-2021, 22:54:10
     Author     : Forge-15
@@ -9,6 +9,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
+    //redirect user back to staff_login.jsp if no user session found
+    String staffEmail = (String) session.getAttribute("activeStaff");
+    response.setHeader("cache-Control", "no-cache,no-store,must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Expires", "0");
+    if (staffEmail == null) {
+        response.sendRedirect("/hoot9gui/staff_login.jsp");
+    }
+
     CustomerDA customerDa = new CustomerDA();
     Customer customer = (Customer) request.getAttribute("customer");
 
@@ -44,45 +53,45 @@
                     <div class="col-md-12 mb-3">
                         <label for="custId" class="form-label">Customer ID</label>
                         <input type="hidden" value="2" name="option"></input>
-                        <input type="text" class="form-control" value="<%= customer.getCustID() %>"  disabled ></input>
-                        <input type="hidden" class="form-control" value="<%= customer.getCustID() %>"  name="custId" ></input>
+                        <input type="text" class="form-control" value="<%= customer.getCustID()%>"  disabled ></input>
+                        <input type="hidden" class="form-control" value="<%= customer.getCustID()%>"  name="custId" ></input>
 
                     </div>
                     <div class="col-md-6">
                         <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" name="firstName" value="<%= customer.getFirstName() %>"></input>
+                        <input type="text" class="form-control" name="firstName" value="<%= customer.getFirstName()%>"></input>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" name="lastName" value="<%= customer.getLastName() %>"></input>
+                        <input type="text" class="form-control" name="lastName" value="<%= customer.getLastName()%>"></input>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="age" class="form-label">Age</label>
-                        <input type="number" class="form-control" name="age" value="<%= customer.getAge() %>"></input>
+                        <input type="number" class="form-control" name="age" value="<%= customer.getAge()%>"></input>
                     </div>
                     <div class="col-12 mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" value="<%= customer.getEmail() %>"></input>
+                        <input type="email" class="form-control" name="email" value="<%= customer.getEmail()%>"></input>
                     </div>
                     <div class="col-12 mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" name="password"  value="<%= customer.getPassword() %>"></input>
+                        <input type="password" class="form-control" name="password"  value="<%= customer.getPassword()%>"></input>
                     </div>
                     <div class="col-12 mb-3">
                         <label for="gender" class="form-label">Gender</label>
-                        <input type="text" class="form-control" name="gender"  value="<%= customer.getGender() %>"></input>
+                        <input type="text" class="form-control" name="gender"  value="<%= customer.getGender()%>"></input>
                     </div>
                     <div class="col-12 mb-3">
                         <label for="Address" class="form-label">Address</label>
-                        <input type="text" class="form-control" name="address" value="<%= customer.getAddress() %>"></input>
+                        <input type="text" class="form-control" name="address" value="<%= customer.getAddress()%>"></input>
                     </div>
                     <div class="col-12 mb-3">
                         <label for="phoneNo" class="form-label">Phone No</label>
-                        <input type="text" class="form-control" name="phoneNo"  value="<%= customer.getPhoneNo() %>"></input>
+                        <input type="text" class="form-control" name="phoneNo"  value="<%= customer.getPhoneNo()%>"></input>
                     </div>
                     <div class="col-12 mb-3">
                         <label for="rewardPoint" class="form-label">Reward Point</label>
-                        <input type="number" class="form-control" name="rewardPoint"  value="<%= customer.getRewardPoint() %>"></input>
+                        <input type="number" class="form-control" name="rewardPoint"  value="<%= customer.getRewardPoint()%>"></input>
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Confirm Edit</button>

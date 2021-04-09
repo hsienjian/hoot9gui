@@ -58,7 +58,7 @@
             display: flex;
             float: right;
             transform: translateY(-25px);
-            margin-right: 25px;
+            margin-right: 10px;
         }
         .product-table {
             min-width: 100%;
@@ -68,9 +68,6 @@
         }
         .modal-body {
             margin: 0px 55px;
-        }
-        input[type=text],input[type=number], select {
-            border:1px solid black;
         }
         input[type=text],input[type=number], input[type=file], select{
             border-radius: 0.15rem;

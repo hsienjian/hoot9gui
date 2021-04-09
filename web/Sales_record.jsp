@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : Sales_record
     Created on : 27-Mar-2021, 21:47:55
     Author     : Forge-15
@@ -12,6 +12,16 @@
 <%@page import="da.OrderDA" %>
 
 <!DOCTYPE html>
+<%
+    //redirect user back to staff_login.jsp if no user session found
+    String staffEmail = (String) session.getAttribute("activeStaff");
+    response.setHeader("cache-Control", "no-cache,no-store,must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Expires", "0");
+    if (staffEmail == null) {
+        response.sendRedirect("/hoot9gui/staff_login.jsp");
+    }
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -35,8 +45,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-            <jsp:include page="/components/backendHeader.jsp" />
-            <h3 class="title mb-5">Customer Record</h3>
+        <jsp:include page="/components/backendHeader.jsp" />
+        <h3 class="title mb-5">Sales Record</h3>
         <%
             CustomerDA customerDa = new CustomerDA();
             OrderDA orderDa = new OrderDA();
@@ -83,7 +93,7 @@
                                     </tbody>
                             </div>
                         </div>
-                    </div>           
+                    </div>
 
             </table>
         </div>

@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : sales_report
     Created on : 28-Mar-2021, 18:15:58
     Author     : Forge-15
@@ -15,6 +15,16 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
 <!DOCTYPE html>
+<%
+    //redirect user back to staff_login.jsp if no user session found
+    String staffEmail = (String) session.getAttribute("activeStaff");
+    response.setHeader("cache-Control", "no-cache,no-store,must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Expires", "0");
+    if (staffEmail == null) {
+        response.sendRedirect("/hoot9gui/staff_login.jsp");
+    }
+%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -35,8 +45,8 @@
     </head>
     <body>
         <jsp:include page="/components/backendHeader.jsp" />
-        <h3 class="title mb-5">Customer Record</h3>
-          <%
+        <h3 class="title mb-5">Sales Report</h3>
+        <%
             CustomerDA customerDa = new CustomerDA();
             OrderDA orderDa = new OrderDA();
             OrderListDA OrderListDa = new OrderListDA();
@@ -45,67 +55,65 @@
             ArrayList<OrderList> custOrderList = OrderListDa.CusOrderList();
         %>
         <% LocalDate date = LocalDate.now();
-           double tPrice = 0;
-           int tQTY = 0;
+            double tPrice = 0;
+            int tQTY = 0;
         %>
-        
+
         <div class="report-wrapper ">
             <div class="report-header align-items-start">
                 <div class="row justify-content-between">
-                    <div class="d-flex col-4">
-                        <h1 >Sales Report</h1>
+
+                    <div class="col-10">
+                        <img  src="images/hoot9elogo-01.png" alt="Company Logo">
                     </div>
-                        <div class="col-4">
-                            <img  src="images/hoot9elogo-01.png" alt="Company Logo">
-                        </div>
-                        <div class="col-4">
-                            <h1 >Current Date: <br> <%= date.getDayOfMonth()%> <%= date.getMonth()%> <%= date.getYear() %></h2>
-                        </div>
-                    
-                     
-                </div>
-                <table>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover ">
-                                    <thead class="table-success">
-                                        <tr>
-                                            <th scope="col" class="align-middle">Sales Order No</th>
-                                            <th scope="col" class="align-middle">Date</th>
-                                            <th scope="col" class="align-middle">Customer ID</th>
-                                            <th scope="col" class="align-middle">Customer Name</th>
-                                            <th scope="col" class="align-middle">Total Price (RM)</th>
-                                            <th scope="col" class="align-middle">Reward Point</th>
-                                            <th scope="col" class="align-middle">Sum of Total Price (RM)</th>
-                                            <th scope="col" class="align-middle">Sum of Quantity </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                        <%for(int i=0; i<Customer.size(); i++) { %>
-                                        <% tPrice +=   orderList.get(i).getTtlPrice();  %>
-                                        <% tQTY += custOrderList.get(i).getQty(); %>
-                                        <tr>
-                                            <td><%=i+1 %></td>
-                                            <td><%=orderList.get(i).getDate()%></td>
-                                            <td><%=Customer.get(i).getCustID() %></td>
-                                            <td><%=Customer.get(i).getFirstName() %> <%=Customer.get(i).getLastName() %></td>
-                                            <td><%=orderList.get(i).getTtlPrice()%></td>
-                                            <td><%=Customer.get(i).getRewardPoint() %></td>
-                                            <td><%=  tPrice %></td>
-                                             <td><%= tQTY %></td>
-                                        </tr>
-
-                                    </tbody>
-                                    <% }  %>
+                    <div class="col-2">
+                        <h1 >Current Date: <br> <%= date.getDayOfMonth()%> <%= date.getMonth()%> <%= date.getYear()%></h2>
                             </div>
-                        </div>
-                    </div>           
 
-            </table>
-            </div>
-        </div>
-    </body>
-</html>
+
+                            </div>
+                            <table>
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-hover ">
+                                                    <thead class="table-success">
+                                                        <tr>
+                                                            <th scope="col" class="align-middle">Sales Order No</th>
+                                                            <th scope="col" class="align-middle">Date</th>
+                                                            <th scope="col" class="align-middle">Customer ID</th>
+                                                            <th scope="col" class="align-middle">Customer Name</th>
+                                                            <th scope="col" class="align-middle">Total Price (RM)</th>
+                                                            <th scope="col" class="align-middle">Reward Point</th>
+                                                            <th scope="col" class="align-middle">Sum of Total Price (RM)</th>
+                                                            <th scope="col" class="align-middle">Sum of Quantity </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <%for (int i = 0; i < Customer.size(); i++) { %>
+                                                        <% tPrice += orderList.get(i).getTtlPrice();  %>
+                                                        <% tQTY += custOrderList.get(i).getQty();%>
+                                                        <tr>
+                                                            <td><%=i + 1%></td>
+                                                            <td><%=orderList.get(i).getDate()%></td>
+                                                            <td><%=Customer.get(i).getCustID()%></td>
+                                                            <td><%=Customer.get(i).getFirstName()%> <%=Customer.get(i).getLastName()%></td>
+                                                            <td><%=orderList.get(i).getTtlPrice()%></td>
+                                                            <td><%=Customer.get(i).getRewardPoint()%></td>
+                                                            <td><%=  tPrice%></td>
+                                                            <td><%= tQTY%></td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                    <% }%>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                            </table>
+                    </div>
+                </div>
+                </body>
+                </html>
