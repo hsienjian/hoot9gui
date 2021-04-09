@@ -107,7 +107,7 @@ public class DashboardControl extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-     private int Revenue(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+     private void Revenue(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        double ttlPrice = Double.parseDouble(request.getParameter("ttlPrice"));
 //        double tPrice = 0 ;
 //         try (PrintWriter out = response.getWriter()) {
@@ -131,7 +131,7 @@ public class DashboardControl extends HttpServlet {
 //        return (int) tPrice;
 
             response.sendRedirect("Sales_record.jsp");
-    }
+    
 }
      
        private int TotalOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
