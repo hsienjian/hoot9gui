@@ -36,13 +36,14 @@
     </head>
     <body>
             <jsp:include page="/components/backendHeader.jsp" />
+            <h3 class="title mb-5">Customer Record</h3>
         <%
             CustomerDA customerDa = new CustomerDA();
             OrderDA orderDa = new OrderDA();
             ArrayList<Customer> Customer = customerDa.getCustomer();
             ArrayList<Order> orderList = orderDa.listRecord();
         %>
-        <div class="wrap-content container">
+        <div class="wrap-content ">
             <table>
                 <div class="mb-3">
                     <div class="row">

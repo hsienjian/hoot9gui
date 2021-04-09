@@ -14,7 +14,7 @@
 <jsp:useBean id="customerDA" class="da.CustomerDA" ></jsp:useBean>
 
     <!DOCTYPE html>
-    
+
     <html>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -34,15 +34,30 @@
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
+<style>
+        .product-control-panel {
+            display: flex;
+            float: right;
+            transform: translateY(-60px);
+            margin-right: 25px;
+        }
+       
+    </style>
         </head>
         <body>
+
         <jsp:include page="/components/backendHeader.jsp" />
+        <h3 class="title mb-5">Customer Record</h3>
+        <div class="product-control-panel">
+            
+            <input type="search" name="search" placeholder="Search"></input>
+        </div>
+
         <%
             CustomerDA customerDa = new CustomerDA();
             ArrayList<Customer> Customer = customerDa.getCustomer();
         %>
-        <div class="wrap-content container">
+        <div class="wrap-content">
 
             <div class="mb-3">
                 <div class="row">

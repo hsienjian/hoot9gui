@@ -268,7 +268,7 @@ public class ShoesDA {
         Shoes searched = null;
         try {
             createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_NAME LIKE '%" + searching + "%' AND PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY PROD_NAME ) ";
+            String queryStr = "SELECT * FROM " + tableName + " WHERE UPPER(PROD_NAME) LIKE '%" + searching + "%' AND PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY PROD_NAME ) ";
             stmt = conn.prepareStatement(queryStr);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {

@@ -38,6 +38,7 @@
     </head>
     <body>
             <jsp:include page="/components/backendHeader.jsp" />
+            <h3 class="title mb-5">Customer Record</h3>
         <%
             CustomerDA customerDa = new CustomerDA();
             OrderDA orderDa = new OrderDA();
@@ -47,7 +48,7 @@
           
         
         %>
-        <div class="wrap-content container">
+        <div class="wrap-content ">
             <div class="row justify-content-between">
                     <div class="d-flex col-4">
                         <h1 >Customer <br> Report</h1>

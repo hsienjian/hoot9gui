@@ -1,7 +1,7 @@
 <%--<jsp:useBean id="staff" scope="session" class="domain.Staff"/>--%>
 <%@page import="domain.Shoes"%>
 <%@page import="java.util.ArrayList"%>
-<% ArrayList <Shoes> handle = (ArrayList<Shoes>) request.getAttribute("duty");  %>
+<% ArrayList<Shoes> handle = (ArrayList<Shoes>) request.getAttribute("duty");  %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,42 +13,41 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="css/clientFooter.css">
         <link href="css/maintainStaff.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Staff Profile</title>
         <style>
-        .error{
-            width: 100%;
-            margin: 0px auto;
-            color: #a94442;
-            background: #f2dede;
-            border-radius: 5px;
-            text-align: center;
-        }
+            .error{
+                width: 100%;
+                margin: 0px auto;
+                color: #a94442;
+                background: #f2dede;
+                border-radius: 5px;
+                text-align: center;
+            }
 
-        .success{
-            width: 100%;
-            margin: 0px auto;
-            color: #3c763d;
-            background: #dff0d8;
-            border-radius: 5px;
-            text-align: center;
-        }
+            .success{
+                width: 100%;
+                margin: 0px auto;
+                color: #3c763d;
+                background: #dff0d8;
+                border-radius: 5px;
+                text-align: center;
+            }
         </style>
     </head>
     <body>
         <jsp:include page="/components/backendHeader.jsp" />
         <div class="error">${error}</div>
         <div class="success">${success}</div>
-        
+
         <div class="staffmaintainance tabcontent" id="profile">
-            
+
             <div id="headerForm">
                 <h2>Overview of Your Profile</h2>
             </div>
-            
+
             <form class="form-detail">
                 <div class="form-left">
                     <div class="registergrp">
@@ -77,12 +76,12 @@
                     </div>
                     <div class="registergrp">
                         <label for="product">Product Handled :</label><br>
-                        <% for(int i=0; i < handle.size(); i++){
-                            Shoes shoes = handle.get(i); 
+                        <% for (int i = 0; i < handle.size(); i++) {
+                                Shoes shoes = handle.get(i);
                         %>
-                            &nbsp;<li> <%= shoes.getProdName() %> [ <%= shoes.getSize() %> ]</li> 
-                        <% } %>
-                                    
+                        &nbsp;<li> <%= shoes.getProdName()%> [ <%= shoes.getSize()%> ]</li>
+                            <% }%>
+
                     </div>
                 </div>
             </form>
@@ -91,8 +90,8 @@
             <div id="headerForm">
                 <h2>Set Password</h2>
             </div>
-            
-            <form class="form-detail" action="StaffControl" method="GET" enctype="multipart/form-data">                       
+
+            <form class="form-detail" action="StaffControl" method="GET" enctype="multipart/form-data">
                 <div class="form-left">
                     <div class="registergrp">
                         <label for="password">Current Password :</label>
@@ -128,25 +127,24 @@
             <button class="tablinks" onclick="openProfile(event, 'setpassword')">Set Password</button>
         </div>
 
-        <%@include  file="components/clientFooter.jsp"%>
     </body>
     <script>
         function openProfile(evt, staff) {
-          var i, tabcontent, tablinks;
-          tabcontent = document.getElementsByClassName("tabcontent");
-          for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-          }
-          tablinks = document.getElementsByClassName("tablinks");
-          for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-          }
-          document.getElementById(staff).style.display = "block";
-          evt.currentTarget.className += " active";
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(staff).style.display = "block";
+            evt.currentTarget.className += " active";
         }
         document.getElementById("defaultOpen").click();
     </script>
-    
+
     <!-- Js Plugins -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
