@@ -36,7 +36,7 @@
     </head>
     <body>
             <jsp:include page="/components/backendHeader.jsp" />
-            <h3 class="title mb-5">Customer Record</h3>
+            <h3 class="title mb-5">Sales Record</h3>
         <%
             CustomerDA customerDa = new CustomerDA();
             OrderDA orderDa = new OrderDA();

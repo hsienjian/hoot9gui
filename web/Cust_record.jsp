@@ -34,79 +34,85 @@
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-<style>
-        .product-control-panel {
-            display: flex;
-            float: right;
-            transform: translateY(-60px);
-            margin-right: 25px;
-        }
-       
-    </style>
+            <style>
+                .product-control-panel{
+                    display: flex;
+                    margin-left: 1000px;
+                    transform: translateY(-60px);
+                    margin-right: 10px;
+
+                }
+
+            </style>
         </head>
         <body>
-
-        <jsp:include page="/components/backendHeader.jsp" />
-        <h3 class="title mb-5">Customer Record</h3>
-        <div class="product-control-panel">
             
-            <input type="search" name="search" placeholder="Search"></input>
-        </div>
+            <jsp:include page="/components/backendHeader.jsp" />
+            <h3 class="title mb-5">Customer Record</h3>
+            <div class="product-control-panel">
+                <input type="search" name="search" placeholder="Search"></input>
+            </div>
 
-        <%
-            CustomerDA customerDa = new CustomerDA();
-            ArrayList<Customer> Customer = customerDa.getCustomer();
-        %>
-        <div class="wrap-content">
+            <%
+                CustomerDA customerDa = new CustomerDA();
+                ArrayList<Customer> Customer = customerDa.getCustomer();
+            %>
+            <div class="wrap-content">
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover ">
+                                    <thead class="table-success">
+                                        <tr>
+                                            <th scope="col" class="align-middle">Total Customer</th>
+                                            <th scope="col" class="align-middle">Customer Id</th>
+                                            <th scope="col" class="align-middle">First Name</th>
+                                            <th scope="col" class="align-middle">Last Name</th>
+                                            <th scope="col" class="align-middle">Age</th>
+                                            <th scope="col" class="align-middle">Email</th>
+                                            <th scope="col" class="align-middle">Gender</th>
+                                            <th scope="col" class="align-middle">Address</th>
+                                            <th scope="col" class="align-middle">Phone No</th>
+                                            <th scope="col" class="align-middle">Reward Point</th>
+                                            <th scope="col" class="align-middle">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%for (int i = 0; i < Customer.size(); i++) {%>
+                                        <tr>
+                                            <td><%= i + 1%></td>
+                                            <td><%=Customer.get(i).getCustID()%></td>
+                                            <td><%=Customer.get(i).getFirstName()%></td>
+                                            <td><%=Customer.get(i).getLastName()%></td>
+                                            <td><%=Customer.get(i).getAge()%></td>
+                                            <td><%=Customer.get(i).getEmail()%></td>
+                                            <td><%=Customer.get(i).getGender()%></td>
+                                            <td><%=Customer.get(i).getAddress()%></td>
+                                            <td><%=Customer.get(i).getPhoneNo()%></td>
+                                            <td><%=Customer.get(i).getRewardPoint()%></td>
 
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover ">
-                                <thead class="table-success">
-                                    <tr>
-                                        <th scope="col" class="align-middle">Total Customer</th>
-                                        <th scope="col" class="align-middle">Customer Id</th>
-                                        <th scope="col" class="align-middle">First Name</th>
-                                        <th scope="col" class="align-middle">Last Name</th>
-                                        <th scope="col" class="align-middle">Age</th>
-                                        <th scope="col" class="align-middle">Email</th>
-                                        <th scope="col" class="align-middle">Gender</th>
-                                        <th scope="col" class="align-middle">Address</th>
-                                        <th scope="col" class="align-middle">Phone No</th>
-                                        <th scope="col" class="align-middle">Reward Point</th>
-                                        <th scope="col" class="align-middle">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <%for (int i = 0; i < Customer.size(); i++) {%>
-                                    <tr>
-                                        <td><%= i+1 %></td>
-                                        <td><%=Customer.get(i).getCustID()%></td>
-                                        <td><%=Customer.get(i).getFirstName()%></td>
-                                        <td><%=Customer.get(i).getLastName()%></td>
-                                        <td><%=Customer.get(i).getAge()%></td>
-                                        <td><%=Customer.get(i).getEmail()%></td>
-                                        <td><%=Customer.get(i).getGender()%></td>
-                                        <td><%=Customer.get(i).getAddress()%></td>
-                                        <td><%=Customer.get(i).getPhoneNo()%></td>
-                                        <td><%=Customer.get(i).getRewardPoint()%></td>
-
-                                        <td>
-                                            <a href="CustomerControl?option=1&custID=<%=Customer.get(i).getCustID()%> " type="button" class="btn btn-primary" >Edit</a>
-                                        </td>
-                                    </tr>
-                                    <% }%>
-                                </tbody>
+                                            <td>
+                                                <a href="CustomerControl?option=1&custID=<%=Customer.get(i).getCustID()%> " type="button" class="btn btn-primary" >Edit</a>
+                                            </td>
+                                        </tr>
+                                        <% }%>
+                                    </tbody>
+                            </div>
                         </div>
-                    </div>
-                </div>    
-            </div> 
+                    </div>    
+                </div> 
 
-        </table>
+                </table>
+            </div>
+        </div>
     </div>
+</div>
+
+</div>
 
 
+
+</div>
 </body>
 </html>

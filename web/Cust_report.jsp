@@ -38,7 +38,7 @@
     </head>
     <body>
             <jsp:include page="/components/backendHeader.jsp" />
-            <h3 class="title mb-5">Customer Record</h3>
+            <h3 class="title mb-5">Customer Report</h3>
         <%
             CustomerDA customerDa = new CustomerDA();
             OrderDA orderDa = new OrderDA();
@@ -50,15 +50,13 @@
         %>
         <div class="wrap-content ">
             <div class="row justify-content-between">
-                    <div class="d-flex col-4">
-                        <h1 >Customer <br> Report</h1>
+                    
+                        <div class="col-10">
+                        <img  src="images/hoot9elogo-01.png" alt="Company Logo">
                     </div>
-                        <div class="col-4">
-                            <img  src="images/hoot9elogo-01.png" alt="Company Logo">
-                        </div>
-                        <div class="col-4">
-                            <h1 >Current Date: <br> <%= date.getDayOfMonth()%> <%= date.getMonth()%> <%= date.getYear() %></h2>
-                        </div>
+                    <div class="col-2">
+                        <h1 >Current Date: <br> <%= date.getDayOfMonth()%> <%= date.getMonth()%> <%= date.getYear()%></h2>
+                            </div>
                     
                      
                 </div>
