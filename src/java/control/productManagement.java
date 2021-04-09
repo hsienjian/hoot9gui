@@ -151,9 +151,6 @@ public class productManagement extends HttpServlet {
                 String name = request.getParameter("name");
                 String code = request.getParameter("code");
 
-                try (PrintWriter out = response.getWriter()) {
-                    out.println(code);
-                }
                 Color newColor = new Color(name, code);
                 try {
                     colorDA.addColor(newColor);
