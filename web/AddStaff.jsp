@@ -88,8 +88,8 @@
     <script>
     $(document).ready(function(){
         $("#submitBtn").click(function(){
-            $("#addForm").validate();
             if(confirm("CONFIRM TO ADD A NEW STAFF ?")){
+                $("#addForm").validate();
                 $("#addForm").submit();
                 return true;
             }
