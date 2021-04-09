@@ -20,7 +20,7 @@
             <div id="headerForm">
                 <h2>Edit Staff</h2>
             </div>
-            <form class="form-detail" action="StaffControl" method="GET" enctype="multipart/form-data" id="editForm">                       
+            <form class="form-detail" action="StaffControl" method="GET" enctype="multipart/form-data" id="editForm">
                 <div class="form-left">
                     <div class="registergrp">
                         <label for="staff_id">Staff ID :</label>
@@ -31,14 +31,14 @@
                         <input type="text" name="fname" value="${staff.firstName}" required /><br>
                     </div>
                     <div class="registergrp">
-                       <label>Last Name :</label>
-                       <input type="text" name="lname" value="${staff.lastName}" required /><br>
+                        <label>Last Name :</label>
+                        <input type="text" name="lname" value="${staff.lastName}" required /><br>
                     </div>
                     <div class="registergrp">
-                       <label>Age :</label>
-                       <input type="number" name="age" min="20" max="50" value="${staff.age}" required /><br>
+                        <label>Age :</label>
+                        <input type="number" name="age" min="20" max="50" value="${staff.age}" required /><br>
                     </div>
-                   <div class="registergrp">
+                    <div class="registergrp">
                         <label>Email :</label>
                         <input type="email" name="email" value="${staff.email}" required /><br>
                     </div>
@@ -70,7 +70,7 @@
                         <input type="hidden" name="staffID" value="${staff.staffID}">
                         <input type="hidden" name="option" value="2">
                         <button class="btn" id="submitBtn" name="updateStaff">Update Staff</button>
-                        <a href="StaffControl?option=4&staffID=${staff.staffID}" style="text-decoration: none" id="deleteBtn" class="btn btn-danger" style="width: 80px">Delete</a>    
+                        <a href="StaffControl?option=4&staffID=${staff.staffID}" style="text-decoration: none" id="deleteBtn" class="btn btn-danger" style="width: 80px">Delete</a>
                     </div>
                     <div class="registergrp" >
                         <a href="StaffControl?option=0" class="btn" style="text-decoration: none" name="cancel">Back to Staff Page</a>
@@ -91,30 +91,28 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
     <script>
-    $(document).ready(function(){
-        $("#submitBtn").click(function(){
-            if(confirm("CONFIRM TO UPDATE THE STAFF INFORMATION ?")){
-                $("#editForm").validate();
-                $("#editForm").submit();
-                return true;
-            }
-            else{
-                alert('Cancelled.');
-                return false;
-            }
+        $(document).ready(function () {
+            $("#submitBtn").click(function () {
+                if (confirm("CONFIRM TO UPDATE THE STAFF INFORMATION ?")) {
+                    $("#editForm").validate();
+                    $("#editForm").submit();
+                    return true;
+                } else {
+                    alert('Cancelled.');
+                    return false;
+                }
+            });
+            $("#deleteBtn").click(function () {
+                if (confirm("CONFIRM TO DELETE THE STAFF PERMANENTLY ?")) {
+                    $("#editForm").submit();
+                    return true;
+                } else {
+                    alert('Cancelled.');
+                    return false;
+                }
+            });
         });
-        $("#deleteBtn").click(function(){
-            if(confirm("CONFIRM TO DELETE THE STAFF PERMANENTLY ?")){
-                $("#editForm").submit();
-                return true;
-            }
-            else{
-                alert('Cancelled.');
-                return false;
-            }
-        });
-    });
     </script>
-    
+
 
 </html>

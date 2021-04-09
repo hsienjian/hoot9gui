@@ -11,6 +11,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
+    //redirect user back to staff_login.jsp if no user session found
+    String staffEmail = (String) session.getAttribute("activeStaff");
+    response.setHeader("cache-Control", "no-cache,no-store,must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Expires", "0");
+    if (staffEmail == null) {
+        response.sendRedirect("/hoot9gui/staff_login.jsp");
+    }
+
     Shoes selected_shoes = (Shoes) request.getAttribute("selected_shoes");
     Color selected_color = (Color) request.getAttribute("selected_color");
     ArrayList<Color> colorsType = (ArrayList<Color>) request.getAttribute("colorsType");
@@ -72,16 +81,6 @@
         </style>
     </head>
     <body>
-        <%for (Color c : colorsType) {%>
-        <script>
-
-            if (<%=c.getColorID()%> == <%=selected_shoes.getColorID()%>) {
-                console.log("true");
-                console.log(<%=c.getColorID()%>);
-            }
-
-        </script>
-        <%}%>
         <jsp:include page="/components/backendHeader.jsp" />
         <h3 class="title">Edit Product Details</h3>
 

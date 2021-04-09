@@ -58,7 +58,7 @@
             display: flex;
             float: right;
             transform: translateY(-25px);
-            margin-right: 25px;
+            margin-right: 10px;
         }
         .product-table {
             min-width: 100%;
@@ -68,9 +68,6 @@
         }
         .modal-body {
             margin: 0px 55px;
-        }
-        input[type=text],input[type=number], select {
-            border:1px solid black;
         }
         input[type=text],input[type=number], input[type=file], select{
             border-radius: 0.15rem;
@@ -128,7 +125,7 @@
                         var y = x[l];
                         for (var j = 0; j < search.length; j++) {
                             var z = y[j];
-                            if (z === search[j]) {
+                            if (z.toLowerCase() === search[j].toLowerCase()) {
                                 exist = 1;
                             } else {
                                 exist = 0;
@@ -289,7 +286,6 @@
                             <input name="staff" type="hidden" value="<%= staffEmail%>"/>
                             <input name="action" type="hidden" value="addShoes"/>
                             <div class="modal-footer">
-                                <button onClick="modal_toggle('addShoes_modal', 'close')" class="btn btn-secondary">Cancel</button>
                                 <input type="submit" class="btn btn-primary" value="submit"></input>
                             </div>
                         </form>
