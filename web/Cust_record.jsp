@@ -50,6 +50,7 @@
                             <table class="table table-striped table-hover ">
                                 <thead class="table-success">
                                     <tr>
+                                        <th scope="col" class="align-middle">Total Customer</th>
                                         <th scope="col" class="align-middle">Customer Id</th>
                                         <th scope="col" class="align-middle">First Name</th>
                                         <th scope="col" class="align-middle">Last Name</th>
@@ -65,7 +66,7 @@
                                 <tbody>
                                     <%for (int i = 0; i < Customer.size(); i++) {%>
                                     <tr>
-
+                                        <td><%= i+1 %></td>
                                         <td><%=Customer.get(i).getCustID()%></td>
                                         <td><%=Customer.get(i).getFirstName()%></td>
                                         <td><%=Customer.get(i).getLastName()%></td>

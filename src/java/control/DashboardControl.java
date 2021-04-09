@@ -108,28 +108,31 @@ public class DashboardControl extends HttpServlet {
     }// </editor-fold>
 
      private int Revenue(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        double ttlPrice = Double.parseDouble(request.getParameter("ttlPrice"));
-        double tPrice = 0 ;
-         try (PrintWriter out = response.getWriter()) {
-            Order order = null;
-            order = orderDA.getOrder(ttlPrice);
-            
-            request.setAttribute("ttlPrice", order);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("dashboard.jsp");
-            dispatcher.forward(request, response);
-            
-            for (int i=0; i<orderDA.listRecord().size(); i++ ){
-                if ( orderDA.getOrder(ttlPrice) !=null ){
-                    tPrice += orderDA.getOrder(i).getTtlPrice() ;
-                }
-                
-            }
+//        double ttlPrice = Double.parseDouble(request.getParameter("ttlPrice"));
+//        double tPrice = 0 ;
+//         try (PrintWriter out = response.getWriter()) {
+//            Order order = null;
+//            order = orderDA.getOrder(ttlPrice);
+//            
+//            request.setAttribute("ttlPrice", order);
+//            RequestDispatcher dispatcher = request.getRequestDispatcher("dashboard.jsp");
+//            dispatcher.forward(request, response);
+//            
+//            for (int i=0; i<orderDA.listRecord().size(); i++ ){
+//                if ( orderDA.getOrder(ttlPrice) !=null ){
+//                    tPrice += orderDA.getOrder(i).getTtlPrice() ;
+//                }
+//                
+//            }
+//
+//        } catch (SQLException ex) {
+//            ex.getMessage();
+//        }
+//        return (int) tPrice;
 
-        } catch (SQLException ex) {
-            ex.getMessage();
-        }
-        return (int) tPrice;
+            response.sendRedirect("Sales_record.jsp");
     }
+}
      
        private int TotalOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int Torder = Integer.parseInt(request.getParameter("Order_ID"));

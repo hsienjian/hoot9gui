@@ -32,6 +32,10 @@
         <servlet-name>ReportControl</servlet-name>
         <servlet-class>control.ReportControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DashboardControl</servlet-name>
+        <servlet-class>control.DashboardControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShoesControl</servlet-name>
         <url-pattern>/ShoesControl</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>ReportControl</servlet-name>
         <url-pattern>/ReportControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DashboardControl</servlet-name>
+        <url-pattern>/DashboardControl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -56,6 +56,7 @@
             CustomerDA customerDa = new CustomerDA();
             OrderDA orderDa = new OrderDA();
             OrderListDA OrderListDa = new OrderListDA();
+            Customer customer = (Customer) request.getAttribute("customer");
             //ShoesDA shoesDa = new ShoesDA();
             ArrayList<Customer> Customer = customerDa.getCustomer();
             ArrayList<Order> orderList = orderDa.listRecord();
@@ -78,7 +79,7 @@
                             <div class="card-body bg-light">
                                 <h5 class="card-title">Last Order Value</h5>
                                 <p class="card-text"><%= ttlPrice %> </p>
-                                <a href="#" class="btn btn-primary b-full">View</a>
+                                <a href="OrderControl?option=0" class="btn btn-primary b-full">View</a>
                             </div>
                         </div>
                     </div>
@@ -88,7 +89,7 @@
                             <div class="card-body bg-light">
                                 <h5 class="card-title">Last Order ID</h5>
                                 <p class="card-text"><%= orderList.get(j).getOrderID()  %> </p>
-                                <a href="#" class="btn btn-primary b-full">View</a>
+                                <a href="OrderControl?option=0" class="btn btn-primary b-full">View</a>
                             </div>
                         </div>
                     </div>
@@ -97,7 +98,7 @@
                             <div class="card-body bg-light">
                                 <h5 class="card-title">Last Order Status</h5>
                                 <p class="card-text"><%= orderList.get(j).getStatus() %><!-- implement result --></p>
-                                <a href="#" class="btn btn-primary b-full">View</a>
+                                <a href="OrderControl?option=0" class="btn btn-primary b-full">View</a>
                             </div>
                         </div>
                     </div>
@@ -106,21 +107,13 @@
                             <div class="card-body bg-light">
                                 <h5 class="card-title">Current Date</h5>
                                 <p class="card-text"><%= date.getDayOfMonth()%> <%= date.getMonth()%> <%= date.getYear() %><!-- implement result --></p>
-                                <a href="#" class="btn btn-primary b-full" >View</a>
+                                <a href="#" class="btn btn-primary b-full" disabled>View</a>
                             </div>
                         </div>
                     </div>
                    <% } %>
                 </div>
-                <div class="table-wrapper ">
-                    <label for="Sort">Sort By:</label>
-                    <select id="cars">
-                        <option value="Sales">Sales</option>
-                        <option value="Status">Status</option>
-                        <option value="Price">Low to High</option>
-                        <option value="Name">Name(A-Z)</option>
-                    </select>
-                </div>
+                
                 <div class="mb-3">
                     <table>
                         <div class="mb-3">
