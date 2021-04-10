@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : clientHeader.jsp
     Created on : Mar 17, 2021, 11:34:49 AM
     Author     : Admin-jiahie
@@ -7,8 +7,7 @@
 <%@page import="java.util.ArrayList"%>
 <%
 
-
-    Integer cusID = (Integer) session.getAttribute("cusID");
+    Integer cusID = (Integer) session.getAttribute("activeCustomer");
     ArrayList<Shoes> cusCartList = (ArrayList<Shoes>) session.getAttribute("allCartProd");
     Integer countProdCart = 0;
     if (cusCartList == null) {
@@ -23,7 +22,6 @@
     <div class="sidebar-nav container-fluid">
         <a href="home.jsp">Home</a>
         <a href="ShoesControl?option=0">Shoes</a>
-        <a href="index.html">login</a>
     </div>
 </div>
 <nav class="navbar navbar-expand fixed-top navbar-dark bg-white mb-0" style="position:fixed;">
@@ -45,8 +43,8 @@
                     <svg t="1615659930705" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1527" width="30" height="30"><path d="M509.3 511.3c-117.1 0-212.4-95.3-212.4-212.4S392.2 86.5 509.3 86.5c117.1 0 212.4 95.3 212.4 212.4s-95.3 212.4-212.4 212.4z m0-374.8c-89.5 0-162.4 72.9-162.4 162.4s72.9 162.4 162.4 162.4 162.4-72.9 162.4-162.4-72.9-162.4-162.4-162.4z" p-id="1528" id="user-first" fill="#bfbfbf"></path><path d="M812.5 903.5H219.1c-29.3 0-56.7-13.1-75.1-35.9-18.4-22.8-25.4-52.4-19.1-81.1 19.6-90.5 68.9-172.6 138.7-231.4 34.9-29.4 74-52.3 116.1-68.1 43.6-16.4 89.4-24.6 136.2-24.6s92.6 8.3 136.2 24.6c42.1 15.8 81.1 38.7 116 68.1 69.8 58.7 119 140.9 138.7 231.4 6.2 28.7-0.7 58.3-19.1 81.1-18.5 22.8-45.9 35.9-75.2 35.9zM515.8 512.4c-40.8 0-80.7 7.2-118.6 21.5-36.8 13.8-70.9 33.8-101.4 59.5-61.4 51.7-104.7 124-122 203.7-3 13.9 0.3 28.1 9.2 39.1 8.9 11 22 17.3 36.2 17.3h593.4c14.1 0 27.3-6.3 36.2-17.3 8.9-11 12.2-25.3 9.2-39.1-17.3-79.7-60.7-152.1-122-203.7-30.5-25.7-64.7-45.7-101.4-59.5-38.1-14.3-78.1-21.5-118.8-21.5z" p-id="1529" id="user-second" fill="#bfbfbf"></path></svg>
                 </a>
                 <div class="dropdown-content" id="user-dropdown-content" onmouseover="hoverStartDropdown2(this)" onmouseout="hoverEndDropdown2(this)">
-                    <a href="#">Login</a>
-                    <a href="#">Register</a>
+                    <a href="/hoot9gui/clientLogin.jsp">Login</a>
+                    <a href="/hoot9gui/clientRegister.jsp">Register</a>
                 </div>
             </li>
         </ul>
@@ -58,7 +56,7 @@
                 </a>
                 <div class="dropdown-content maxwidth-120" id="user-dropdown-content-1" onmouseover="hoverStartDropdown3(this)" onmouseout="hoverEndDropdown3(this)">
                     <a href="OrderRecordControl?ordOpt=1">My Order</a>
-                    <a href="PaymentControl?logout=1">Logout</a>
+                    <a href="/hoot9gui/ClientLoginControl">Logout</a>
                 </div>
             </li>
         </ul>
@@ -74,7 +72,7 @@
             </li>
         </ul>
         <%}%>
-    </div> 
+    </div>
 </nav>
 <script>
 </script>

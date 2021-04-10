@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : clientLogin
     Created on : Mar 31, 2021, 7:07:14 PM
     Author     : Ruey
@@ -12,9 +12,9 @@
         <title>Client Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/clientFooter.css">
-        <link rel="stylesheet" href="css/clientHeader.css">
+        <link rel="stylesheet" href="css/clientHeader1.css">
         <link rel="stylesheet" href="css/clientSidebar1.css">
         <style>
             body {
@@ -104,7 +104,7 @@
                                         <input id="customer_password" type="password" class="form-control" name="customer_password" required data-eye>
                                     </div>
                                     <br>${message}
-                                    <br><br>   
+                                    <br><br>
 
                                     <div class="form-group">
                                         <div class="custom-checkbox custom-control">
@@ -145,7 +145,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <script src="js/checkHover1.js"></script>
+    <script src="js/checkHover.js"></script>
 
 
 
