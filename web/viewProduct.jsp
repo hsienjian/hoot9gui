@@ -6,6 +6,7 @@
 <% ArrayList <Shoes> listRecord = (ArrayList<Shoes>) request.getAttribute("allshoes");  %>
 <% ArrayList <Shoes> brand = (ArrayList<Shoes>) request.getAttribute("brand");  %>
 <% ArrayList <Color> color = (ArrayList<Color>) request.getAttribute("color");  %>
+<% ArrayList <Shoes> season = (ArrayList<Shoes>) request.getAttribute("season");  %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -72,7 +73,18 @@
                                     <li><a href="ShoesControl?option=5&department=<%= colorlist.getColorID() %>"><%= colorlist.getColorName()%></a></li>
                                     <% } %>
                                 </ul>
-                            </div>                                                                    
+                            </div>  
+                            <div class="sidebar__item">
+                                <h4>Seasons</h4>
+                                <ul>    
+                                    <%
+                                        for (int s=0; s<season.size(); s++) {
+                                            Shoes shoeType = season.get(s);
+                                    %>
+                                    <li><a href="ShoesControl?option=6&department=<%= shoeType.getSeason() %>"><%= shoeType.getSeason()%></a></li>
+                                    <% } %>
+                                </ul>
+                            </div>      
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-7">
@@ -89,8 +101,6 @@
                                                 <option value="0">Price</option>                                                
                                                 <option value="Abv450">Above RM 450</option>
                                                 <option value="Blw450">Below RM 450</option>
-                                                <!--<option value="HighToLow">High to Low</option>-->
-                                                <!--<option value="LowToHigh">Low to High</option>-->
                                             </select>
                                         </form>
                                     </div>
@@ -114,7 +124,7 @@
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg" >
-                                        <img src="<%= allproduct.getImg()%>" alt="" style="height: 100%">
+                                        <img src="./images/<%= allproduct.getImg()%>" alt="" style="height: 100%">
                                         <ul class="product__item__pic__hover">
                                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                             <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>

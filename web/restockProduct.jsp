@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : restockProduct
     Created on : Mar 31, 2021, 2:51:41 PM
     Author     : j.chong
@@ -10,9 +10,24 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
-    Shoes selected_shoes =(Shoes)request.getAttribute("selected_shoes");
-    Color selected_color =(Color)request.getAttribute("selected_color");
-    Staff selected_staff =(Staff)request.getAttribute("selected_staff");
+    //redirect user back to staff_login.jsp if no user session found
+    String staffEmail = (String) session.getAttribute("activeStaff");
+    response.setHeader("cache-Control", "no-cache,no-store,must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Expires", "0");
+    if (staffEmail == null) {
+        response.sendRedirect("/hoot9gui/staff_login.jsp");
+    }
+
+    Shoes selected_shoes = (Shoes) request.getAttribute("selected_shoes");
+    Color selected_color = (Color) request.getAttribute("selected_color");
+    Staff selected_staff = (Staff) request.getAttribute("selected_staff");
+
+    String msg = "";
+    if ((String) session.getAttribute("restock_status") != null) {
+        msg = (String) session.getAttribute("restock_status");
+        session.removeAttribute("restock_status");
+    }
 %>
 <html>
     <head>
@@ -21,7 +36,7 @@
         <link rel="stylesheet" href="./css/backendHeader.css">
         <script src="./js/backendHeader.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
         <style>
             .stock_details_container {
@@ -57,7 +72,13 @@
     <body>
         <jsp:include page="/components/backendHeader.jsp" />
         <h3 class="title">Restock Product</h3>
-        
+        <% if (msg != "") {%>
+        <script>
+            alert("<%=msg%>");
+            <% msg = "";%>
+        </script>
+        <% }%>
+
         <!-- Restock Product -->
         <div class="stock_details_container">
             <div class="stock_details_header">
@@ -77,7 +98,7 @@
                     </tr>
                 </table>
             </div>
-                    <hr>
+            <hr>
             <div class="stock_details_form">
                 <form action="productManagement" method="GET">
                     <label>Remaining Stock : </label>
@@ -89,7 +110,7 @@
                     <input name="product_id" type="hidden" value="<%=selected_shoes.getProdID()%>"/>
                     <input name="action" type="hidden" value="restock"/>
                     <div class="modal-footer">
-                        <a type="button" href="/build/productManagement?action=retrieveAll" class="btn btn-secondary">Cancel</a>
+                        <a type="button" href="/hoot9gui/productManagement?action=retrieveAll" class="btn btn-secondary">Cancel</a>
                         <input type="submit" class="btn btn-primary" value="submit"></input>
                     </div>
                 </form>

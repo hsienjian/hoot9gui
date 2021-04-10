@@ -36,8 +36,12 @@ and open the template in the editor.
     font-size: 10px;
     bottom: 0px;
 }
+.copyright .btn-danger {
+    width: 100%;
+    margin: 10px 0px;
+}
 .staff-nav {
-    position: absolute;
+    position: fixed;
     transform: translateX(-270px);
     transition: 0.4s;
     width: 270px;
@@ -54,8 +58,11 @@ and open the template in the editor.
 .staff-nav>ul>li {
     height: max-content;
     padding: 0px 10px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     cursor: pointer;
+}
+.staff-nav>ul>li>a:hover {
+    text-decoration: unset;
 }
 .staff-nav>ul i {
     float: right;
@@ -67,5 +74,5 @@ and open the template in the editor.
     padding-left: 35px;
 }
 .collapse-ul li{
-    margin-top: 15px;
+    margin-top: 5px;
 }

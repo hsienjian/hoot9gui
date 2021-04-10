@@ -11,7 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
 
 public class CustomerDA {
 
@@ -121,6 +121,34 @@ public class CustomerDA {
                 throw ex;
             }
         }
+    }
+
+    public ArrayList<Customer> getCustomer() throws SQLException {
+        createConnection();
+        ArrayList<Customer> customer = new ArrayList<Customer>();
+        Customer cust = null;
+        String CustomerQuery = "SELECT * FROM \"CUSTOMER\" ";
+        try {
+            stmt = conn.prepareStatement(CustomerQuery);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                cust = new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10));
+                customer.add(cust);
+                System.out.println("Erorr");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            System.out.println("Erorr");
+        } finally {
+            shutDown();
+        }
+        return customer;
+    }
+
+    public Customer getCustomer(String email) throws SQLException {
+        createConnection();
+        Customer cusObj = null;
+        String CustomerQuery = "SELECT * FROM ";
     }
 
 }

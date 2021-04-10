@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : backendHeader
     Created on : Mar 17, 2021, 11:37:16 AM
     Author     : j.chong
@@ -21,8 +21,8 @@
             <img src="./images/hoot9elogo-01.png" alt="logo" style="transform:translate(35px, 15px);"/>
             <button class="btn close-btn" id="closeBtn" onclick="hideMenu()"><i class="fa fa-times" aria-hidden="true"></i></button>
             <ul>
-                <li>Dashboard</li>
-                <li><a href="StaffControl?option=5&staffID=2003">Profile</a></li>
+                <li><a style="color:black;" href='/hoot9gui/dashboard.jsp'>Dashboard</a></li>
+                <li><a style="color:black;" href="StaffControl?option=5&email=${sessionScope.activeStaff}">Profile</a></li>
                 <li name="collapse-ul-1" onClick="handleCollapse('collapse-ul-1', 'fa-angle-down-1')">Staff Management<i id="fa-angle-down-1" class="fa fa-angle-down" aria-hidden="true"></i>
                     <ul class="collapse-ul" id="collapse-ul-1">
                         <a href="StaffControl?option=0"><li>View Staff Info</li></a>
@@ -30,21 +30,28 @@
                 </li>
                 <li name="collapse-ul-2" onClick="handleCollapse('collapse-ul-2', 'fa-angle-down-2')">Product Management<i id="fa-angle-down-2" class="fa fa-angle-down" aria-hidden="true"></i>
                     <ul class="collapse-ul" id="collapse-ul-2">
-                        <a href='/build/productManagement?action=retrieveAll'><li>Register New Product</li></a>
-                        <a href='#'><li>Restock Product</li></a>
-                        <a href='#'><li>Edit Product Details</li></a>
+                        <a href='/hoot9gui/productManagement?action=retrieveAll'><li>Product Dashboard</li></a>
                         <a href="OrderControl?option=0"><li>Order Status</li></a>
                     </ul>
                 </li>
                 <li name="collapse-ul-3" onclick="handleCollapse('collapse-ul-3', 'fa-angle-down-3')">Report<i id="fa-angle-down-3" class="fa fa-angle-down" aria-hidden="true"></i>
                     <ul class="collapse-ul" id="collapse-ul-3">
-                        <a href='#'><li>Generate New Report</li></a>
-                        <a href='#'><li>Generate Sales Report</li></a>
-                        <a href='#'><li>Generate Customer Report</li></a>
+                        <a href='/hoot9gui/ReportControl?option=0'><li>Generate Customer Report</li></a>
+                        <a href='/hoot9gui/ReportControl?option=1'><li>Generate Sales  Report</li></a>
+                    </ul>
+                </li>
+                <li name="collapse-ul-4" onclick="handleCollapse('collapse-ul-4', 'fa-angle-down-4')">View Record<i id="fa-angle-down-4" class="fa fa-angle-down" aria-hidden="true"></i>
+                    <ul class="collapse-ul" id="collapse-ul-4">
+                        <a href='/hoot9gui/CustomerControl?option=0'><li>View Customer Record</li></a>
+                        <a href='/hoot9gui/CustomerControl?option=3'><li>View Sales Record</li></a>
                     </ul>
                 </li>
             </ul>
             <footer class="copyright">
+                <form action="StaffLogin" method="GET">
+                    <button type="submit" class="btn btn-danger">Logout</button>
+                </form>
+                <br>
                 <i class="fa fa-copyright" aria-hidden="true"></i>
                 Website is Copyright-proctected by Hoot9e
                 <i class="fa fa-copyright" aria-hidden="true"></i>
