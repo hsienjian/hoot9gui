@@ -204,7 +204,7 @@ public class PaymentControl extends HttpServlet {
                     orderListDa.addOrderList(orderListObj);
                 }
                 for (int i = 0; i < cartList.size(); i++) {
-                    shoesStockList.add(shoesDa.getOrderShoes(cartList.get(i).getProdID()));
+                    shoesStockList.add(shoesDa.getShoes(cartList.get(i).getProdID()));
                     Integer stocks = shoesStockList.get(i).getStock() - cartList.get(i).getStock();
                     shoesDa.restock(shoesStockList.get(i).getProdID(), stocks);
                 }
