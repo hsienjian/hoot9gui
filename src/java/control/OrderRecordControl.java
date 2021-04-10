@@ -87,7 +87,7 @@ public class OrderRecordControl extends HttpServlet {
         ArrayList<Order> recentOrderList = new ArrayList<Order>();
         try {
             HttpSession session = request.getSession(false);
-            Integer cusID = (Integer) session.getAttribute("cusID");
+            Integer cusID = (Integer) session.getAttribute("activeCustomer");
             recentOrderList = orderDa.getCusOrderList(cusID);
             String filterTitle = "";
             String url = "clientMyOrder.jsp";
@@ -126,7 +126,7 @@ public class OrderRecordControl extends HttpServlet {
         ArrayList<Order> prssOrderList = new ArrayList<Order>();
         try {
             HttpSession session = request.getSession(false);
-            Integer cusID = (Integer) session.getAttribute("cusID");
+            Integer cusID = (Integer) session.getAttribute("activeCustomer");
             prssOrderList = orderDa.getCusOrderList(cusID);
             String filterTitle = "";
             String url = "clientMyOrder.jsp";
@@ -167,7 +167,7 @@ public class OrderRecordControl extends HttpServlet {
         ArrayList<Order> deliveryOrderList = new ArrayList<Order>();
         try {
             HttpSession session = request.getSession(false);
-            Integer cusID = (Integer) session.getAttribute("cusID");
+            Integer cusID = (Integer) session.getAttribute("activeCustomer");
             deliveryOrderList = orderDa.getCusOrderList(cusID);
             String filterTitle = "";
             String url = "clientMyOrder.jsp";
@@ -206,7 +206,7 @@ public class OrderRecordControl extends HttpServlet {
         ArrayList<Order> completedOrderList = new ArrayList<Order>();
         try {
             HttpSession session = request.getSession(false);
-            Integer cusID = (Integer) session.getAttribute("cusID");
+            Integer cusID = (Integer) session.getAttribute("activeCustomer");
             completedOrderList = orderDa.getCusOrderList(cusID);
             String filterTitle = "";
             String url = "clientMyOrder.jsp";
@@ -260,7 +260,7 @@ public class OrderRecordControl extends HttpServlet {
         } else {
             try {
                 HttpSession session = request.getSession(false);
-                Integer cusID = (Integer) session.getAttribute("cusID");
+                Integer cusID = (Integer) session.getAttribute("activeCustomer");
                 orderObj = orderDa.getCusOrder(cusID, Integer.parseInt(orderID));
             } catch (SQLException ex) {
                 try (PrintWriter out = response.getWriter()) {
@@ -286,7 +286,7 @@ public class OrderRecordControl extends HttpServlet {
     private void showOrderDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             HttpSession session = request.getSession(false);
-            Integer cusID = (Integer) session.getAttribute("cusID");
+            Integer cusID = (Integer) session.getAttribute("activeCustomer");
             //Declaration and initial
             String orderID = request.getParameter("ordID");
             String deliveryDate = request.getParameter("diliveryDate");

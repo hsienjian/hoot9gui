@@ -71,7 +71,16 @@
 
     <body class="my-login-page">
         <%@include  file="components/clientHeader.jsp"%>
-
+        <%
+            String message1 = (String) request.getAttribute("message1");
+            String message2 = (String) request.getAttribute("message2");
+            if ( message1 == null) {
+                message1 = "";
+            }
+            if ( message2 == null) {
+                message2 = "";
+            }
+        %>
         <section class="h-100">
             <div class="container h-100">
                 <div class="row justify-content-md-center h-100">
@@ -83,7 +92,7 @@
                         </div>
                         <div class="card fat">
                             <div class="card-body">
-                                <form method="GET" class="my-login-validation" action="ClientRegisterControl">
+                                <form method="POST" class="my-login-validation" action="ClientRegisterControl">
                                     <div class="form-group">
                                         <label for="firstName">First Name</label>
                                         <input id="firstName" type="text" class="form-control" name="firstName" required autofocus>
@@ -112,6 +121,7 @@
                                                 <div class="invalid-feedback">
                                                     Your email is invalid
                                                 </div>
+                                                <p class="text-danger"><%=message1%></p>
                                             </div>
                                             <div class="form-group">
                                                 <label for="gender">Gender</label>
@@ -134,7 +144,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="phoneNo">Phone Number</label>
-                                                <input id="phoneNo" type="password" class="form-control" name="phoneNo" required>
+                                                <input id="phoneNo" type="text" class="form-control" name="phoneNo" required>
                                                 <div class="invalid-feedback">
                                                     Enter the phone number
                                                 </div>
@@ -145,6 +155,7 @@
                                                 <div class="invalid-feedback">
                                                     Password is required
                                                 </div>
+                                                <p class="text-danger"><%=message2%></p>
                                             </div>
                                             <div class="form-group">
                                                 <label for="confirmPassword">Confirm Password</label>
@@ -152,6 +163,7 @@
                                                 <div class="invalid-feedback">
                                                     Confirm password is required
                                                 </div>
+                                                <p class="text-danger"><%=message2%></p>
                                             </div>
 
 
@@ -164,7 +176,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="form-group m-0">
                                                 <button type="submit" class="btn btn-primary btn-block" name="addCustomer" id="addCustomer">
                                                     Register

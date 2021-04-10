@@ -58,12 +58,32 @@ public class ClientRegisterControl extends HttpServlet {
         String phoneNo = request.getParameter("phoneNo");
         String confirmPassword = request.getParameter("confirmPassword");
         String url = "";
-        String message = "";
+        String message1 = "";
+        String message2 = "";
+        boolean checkSuccess = true;
         CustomerDA cusDa = new CustomerDA();
 
-        if (password == confirmPassword) {
+        Customer checkCus = null;
+        try {
+            checkCus = cusDa.getCustomer(email);
+        } catch (SQLException ex) {
+            try (PrintWriter out = response.getWriter()) {
+                out.println(ex.getMessage());
+            }
+        }
+        if (checkCus != null) {
+            url = "clientRegister.jsp";
+            message1 = "email already exist!!";
+            checkSuccess = false;
+        }
+        if (!password.equals(confirmPassword)) {
+            url = "clientRegister.jsp";
+            message2 = "Password is not same as the comfirm password";
+            checkSuccess = false;
+        }
+
+        if (checkSuccess) {
             Customer customer = new Customer(firstName, lastName, age, email, password, gender, address, phoneNo, 0);
-            cusDa.
             try {
                 cusDa.addCustomer(customer);
                 url = "clientSuccessRegister.jsp";
@@ -72,12 +92,10 @@ public class ClientRegisterControl extends HttpServlet {
                     out.println(ex.getMessage());
                 }
             }
-        } else {
-            url = "clientRegister.jsp";
-            message = "Password does not same as password";
         }
 
-        request.setAttribute("message", message);
+        request.setAttribute("message1", message1);
+        request.setAttribute("message2", message2);
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }

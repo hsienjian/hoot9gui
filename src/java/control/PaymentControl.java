@@ -54,12 +54,7 @@ public class PaymentControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String logout = request.getParameter("logout");
-        switch (logout) {
-            case "1":
-                cusLogout(request, response);
-                break;
-        }
+        doPost(request, response);
     }
 
     /**
@@ -81,24 +76,7 @@ public class PaymentControl extends HttpServlet {
             case "paymentConfirmation":
                 paymentConfirmation(request, response);
                 break;
-            case "login":
-                login(request, response);
-                break;
         }
-    }
-
-    private void cusLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-        session.removeAttribute("cusID");
-        session.removeAttribute("cartProd");
-        response.sendRedirect("home.jsp");
-    }
-
-    private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer cusID = Integer.parseInt(request.getParameter("cusID"));
-        HttpSession session = request.getSession(true);
-        session.setAttribute("cusID", cusID);
-        response.sendRedirect("home.jsp");
     }
 
     private void reviewOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -117,7 +95,7 @@ public class PaymentControl extends HttpServlet {
             ArrayList<Shoes> cartProdList = (ArrayList<Shoes>) session.getAttribute("cartProd");
             ArrayList<Integer> prodIndex = orderRanOutStocks(cartProdList);
             if (prodIndex.size() == 0) {
-                Integer cusID = (Integer) session.getAttribute("cusID");
+                Integer cusID = (Integer) session.getAttribute("activeCustomer");
                 Integer orderID = orderDa.countOrder() + 3001;
                 java.util.Date date = new java.util.Date();
                 java.sql.Date sqlDate = new java.sql.Date(date.getTime());
@@ -150,7 +128,7 @@ public class PaymentControl extends HttpServlet {
 
     private void paymentConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        Integer cusID = (Integer) session.getAttribute("cusID");
+        Integer cusID = (Integer) session.getAttribute("activeCustomer");
         String cardNum = request.getParameter("cardNum");
         String userName = request.getParameter("username");
         boolean[] validateArr = new boolean[5];

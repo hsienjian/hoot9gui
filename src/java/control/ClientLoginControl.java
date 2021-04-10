@@ -8,7 +8,6 @@ package control;
 import da.CustomerDA;
 import domain.Customer;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,6 +27,8 @@ public class ClientLoginControl extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.removeAttribute("activeCustomer");
+        session.removeAttribute("cartProd");
+        session.removeAttribute("allCartProd");
         response.sendRedirect("/hoot9gui/clientLogin.jsp");
 
     }
