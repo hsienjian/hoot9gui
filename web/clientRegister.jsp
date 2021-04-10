@@ -83,7 +83,7 @@
                         </div>
                         <div class="card fat">
                             <div class="card-body">
-                                <form method="GET" class="my-login-validation" action="CustomerControl">
+                                <form method="GET" class="my-login-validation" action="ClientRegisterControl">
                                     <div class="form-group">
                                         <label for="firstName">First Name</label>
                                         <input id="firstName" type="text" class="form-control" name="firstName" required autofocus>
@@ -164,7 +164,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            
                                             <div class="form-group m-0">
                                                 <button type="submit" class="btn btn-primary btn-block" name="addCustomer" id="addCustomer">
                                                     Register
@@ -176,9 +176,6 @@
 
                                         </div>
 
-                                    </div>
-                                    <div class="footer">
-                                        abc123
                                     </div>
                                 </form>
                             </div>
