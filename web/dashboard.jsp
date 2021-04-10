@@ -66,8 +66,10 @@
         %>
         <div id="wrapper">
             <div class="wrap-content container">
-<%for (int j = 4; j < orderList.size(); j++) {%>
-   <% double ttlPrice = 0; 
+<%  
+    
+    for (int j = 0; j < orderList.size(); j++) {
+    double ttlPrice = 0;
         ttlPrice += orderList.get(j).getTtlPrice();
         LocalDate date = LocalDate.now(); 
    %>

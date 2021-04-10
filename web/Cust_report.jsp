@@ -55,7 +55,7 @@
             ArrayList<Customer> Customer = customerDa.getCustomer();
             ArrayList<Order> orderList = orderDa.listRecord();
             LocalDate date = LocalDate.now();
-
+            double tPrice = 0;
 
         %>
         <div class="wrap-content ">
@@ -88,8 +88,12 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <%for (int i = 0; i < Customer.size(); i++) { %>
-                                                    <%for (i = 0; i < orderList.size(); i++) {%>
+                                                    <%for (int i = 0; i < Customer.size(); i++) {
+                                                            for (int l = 0; l < orderList.size(); l++) {
+                                                                if (Customer.get(i).getCustID() == orderList.get(l).getCustID()) {
+
+                                                                    tPrice += orderList.get(l).getTtlPrice();
+                                                    %> 
                                                     <tr>
                                                         <td><%= i + 1%></td>
                                                         <td><%=Customer.get(i).getCustID()%></td>
@@ -98,8 +102,8 @@
                                                         <td><%=orderList.get(i).getTtlPrice()%></td>
 
 
-                                                        <% }
-                                                }%>
+                                                        <% } }
+                                                            }%>
                                                     </tr>
                                                 </tbody>
                                         </div>

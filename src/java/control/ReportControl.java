@@ -35,7 +35,7 @@ public class ReportControl extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ReportControl</title>");            
+            out.println("<title>Servlet ReportControl</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ReportControl at " + request.getContextPath() + "</h1>");
@@ -65,28 +65,21 @@ public class ReportControl extends HttpServlet {
             case 1:
                 toSalesReport(request, response);
                 break;
-            
-               
-                
 
         }
     }
-    
-    
+
     private void toCustReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       
-            
-            response.sendRedirect("Cust_report.jsp");
-                
-}
-    
-    
+
+        response.sendRedirect("Cust_report.jsp");
+
+    }
+
     private void toSalesReport(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       
-            
-            response.sendRedirect("sales_report.jsp");
-                
-}
+
+        response.sendRedirect("sales_report.jsp");
+
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
