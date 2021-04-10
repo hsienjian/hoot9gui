@@ -74,21 +74,6 @@ public class OrderDA {
 
     }
 
-    public void deleteRecord(int orderID) throws SQLException {
-        try {
-            createConnection();
-            String deleteStud = "DELETE FROM " + tableName + " WHERE ID = ?";
-            stmt = conn.prepareStatement(deleteStud);
-            stmt.setInt(1, orderID);
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-
-    }
-
     private void createConnection() throws SQLException {
         try {
             conn = DriverManager.getConnection(host, user, password);
@@ -165,7 +150,7 @@ public class OrderDA {
         }
         return order;
     }
-    
+
     public Order getCusOrder(int cusID, int orderID) throws SQLException {
         createConnection();
         Order order = null;
