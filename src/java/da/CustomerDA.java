@@ -45,6 +45,25 @@ public class CustomerDA {
         return customer;
     }
 
+    public Customer getCustomer(String email) throws SQLException {
+        Customer cusObj = null;
+        try {
+            createConnection();
+            String CustomerQuery = "SELECT * FROM " + tableName + " WHERE EMAIL = ?";
+            stmt = conn.prepareStatement(CustomerQuery);
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                cusObj = new Customer(rs.getInt("CUST_ID"), rs.getString("FIRST_NAME"), rs.getString("LAST_NAME"), rs.getInt("AGE"), rs.getString("EMAIL"), rs.getString("PASSWORD"), rs.getString("GENDER"), rs.getString("ADDRESS"), rs.getString("PHONE_NO"), rs.getInt("REWARD_POINT"));
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return cusObj;
+    }
+
     public void addCustomer(Customer customer) throws SQLException {
         try {
             createConnection();
@@ -137,30 +156,10 @@ public class CustomerDA {
                 System.out.println("Erorr");
             }
         } catch (SQLException ex) {
-            System.out.println(ex);
-            System.out.println("Erorr");
+            throw ex;
         } finally {
             shutDown();
         }
         return customer;
     }
-
-    public Customer getCustomer(String email) throws SQLException {
-        createConnection();
-        Customer cusObj = null;
-        String CustomerQuery = "SELECT * FROM " + tableName + " WHERE EMAIL = ?";
-        try {
-            stmt = conn.prepareStatement(CustomerQuery);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                cusObj = new Customer(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9), rs.getInt(10));
-            }
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-        return cusObj;
-    }
-
 }

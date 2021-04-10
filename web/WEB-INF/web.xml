@@ -44,6 +44,10 @@
         <servlet-name>ClientRegisterControl</servlet-name>
         <servlet-class>control.ClientRegisterControl</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ClientLoginControl</servlet-name>
+        <servlet-class>control.ClientLoginControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ShoesControl</servlet-name>
         <url-pattern>/ShoesControl</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>ClientRegisterControl</servlet-name>
         <url-pattern>/ClientRegisterControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClientLoginControl</servlet-name>
+        <url-pattern>/ClientLoginControl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

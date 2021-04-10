@@ -8,6 +8,7 @@ package control;
 import da.CustomerDA;
 import domain.Customer;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,7 +28,7 @@ public class ClientLoginControl extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.removeAttribute("activeCustomer");
-        response.sendRedirect("/hoot9e/clientLogin.jsp");
+        response.sendRedirect("/hoot9gui/clientLogin.jsp");
 
     }
 
@@ -48,9 +49,10 @@ public class ClientLoginControl extends HttpServlet {
         String email = request.getParameter("customer_email");
         String password = request.getParameter("customer_password");
         CustomerDA custDA = new CustomerDA();
+        Customer customer;
 
         try {
-            Customer customer = custDA.getCustomer(email);
+            customer = custDA.getCustomer(email);
             if (customer == null) {
                 errorMsg.append("Invalid Customer Email.\n");
                 request.setAttribute("errorMsg", errorMsg);
@@ -58,12 +60,12 @@ public class ClientLoginControl extends HttpServlet {
                 errorMsg.append("Incorrect Customer Password.\n");
                 request.setAttribute("errorMsg", errorMsg);
             } else {
-                session.setAttribute("activeCustomer", email);
+                session.setAttribute("activeCustomer", customer.getCustID());
                 RequestDispatcher dispatcher = request.getRequestDispatcher("home.jsp");
                 dispatcher.forward(request, response);
             }
         } catch (SQLException ex) {
-            throw new ServletException(ex);
+            errorMsg.append("Error Accessing to the Database.\n");
         }
 
         if (session.getAttribute("activeCustomer") == null) {

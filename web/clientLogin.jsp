@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : clientLogin
     Created on : Mar 31, 2021, 7:07:14 PM
     Author     : Ruey
@@ -12,7 +12,7 @@
         <title>Client Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/clientFooter.css">
         <link rel="stylesheet" href="css/clientHeader1.css">
         <link rel="stylesheet" href="css/clientSidebar1.css">
@@ -104,7 +104,7 @@
                                         <input id="customer_password" type="password" class="form-control" name="customer_password" required data-eye>
                                     </div>
                                     <br>${message}
-                                    <br><br>   
+                                    <br><br>
 
                                     <div class="form-group">
                                         <div class="custom-checkbox custom-control">
