@@ -109,20 +109,6 @@ public class CustomerDA {
         }
     }
 
-    public void deleteCustomer(int custID) throws SQLException {
-        try {
-            createConnection();
-            String queryStr = "DELETE FROM " + tableName + " WHERE CUST_ID=?";
-            stmt = conn.prepareStatement(queryStr);
-            stmt.setInt(1, custID);
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-    }
-
     private void createConnection() throws SQLException {
         try {
             conn = DriverManager.getConnection(host, user, password);

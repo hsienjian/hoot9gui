@@ -133,7 +133,7 @@ public class OrderRecordControl extends HttpServlet {
             Boolean checkIsEmpty = (prssOrderList.isEmpty() ? true : false);
 
             if (!checkIsEmpty) {
-                filterTitle = "Processing";
+                filterTitle = "Packaging";
                 //filter Processing Status
                 for (int i = 0; i < prssOrderList.size(); i++) {
 
@@ -143,7 +143,7 @@ public class OrderRecordControl extends HttpServlet {
                     }
                 }
                 if (prssOrderList.size() != 0) {
-                    filterTitle = "Processing";
+                    filterTitle = "Packaging";
                     checkIsEmpty = false;
                 } else {
                     checkIsEmpty = true;
@@ -176,7 +176,7 @@ public class OrderRecordControl extends HttpServlet {
             if (!checkIsEmpty) {
                 //filter Delivery Status
                 for (int i = 0; i < deliveryOrderList.size(); i++) {
-                    if (deliveryOrderList.get(i).getStatus().equals("Completed") || deliveryOrderList.get(i).getStatus().equals("Processing")) {
+                    if (deliveryOrderList.get(i).getStatus().equals("Completed") || deliveryOrderList.get(i).getStatus().equals("Packaging")) {
                         deliveryOrderList.remove(i);
                         i--;
                     }
@@ -214,7 +214,7 @@ public class OrderRecordControl extends HttpServlet {
             if (!checkIsEmpty) {
                 //filter Completed Status
                 for (int i = 0; i < completedOrderList.size(); i++) {
-                    if (completedOrderList.get(i).getStatus().equals("Processing") || completedOrderList.get(i).getStatus().equals("Delivery")) {
+                    if (completedOrderList.get(i).getStatus().equals("Packaging") || completedOrderList.get(i).getStatus().equals("Delivery")) {
                         completedOrderList.remove(i);
                         i--;
                     }

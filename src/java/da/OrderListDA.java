@@ -25,25 +25,24 @@ public class OrderListDA {
         shoesDA = new ShoesDA();
     }
 
-    public OrderList getOrderList(int prodID) throws SQLException {
-        OrderList orderlist = null;
-        try {
-            createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE ORDER_ID=?";
-            stmt = conn.prepareStatement(queryStr);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                orderlist = new OrderList(prodID, rs.getInt("ORDERID"), rs.getInt("QTY"), rs.getDouble("SUBTTLPRICE"));
-            }
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-        return orderlist;
-    }
-
+//    public OrderList getOrderList(int prodID) throws SQLException {
+//        OrderList orderlist = null;
+//        try {
+//            createConnection();
+//            String queryStr = "SELECT * FROM " + tableName + " WHERE ORDER_ID=?";
+//            stmt = conn.prepareStatement(queryStr);
+//            ResultSet rs = stmt.executeQuery();
+//
+//            if (rs.next()) {
+//                orderlist = new OrderList(prodID, rs.getInt("ORDERID"), rs.getInt("QTY"), rs.getDouble("SUBTTLPRICE"));
+//            }
+//        } catch (SQLException ex) {
+//            throw ex;
+//        } finally {
+//            shutDown();
+//        }
+//        return orderlist;
+//    }
     public void addOrderList(OrderList orderlist) throws SQLException {
         try {
             createConnection();
@@ -122,5 +121,4 @@ public class OrderListDA {
         }
         return custOrderList;
     }
-
 }

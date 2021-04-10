@@ -74,20 +74,24 @@
                                     </thead>
                                     <tbody>
                                         <%for (int i = 0; i < Customer.size(); i++) { %>
-                                        <%for (i = 0; i < orderList.size(); i++) {%>
+                                        <%for (int l = 0; l < orderList.size(); l++) {
+                                        
+                                        if(Customer.get(i).getCustID() == orderList.get(l).getCustID()){
+                                        %>
+                                        
                                         <tr>
-
-                                            <td><%=orderList.get(i).getOrderID()%></td>
-                                            <td><%=orderList.get(i).getDate()%></td>
-                                            <td><%=orderList.get(i).getTtlPrice()%></td>
-                                            <td><%=orderList.get(i).getStatus()%></td>
+                                            
+                                            <td><%=orderList.get(l).getOrderID()%></td>
+                                            <td><%=orderList.get(l).getDate()%></td>
+                                            <td><%=orderList.get(l).getTtlPrice()%></td>
+                                            <td><%=orderList.get(l).getStatus()%></td>
                                             <td><%=Customer.get(i).getCustID()%></td>
                                             <td><%=Customer.get(i).getFirstName()%> <%=Customer.get(i).getLastName()%></td>
                                             <td><%=Customer.get(i).getPhoneNo()%></td>
                                             <td>
                                                 <a href="OrderControl?option=0" type="button" class="btn btn-primary" >View Order Details</a>
                                             </td>
-                                            <% }
+                                            <% }}
                                                 }%>
                                         </tr>
                                     </tbody>

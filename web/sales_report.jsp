@@ -92,9 +92,20 @@
                                                     </thead>
                                                     <tbody>
 
-                                                        <%for (int i = 0; i < Customer.size(); i++) { %>
-                                                        <% tPrice += orderList.get(i).getTtlPrice();  %>
-                                                        <% tQTY += custOrderList.get(i).getQty();%>
+                                                        <%for (int i = 0; i < Customer.size(); i++) {
+                                                                for (int l = 0; l < orderList.size(); l++) {
+                                                                    if (Customer.get(i).getCustID() == orderList.get(l).getCustID()) {
+                                                                        tPrice += orderList.get(l).getTtlPrice();
+                                                                        for (int j = 0; j < custOrderList.size(); j++) {
+                                                                            if (orderList.get(l).getOrderID() == custOrderList.get(j).getOrderID()) {
+
+                                                                                tQTY += custOrderList.get(j).getQty();
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                        %>
+
                                                         <tr>
                                                             <td><%=i + 1%></td>
                                                             <td><%=orderList.get(i).getDate()%></td>
@@ -102,12 +113,15 @@
                                                             <td><%=Customer.get(i).getFirstName()%> <%=Customer.get(i).getLastName()%></td>
                                                             <td><%=orderList.get(i).getTtlPrice()%></td>
                                                             <td><%=Customer.get(i).getRewardPoint()%></td>
-                                                            <td><%=  tPrice%></td>
-                                                            <td><%= tQTY%></td>
+                                                            <td><%=tPrice%></td>
+                                                            <td><%=tQTY%></td>
                                                         </tr>
 
+
+                                                        <% 
+                              
+                                                            }%>
                                                     </tbody>
-                                                    <% }%>
                                             </div>
                                         </div>
                                     </div>

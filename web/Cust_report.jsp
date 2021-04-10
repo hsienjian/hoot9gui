@@ -55,8 +55,6 @@
             ArrayList<Customer> Customer = customerDa.getCustomer();
             ArrayList<Order> orderList = orderDa.listRecord();
             LocalDate date = LocalDate.now();
-
-
         %>
         <div class="wrap-content ">
             <div class="row justify-content-between">
@@ -88,18 +86,25 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <%for (int i = 0; i < Customer.size(); i++) { %>
-                                                    <%for (i = 0; i < orderList.size(); i++) {%>
+                                                    <%
+                                                        for (int i = 0; i < Customer.size(); i++) {
+                                                            double tPrice = 0;
+                                                            for (int l = 0; l < orderList.size(); l++) {
+                                                                if (Customer.get(i).getCustID() == orderList.get(l).getCustID()) {
+
+                                                                    tPrice += orderList.get(l).getTtlPrice();
+                                                                }
+                                                            }
+                                                    %>
                                                     <tr>
-                                                        <td><%= i + 1%></td>
+                                                        <td><%=i + 1%></td>
                                                         <td><%=Customer.get(i).getCustID()%></td>
                                                         <td><%=Customer.get(i).getFirstName()%> <%=Customer.get(i).getLastName()%></td>
                                                         <td><%=Customer.get(i).getPhoneNo()%></td>
-                                                        <td><%=orderList.get(i).getTtlPrice()%></td>
+                                                        <td><%=tPrice%></td>
 
 
-                                                        <% }
-                                                }%>
+                                                        <%}%>
                                                     </tr>
                                                 </tbody>
                                         </div>
