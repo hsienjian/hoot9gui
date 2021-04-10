@@ -127,7 +127,7 @@ public class ShoesDA {
         Shoes shoes = null;
         try {
             createConnection();
-            String selectStt = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY PROD_NAME )";
+            String selectStt = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY UPPER(PROD_NAME) )";
             stmt = conn.prepareStatement(selectStt);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -147,7 +147,7 @@ public class ShoesDA {
         Shoes department = null;
         try {
             createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY BRAND )";
+            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY UPPER(BRAND) )";
             stmt = conn.prepareStatement(queryStr);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -167,7 +167,7 @@ public class ShoesDA {
         Shoes department = null;
         try {
             createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE COLOR_ID IN (SELECT MAX(COLOR_ID) FROM " + tableName + " GROUP BY PROD_NAME )";
+            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(COLOR_ID) FROM " + tableName + " GROUP BY UPPER(COLOR_NAME) )";
             stmt = conn.prepareStatement(queryStr);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -187,7 +187,7 @@ public class ShoesDA {
         Shoes department = null;
         try {
             createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY SEASON )";
+            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY UPPER(SEASON) )";
             stmt = conn.prepareStatement(queryStr);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
