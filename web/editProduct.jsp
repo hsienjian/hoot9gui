@@ -113,7 +113,13 @@
                     <input name="brand" type="text" value="<%=selected_shoes.getBrand()%>"/>
                     </br>
                     <label>Season : </label>
-                    <input name="season" type="text" value="<%=selected_shoes.getSeason()%>"/>
+                    <select name="season">
+                        <option value="Spring" <%=(selected_shoes.getSeason().equalsIgnoreCase("Spring")) ? "selected" : " "%>>Spring</option>
+                        <option value="Summer" <%=(selected_shoes.getSeason().equalsIgnoreCase("Summer")) ? "selected" : " "%>>Summer</option>
+                        <option value="Fall" <%=(selected_shoes.getSeason().equalsIgnoreCase("Fall")) ? "selected" : " "%>>Fall</option>
+                        <option value="Winter" <%=(selected_shoes.getSeason().equalsIgnoreCase("Winter")) ? "selected" : " "%>>Winter</option>
+                        <option value="All Seasons" <%=(selected_shoes.getSeason().equalsIgnoreCase("All Seasons")) ? "selected" : " "%>>All Seasons</option>
+                    </select>
                     </br>
                     <label>Size : </label>
                     <input name="size" type="text" value="<%=selected_shoes.getSize()%>"/>

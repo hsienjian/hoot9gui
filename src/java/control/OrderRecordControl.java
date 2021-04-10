@@ -310,7 +310,7 @@ public class OrderRecordControl extends HttpServlet {
             //after get the shoes details and assign to shoesObj then add to arrayList
             //This will filter the shoes that are in the order summary
             for (int i = 0; i < orderList.size(); i++) {
-                shoes = shoesDa.getOrderShoes(orderList.get(i).getProdID());
+                shoes = shoesDa.getShoes(orderList.get(i).getProdID());
                 shoesList.add(shoes);
             }
 

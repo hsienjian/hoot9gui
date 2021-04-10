@@ -38,6 +38,8 @@ public class ShoesDA {
             }
         } catch (SQLException ex) {
             throw ex;
+        } finally {
+            shutDown();
         }
         return shoes;
     }
@@ -55,6 +57,8 @@ public class ShoesDA {
             }
         } catch (SQLException ex) {
             throw ex;
+        } finally {
+            shutDown();
         }
         return shoes;
     }
@@ -218,28 +222,6 @@ public class ShoesDA {
         }
         return shoesdetails;
     }
-    
-        public ArrayList<Shoes> getRecord() throws SQLException {
-        Shoes choosen = null;
-        ArrayList<Shoes> shoesdetails = new ArrayList<Shoes>();
-        try {
-            createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_NAME = ?";
-            stmt = conn.prepareStatement(queryStr);
-            
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                choosen = new Shoes(rs.getInt("PROD_ID"), rs.getString("SIZE"),  rs.getString("PRODNAME"), rs.getString("BRAND"), rs.getDouble("PRICE"), rs.getInt("STOCK"), rs.getString("SEASON"), rs.getString("IMG"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
-                shoesdetails.add(choosen);
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-            throw ex;
-        } finally {
-            shutDown();
-        }
-        return shoesdetails;
-    }
 
     public ArrayList<Shoes> staffHandle(int staffID) throws SQLException {
         Shoes handled = null;
@@ -316,25 +298,6 @@ public class ShoesDA {
                 throw ex;
             }
         }
-    }
-
-    public Shoes getOrderShoes(int prodID) throws SQLException {
-        Shoes orderShoes = null;
-        try {
-            createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID = ?";
-            stmt = conn.prepareStatement(queryStr);
-            stmt.setInt(1, prodID);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                orderShoes = new Shoes(rs.getInt("PROD_ID"), rs.getString("SIZE"), rs.getString("PROD_NAME"), rs.getString("BRAND"), rs.getDouble("PRICE"), rs.getInt("STOCK"), rs.getString("SEASON"), rs.getString("IMG"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
-            }
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-        return orderShoes;
     }
 
     public Shoes checkShoesStock(String shoesName, String shoesSize, Integer colorID) throws SQLException {

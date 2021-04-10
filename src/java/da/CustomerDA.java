@@ -148,7 +148,7 @@ public class CustomerDA {
     public Customer getCustomer(String email) throws SQLException {
         createConnection();
         Customer cusObj = null;
-        String CustomerQuery = "SELECT * FROM ";
+        String CustomerQuery = "SELECT * FROM " + tableName + "";
     }
 
 }
