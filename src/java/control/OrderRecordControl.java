@@ -133,7 +133,7 @@ public class OrderRecordControl extends HttpServlet {
             Boolean checkIsEmpty = (prssOrderList.isEmpty() ? true : false);
 
             if (!checkIsEmpty) {
-                filterTitle = "Packaging";
+
                 //filter Packaging Status
                 for (int i = 0; i < prssOrderList.size(); i++) {
 
