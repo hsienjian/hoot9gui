@@ -64,13 +64,13 @@ public class OrderRecordControl extends HttpServlet {
                 showRecentOrderList(request, response);
                 break;
             case "2":
-                showPrssOrderList(request, response);
+                showPkgOrderList(request, response);
                 break;
             case "3":
-                showDeliveryOrderList(request, response);
+                showShippingOrderList(request, response);
                 break;
             case "4":
-                showCompletedOrderList(request, response);
+                showDeliveredOrderList(request, response);
                 break;
             case "5":
                 searchOrderByID(request, response);
@@ -95,9 +95,9 @@ public class OrderRecordControl extends HttpServlet {
 
             if (!checkIsEmpty) {
 
-                //filter Processing and Delivery Status
+                //filter Packaging and Delivery Status
                 for (int i = 0; i < recentOrderList.size(); i++) {
-                    if (recentOrderList.get(i).getStatus().equals("Completed")) {
+                    if (recentOrderList.get(i).getStatus().equals("Delivered")) {
                         recentOrderList.remove(i);
                         i--;
                     }
@@ -122,7 +122,7 @@ public class OrderRecordControl extends HttpServlet {
 
     }
 
-    private void showPrssOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showPkgOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> prssOrderList = new ArrayList<Order>();
         try {
             HttpSession session = request.getSession(false);
@@ -133,11 +133,11 @@ public class OrderRecordControl extends HttpServlet {
             Boolean checkIsEmpty = (prssOrderList.isEmpty() ? true : false);
 
             if (!checkIsEmpty) {
-                filterTitle = "Packaging";
-                //filter Processing Status
+
+                //filter Packaging Status
                 for (int i = 0; i < prssOrderList.size(); i++) {
 
-                    if (prssOrderList.get(i).getStatus().equals("Completed") || prssOrderList.get(i).getStatus().equals("Delivery")) {
+                    if (prssOrderList.get(i).getStatus().equals("Delivered") || prssOrderList.get(i).getStatus().equals("Shipping")) {
                         prssOrderList.remove(i);
                         i--;
                     }
@@ -163,7 +163,7 @@ public class OrderRecordControl extends HttpServlet {
 
     }
 
-    private void showDeliveryOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showShippingOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> deliveryOrderList = new ArrayList<Order>();
         try {
             HttpSession session = request.getSession(false);
@@ -174,16 +174,16 @@ public class OrderRecordControl extends HttpServlet {
             Boolean checkIsEmpty = (deliveryOrderList.isEmpty() ? true : false);
 
             if (!checkIsEmpty) {
-                //filter Delivery Status
+                //filter Shipping Status
                 for (int i = 0; i < deliveryOrderList.size(); i++) {
-                    if (deliveryOrderList.get(i).getStatus().equals("Completed") || deliveryOrderList.get(i).getStatus().equals("Packaging")) {
+                    if (deliveryOrderList.get(i).getStatus().equals("Delivered") || deliveryOrderList.get(i).getStatus().equals("Packaging")) {
                         deliveryOrderList.remove(i);
                         i--;
                     }
                 }
                 //after filter the arraylist check again inside is empty or not
                 if (!deliveryOrderList.isEmpty()) {
-                    filterTitle = "Delivery";
+                    filterTitle = "Shipping";
                     checkIsEmpty = false;
                 } else {
                     checkIsEmpty = true;
@@ -202,7 +202,7 @@ public class OrderRecordControl extends HttpServlet {
         }
     }
 
-    private void showCompletedOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showDeliveredOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> completedOrderList = new ArrayList<Order>();
         try {
             HttpSession session = request.getSession(false);
@@ -212,15 +212,15 @@ public class OrderRecordControl extends HttpServlet {
             String url = "clientMyOrder.jsp";
             Boolean checkIsEmpty = (completedOrderList.isEmpty() ? true : false);
             if (!checkIsEmpty) {
-                //filter Completed Status
+                //filter Delivered Status
                 for (int i = 0; i < completedOrderList.size(); i++) {
-                    if (completedOrderList.get(i).getStatus().equals("Packaging") || completedOrderList.get(i).getStatus().equals("Delivery")) {
+                    if (completedOrderList.get(i).getStatus().equals("Packaging") || completedOrderList.get(i).getStatus().equals("Shipping")) {
                         completedOrderList.remove(i);
                         i--;
                     }
                 }
                 if (!completedOrderList.isEmpty()) {
-                    filterTitle = "Completed";
+                    filterTitle = "Delivered";
                     checkIsEmpty = false;
                 } else {
                     checkIsEmpty = true;
@@ -241,23 +241,17 @@ public class OrderRecordControl extends HttpServlet {
 
     private void searchOrderByID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> order = new ArrayList<Order>();
+        Order orderObj = null;
+        String url = "clientMyOrder.jsp";
+        String filterTitle = "";
         String orderID = request.getParameter("orderID");
         Boolean[] validateArr = new Boolean[5];
         validateArr = validation(orderID);
-        String filterTitle = "";
-        String url = "clientMyOrder.jsp";
-        Order orderObj = null;
         //if validateArr[0] == true that mean it contain SpeacialCharacter
         //if validateArr[1] == true that mean it contain Digits
         //if validateArr[2] == true that mean it contain Space
         //if validateArr[3] == true that mean it contain Letters
-        if (validateArr[0] && validateArr[1] && validateArr[2] && validateArr[3]) {
-            orderObj = null;
-        } else if (validateArr[1] && validateArr[0] || validateArr[1] && validateArr[2] || validateArr[1] && validateArr[3]) {
-            orderObj = null;
-        } else if (validateArr[0] || validateArr[2] || validateArr[3]) {
-            orderObj = null;
-        } else {
+        if (!validateArr[0] && validateArr[1] && !validateArr[2] && !validateArr[3]) {
             try {
                 HttpSession session = request.getSession(false);
                 Integer cusID = (Integer) session.getAttribute("activeCustomer");
@@ -267,6 +261,8 @@ public class OrderRecordControl extends HttpServlet {
                     out.println(ex.getMessage());
                 }
             }
+        } else {
+            orderObj = null;
         }
 
         if (orderObj != null) {
@@ -281,6 +277,7 @@ public class OrderRecordControl extends HttpServlet {
         request.setAttribute("checkNotFound", checkIsEmpty);
         RequestDispatcher dispatcher = request.getRequestDispatcher(url);
         dispatcher.forward(request, response);
+
     }
 
     private void showOrderDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -300,7 +297,7 @@ public class OrderRecordControl extends HttpServlet {
             //getOrderRecord and assign to orderObj
             Order orderDetails = orderDa.getCusOrder(cusID, Integer.parseInt(orderID));
 
-            //getOrderRecord and assign to orderObj
+            //getCustomer and assign to cusobj
             Customer cusDetails = cusDa.getCustomer(cusID);
 
             //getOrderListRecord and assign to orderList ArrayList
@@ -362,8 +359,9 @@ public class OrderRecordControl extends HttpServlet {
         } else {
             validateArr[0] = false;
         }
+
         //Have digits then assign to array[1]=true
-        if (digits > 0) {
+        if (digits > 0 && digits < 7) {
             validateArr[1] = true;
         } else {
             validateArr[1] = false;
@@ -386,16 +384,4 @@ public class OrderRecordControl extends HttpServlet {
         return validateArr;
     }
 
-//    private Integer checkSessionID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        HttpSession session = request.getSession(false);
-//        if (session != null) {
-//            Integer activeUserID = (Integer) session.getAttribute("activeUserID");
-//            if (activeUserID != null) {
-//                return activeUserID;
-//            }
-//        } else {
-//            return
-//        }
-//
-//    }
 }
