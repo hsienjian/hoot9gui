@@ -8,7 +8,7 @@
 <%
 
     Integer cusID = (Integer) session.getAttribute("activeCustomer");
-    ArrayList<Shoes> cusCartList = (ArrayList<Shoes>) session.getAttribute("allCartProd");
+    ArrayList<Shoes> cusCartList = (ArrayList<Shoes>) session.getAttribute("cartProd");
     Integer countProdCart = 0;
     if (cusCartList == null) {
         countProdCart = 0;

@@ -123,9 +123,6 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="footer">
-                                abc123
-                            </div>
                         </div>
 
                     </div>

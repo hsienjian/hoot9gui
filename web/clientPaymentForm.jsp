@@ -47,10 +47,6 @@
             boolean invalid = Boolean.TRUE == session.getAttribute("invalid");
             String errorName = (String) request.getAttribute("errorName");
             String errorCardNum = (String) request.getAttribute("errorCardNum");
-            if (errorName == null || errorName.isEmpty() && errorCardNum == null || errorCardNum.isEmpty()) {
-                errorName = "";
-                errorCardNum = "";
-            }
         %>
         <div class="container py-5">
             <!-- For demo purpose -->

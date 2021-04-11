@@ -5,8 +5,12 @@
  */
 package control;
 
+import da.CustomerDA;
+import domain.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,32 +21,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author Admin-jiahie
  */
 public class ClientRegisterControl extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ClientRegisterControl</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ClientRegisterControl at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -56,7 +34,7 @@ public class ClientRegisterControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doPost(request, response);
     }
 
     /**
@@ -70,17 +48,56 @@ public class ClientRegisterControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        Integer age = Integer.parseInt(request.getParameter("age"));
+        String gender = request.getParameter("gender");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String password = request.getParameter("password");
+        String phoneNo = request.getParameter("phoneNo");
+        String confirmPassword = request.getParameter("confirmPassword");
+        String url = "";
+        String message1 = "";
+        String message2 = "";
+        boolean checkSuccess = true;
+        CustomerDA cusDa = new CustomerDA();
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+        Customer checkCus = null;
+        try {
+            checkCus = cusDa.getCustomer(email);
+        } catch (SQLException ex) {
+            try (PrintWriter out = response.getWriter()) {
+                out.println(ex.getMessage());
+            }
+        }
+        if (checkCus != null) {
+            url = "clientRegister.jsp";
+            message1 = "email already exist!!";
+            checkSuccess = false;
+        }
+        if (!password.equals(confirmPassword)) {
+            url = "clientRegister.jsp";
+            message2 = "Password is not same as the comfirm password";
+            checkSuccess = false;
+        }
+
+        if (checkSuccess) {
+            Customer customer = new Customer(firstName, lastName, age, email, password, gender, address, phoneNo, 0);
+            try {
+                cusDa.addCustomer(customer);
+                url = "clientSuccessRegister.jsp";
+            } catch (SQLException ex) {
+                try (PrintWriter out = response.getWriter()) {
+                    out.println(ex.getMessage());
+                }
+            }
+        }
+
+        request.setAttribute("message1", message1);
+        request.setAttribute("message2", message2);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+        dispatcher.forward(request, response);
+    }
 
 }

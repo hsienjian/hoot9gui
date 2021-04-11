@@ -116,20 +116,6 @@ public class ColorDA {
         }
     }
 
-    public void deleteColor(int colorID) throws SQLException {
-        try {
-            createConnection();
-            String queryStr = "DELETE FROM " + tableName + " WHERE COLOR_ID = ?";
-            stmt = conn.prepareStatement(queryStr);
-            stmt.setInt(1, colorID);
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-    }
-
     private void createConnection() throws SQLException {
         try {
             conn = DriverManager.getConnection(host, user, password);

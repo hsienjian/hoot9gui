@@ -61,33 +61,27 @@
             ArrayList<Customer> Customer = customerDa.getCustomer();
             ArrayList<Order> orderList = orderDa.listRecord();
             ArrayList<OrderList> custOrderList = OrderListDa.CusOrderList();
-            
-            
+            LocalDate date = LocalDate.now();
+            int index = orderList.size()-1;
         %>
-        <div id="wrapper">
+        <div id="wrapper">  
             <div class="wrap-content container">
-<%for (int j = 4; j < orderList.size(); j++) {%>
-   <% double ttlPrice = 0; 
-        ttlPrice += orderList.get(j).getTtlPrice();
-        LocalDate date = LocalDate.now(); 
-   %>
-    
                 <div class="row ">
                     <div class="col-3 ">
                         <div class="card text-center">
                             <div class="card-body bg-light">
                                 <h5 class="card-title">Last Order Value</h5>
-                                <p class="card-text"><%= ttlPrice %> </p>
+                                <p class="card-text"><%=orderList.get(index).getTtlPrice()%> </p>
                                 <a href="OrderControl?option=0" class="btn btn-primary b-full">View</a>
                             </div>
                         </div>
                     </div>
-                             
+
                     <div class="col-3">
                         <div class="card text-center ">
                             <div class="card-body bg-light">
                                 <h5 class="card-title">Last Order ID</h5>
-                                <p class="card-text"><%= orderList.get(j).getOrderID()  %> </p>
+                                <p class="card-text"><%=orderList.get(index).getOrderID()%> </p>
                                 <a href="OrderControl?option=0" class="btn btn-primary b-full">View</a>
                             </div>
                         </div>
@@ -96,7 +90,7 @@
                         <div class="card text-center">
                             <div class="card-body bg-light">
                                 <h5 class="card-title">Last Order Status</h5>
-                                <p class="card-text"><%= orderList.get(j).getStatus() %><!-- implement result --></p>
+                                <p class="card-text"><%=orderList.get(index).getStatus()%><!-- implement result --></p>
                                 <a href="OrderControl?option=0" class="btn btn-primary b-full">View</a>
                             </div>
                         </div>
@@ -105,14 +99,13 @@
                         <div class="card text-center">
                             <div class="card-body bg-light">
                                 <h5 class="card-title">Current Date</h5>
-                                <p class="card-text"><%= date.getDayOfMonth()%> <%= date.getMonth()%> <%= date.getYear() %><!-- implement result --></p>
+                                <p class="card-text"><%= date.getDayOfMonth()%> <%= date.getMonth()%> <%= date.getYear()%><!-- implement result --></p>
                                 <a href="#" class="btn btn-primary b-full" disabled>View</a>
                             </div>
                         </div>
                     </div>
-                   <% } %>
                 </div>
-                
+
                 <div class="mb-3">
                     <table>
                         <div class="mb-3">
@@ -132,19 +125,22 @@
                                             </thead>
                                             <tbody>
                                                 <%for (int i = 0; i < Customer.size(); i++) { %>
-                                                <%for (i = 0; i < orderList.size(); i++) {%>
+                                                <%for (int l = 0; l < orderList.size(); l++) {
+                                                    if(Customer.get(i).getCustID() == orderList.get(l).getCustID()){
+                                                %>
+                                                
                                                 <tr>
-                                                    <td><%=orderList.get(i).getOrderID()%></td>
-                                                    <td><%=orderList.get(i).getDate() %></td>
+                                                    <td><%=orderList.get(l).getOrderID()%></td>
+                                                    <td><%=orderList.get(l).getDate()%></td>
                                                     <td><%=Customer.get(i).getFirstName()%> <%=Customer.get(i).getLastName()%></td>
                                                     <td><%=Customer.get(i).getPhoneNo()%></td>
-                                                    <td><%=orderList.get(i).getTtlPrice() %> </td>
+                                                    <td><%=orderList.get(l).getTtlPrice()%> </td>
                                                     <td>
-                                                        <a href="#" type="button" class="btn btn-secondary" style="width: 100px"><%=orderList.get(i).getStatus() %></a>
+                                                        <a href="#" type="button" class="btn btn-secondary" style="width: 100px"><%=orderList.get(l).getStatus()%></a>
                                                     </td>
                                                 </tr>
-                                                <% }
-                                                }%>
+                                                <% }}
+                                                    }%>
                                             </tbody>
                                     </div>
 

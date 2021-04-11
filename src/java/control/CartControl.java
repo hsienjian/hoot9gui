@@ -98,7 +98,7 @@ public class CartControl extends HttpServlet {
         Integer orderQty = Integer.parseInt(request.getParameter("shoesQty"));
         try {
             HttpSession session = request.getSession();
-            Integer cusID = (Integer) session.getAttribute("cusID");
+            Integer cusID = (Integer) session.getAttribute("activeCustomer");
             Color colorObj = colorDa.getColorByName(colorName);
             Shoes shoes = shoesDa.checkShoesStock(shoesName, shoesSize, colorObj.getColorID());
 
@@ -187,7 +187,7 @@ public class CartControl extends HttpServlet {
         Double orderSubTtl = 0.00;
         Double orderTtl = 0.00;
         HttpSession session = request.getSession(false);
-        Integer cusID = (Integer) session.getAttribute("cusID");
+        Integer cusID = (Integer) session.getAttribute("activeCustomer");
         ArrayList<Shoes> cartProd = (ArrayList<Shoes>) session.getAttribute("allCartProd");
 
         if (cartProd != null) {
@@ -243,7 +243,7 @@ public class CartControl extends HttpServlet {
     private void removeCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         String shoesID = request.getParameter("shoesID");
-        Integer cusID = (Integer) session.getAttribute("cusID");
+        Integer cusID = (Integer) session.getAttribute("activeCustomer");
         ArrayList<Shoes> allCartProd = (ArrayList<Shoes>) session.getAttribute("allCartProd");
         int index = isExisting(shoesID, cusID, allCartProd);
         if (index >= 0) {
@@ -260,7 +260,7 @@ public class CartControl extends HttpServlet {
         String message = "";
         HttpSession session = request.getSession(false);
         try {
-            Integer cusID = (Integer) session.getAttribute("cusID");
+            Integer cusID = (Integer) session.getAttribute("activeCustomer");
             String shoesID = request.getParameter("shoesID");
             String indexProd = request.getParameter("indexProd");
             Integer updateQty = Integer.parseInt(request.getParameter("updateQty" + indexProd));
