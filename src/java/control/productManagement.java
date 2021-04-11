@@ -19,10 +19,8 @@ import java.nio.file.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -151,9 +149,6 @@ public class productManagement extends HttpServlet {
                 String name = request.getParameter("name");
                 String code = request.getParameter("code");
 
-                try (PrintWriter out = response.getWriter()) {
-                    out.println(code);
-                }
                 Color newColor = new Color(name, code);
                 try {
                     colorDA.addColor(newColor);

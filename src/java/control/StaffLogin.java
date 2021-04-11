@@ -59,7 +59,7 @@ public class StaffLogin extends HttpServlet {
                 session.setAttribute("activeStaff", email);
             }
         } catch (SQLException ex) {
-
+            errorMsg.append("Error Accessing to the Database.\n");
         }
 
         if (session.getAttribute("activeStaff") == null) {

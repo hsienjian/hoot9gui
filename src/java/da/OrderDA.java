@@ -18,34 +18,16 @@ public class OrderDA {
         custDA = new CustomerDA();
     }
 
-    public Order getOrder(int order_id) throws SQLException {
-        Order order = null;
-        try {
-            createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE ORDER_ID = ?";
-            stmt = conn.prepareStatement(queryStr);
-            stmt.setInt(1, order_id);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                order = new Order(order_id, rs.getDate(2), rs.getDouble(3), rs.getString(4), rs.getInt(5));
-            }
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-        return order;
-    }
-
     public void addOrder(Order order) throws SQLException {
         try {
             createConnection();
-            String insertColor = "INSERT INTO " + tableName + " (DATE, TOTAL_PRICE, STATUS, CUST_ID) VALUES( ?, ?, ?, ?, ?)";
-            stmt = conn.prepareStatement(insertColor);
-            stmt.setDate(1, order.getDate());
-            stmt.setDouble(2, order.getTtlPrice());
-            stmt.setString(3, order.getStatus());
-            stmt.setInt(4, order.getCustID());
+            String sqlQuery = "INSERT INTO " + tableName + " (ORDER_ID, DATE, TOTAL_PRICE, STATUS, CUST_ID) VALUES( ?, ?, ?, ?, ?)";
+            stmt = conn.prepareStatement(sqlQuery);
+            stmt.setInt(1, order.getOrderID());
+            stmt.setDate(2, order.getDate());
+            stmt.setDouble(3, order.getTtlPrice());
+            stmt.setString(4, order.getStatus());
+            stmt.setInt(5, order.getCustID());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             throw ex;
@@ -70,22 +52,6 @@ public class OrderDA {
         } finally {
             shutDown();
         }
-
-    }
-
-    public void deleteRecord(int orderID) throws SQLException {
-        try {
-            createConnection();
-            String deleteStud = "DELETE FROM " + tableName + " WHERE ID = ?";
-            stmt = conn.prepareStatement(deleteStud);
-            stmt.setInt(1, orderID);
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-
     }
 
     private void createConnection() throws SQLException {
@@ -128,43 +94,6 @@ public class OrderDA {
         return orderList;
     }
 
-    public void updateOrderStatus(Order order) throws SQLException {
-        try {
-            createConnection();
-            String updateStt = "UPDATE " + tableName + " SET STATUS = ? WHERE ORDER_ID=? AND DATE=? AND TOTAL_PRICE=? AND CUST_ID=?";
-            stmt = conn.prepareStatement(updateStt);
-            stmt.setString(1, order.getStatus());
-            stmt.setInt(2, order.getOrderID());
-            stmt.setDate(3, order.getDate());
-            stmt.setDouble(4, order.getTtlPrice());
-            stmt.setInt(5, order.getCustID());
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-    }
-
-    public Order getOrder(double ttlPrice) throws SQLException {
-        Order order = null;
-        try {
-            createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE ORDER_ID = ?";
-            stmt = conn.prepareStatement(queryStr);
-            stmt.setDouble(1, ttlPrice);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                order = new Order(rs.getInt(1), rs.getDate(2), ttlPrice, rs.getString(4), rs.getInt(5));
-            }
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-        return order;
-    }
-    
     public Order getCusOrder(int cusID, int orderID) throws SQLException {
         createConnection();
         Order order = null;
@@ -206,4 +135,21 @@ public class OrderDA {
         return cusOrderList;
     }
 
+    public Integer countOrder() throws SQLException {
+        Integer countOrder = 0;
+        try {
+            createConnection();
+            String queryStr = "SELECT COUNT(*) AS total FROM " + tableName;
+            stmt = conn.prepareStatement(queryStr);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                countOrder = rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+        return countOrder;
+    }
 }

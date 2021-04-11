@@ -24,6 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,7 +37,6 @@ public class OrderRecordControl extends HttpServlet {
     private CustomerDA cusDa;
     private ShoesDA shoesDa;
     private ColorDA colorDa;
-    private int cusID;
 
     public void init() throws ServletException {
         orderDa = new OrderDA();
@@ -44,7 +44,6 @@ public class OrderRecordControl extends HttpServlet {
         cusDa = new CustomerDA();
         shoesDa = new ShoesDA();
         colorDa = new ColorDA();
-        this.cusID = 1001;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -84,22 +83,11 @@ public class OrderRecordControl extends HttpServlet {
         }
     }
 
-//    /**
-//     * Handles the HTTP <code>POST</code> method.
-//     *
-//     * @param request servlet request
-//     * @param response servlet response
-//     * @throws ServletException if a servlet-specific error occurs
-//     * @throws IOException if an I/O error occurs
-//     */
-//    @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//
-//    }
     private void showRecentOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> recentOrderList = new ArrayList<Order>();
         try {
+            HttpSession session = request.getSession(false);
+            Integer cusID = (Integer) session.getAttribute("activeCustomer");
             recentOrderList = orderDa.getCusOrderList(cusID);
             String filterTitle = "";
             String url = "clientMyOrder.jsp";
@@ -137,22 +125,25 @@ public class OrderRecordControl extends HttpServlet {
     private void showPrssOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> prssOrderList = new ArrayList<Order>();
         try {
+            HttpSession session = request.getSession(false);
+            Integer cusID = (Integer) session.getAttribute("activeCustomer");
             prssOrderList = orderDa.getCusOrderList(cusID);
             String filterTitle = "";
             String url = "clientMyOrder.jsp";
             Boolean checkIsEmpty = (prssOrderList.isEmpty() ? true : false);
 
             if (!checkIsEmpty) {
-                filterTitle = "Processing";
+                filterTitle = "Packaging";
                 //filter Processing Status
                 for (int i = 0; i < prssOrderList.size(); i++) {
+
                     if (prssOrderList.get(i).getStatus().equals("Completed") || prssOrderList.get(i).getStatus().equals("Delivery")) {
                         prssOrderList.remove(i);
                         i--;
                     }
                 }
-                if (!prssOrderList.isEmpty()) {
-                    filterTitle = "Processing";
+                if (prssOrderList.size() != 0) {
+                    filterTitle = "Packaging";
                     checkIsEmpty = false;
                 } else {
                     checkIsEmpty = true;
@@ -175,19 +166,17 @@ public class OrderRecordControl extends HttpServlet {
     private void showDeliveryOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> deliveryOrderList = new ArrayList<Order>();
         try {
+            HttpSession session = request.getSession(false);
+            Integer cusID = (Integer) session.getAttribute("activeCustomer");
             deliveryOrderList = orderDa.getCusOrderList(cusID);
             String filterTitle = "";
             String url = "clientMyOrder.jsp";
             Boolean checkIsEmpty = (deliveryOrderList.isEmpty() ? true : false);
-            Integer countPrss = 0;
 
             if (!checkIsEmpty) {
                 //filter Delivery Status
                 for (int i = 0; i < deliveryOrderList.size(); i++) {
-                    if (deliveryOrderList.get(i).getStatus().equals("Processing")) {
-                        countPrss++;
-                    }
-                    if (deliveryOrderList.get(i).getStatus().equals("Completed") || deliveryOrderList.get(i).getStatus().equals("Processing")) {
+                    if (deliveryOrderList.get(i).getStatus().equals("Completed") || deliveryOrderList.get(i).getStatus().equals("Packaging")) {
                         deliveryOrderList.remove(i);
                         i--;
                     }
@@ -203,7 +192,6 @@ public class OrderRecordControl extends HttpServlet {
 
             request.setAttribute("orderList", deliveryOrderList);
             request.setAttribute("filterTitle", filterTitle);
-            request.setAttribute("countPrss", countPrss);
             request.setAttribute("checkIsEmpty", checkIsEmpty);
             RequestDispatcher dispatcher = request.getRequestDispatcher(url);
             dispatcher.forward(request, response);
@@ -217,15 +205,16 @@ public class OrderRecordControl extends HttpServlet {
     private void showCompletedOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> completedOrderList = new ArrayList<Order>();
         try {
+            HttpSession session = request.getSession(false);
+            Integer cusID = (Integer) session.getAttribute("activeCustomer");
             completedOrderList = orderDa.getCusOrderList(cusID);
             String filterTitle = "";
             String url = "clientMyOrder.jsp";
             Boolean checkIsEmpty = (completedOrderList.isEmpty() ? true : false);
-
             if (!checkIsEmpty) {
                 //filter Completed Status
                 for (int i = 0; i < completedOrderList.size(); i++) {
-                    if (completedOrderList.get(i).getStatus().equals("Processing") || completedOrderList.get(i).getStatus().equals("Delivery")) {
+                    if (completedOrderList.get(i).getStatus().equals("Packaging") || completedOrderList.get(i).getStatus().equals("Delivery")) {
                         completedOrderList.remove(i);
                         i--;
                     }
@@ -270,6 +259,8 @@ public class OrderRecordControl extends HttpServlet {
             orderObj = null;
         } else {
             try {
+                HttpSession session = request.getSession(false);
+                Integer cusID = (Integer) session.getAttribute("activeCustomer");
                 orderObj = orderDa.getCusOrder(cusID, Integer.parseInt(orderID));
             } catch (SQLException ex) {
                 try (PrintWriter out = response.getWriter()) {
@@ -294,6 +285,8 @@ public class OrderRecordControl extends HttpServlet {
 
     private void showOrderDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+            HttpSession session = request.getSession(false);
+            Integer cusID = (Integer) session.getAttribute("activeCustomer");
             //Declaration and initial
             String orderID = request.getParameter("ordID");
             String deliveryDate = request.getParameter("diliveryDate");
@@ -317,7 +310,7 @@ public class OrderRecordControl extends HttpServlet {
             //after get the shoes details and assign to shoesObj then add to arrayList
             //This will filter the shoes that are in the order summary
             for (int i = 0; i < orderList.size(); i++) {
-                shoes = shoesDa.getOrderShoes(orderList.get(i).getProdID());
+                shoes = shoesDa.getShoes(orderList.get(i).getProdID());
                 shoesList.add(shoes);
             }
 
@@ -393,4 +386,16 @@ public class OrderRecordControl extends HttpServlet {
         return validateArr;
     }
 
+//    private Integer checkSessionID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        HttpSession session = request.getSession(false);
+//        if (session != null) {
+//            Integer activeUserID = (Integer) session.getAttribute("activeUserID");
+//            if (activeUserID != null) {
+//                return activeUserID;
+//            }
+//        } else {
+//            return
+//        }
+//
+//    }
 }
