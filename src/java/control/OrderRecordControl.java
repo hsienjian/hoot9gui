@@ -64,13 +64,13 @@ public class OrderRecordControl extends HttpServlet {
                 showRecentOrderList(request, response);
                 break;
             case "2":
-                showPrssOrderList(request, response);
+                showPkgOrderList(request, response);
                 break;
             case "3":
-                showDeliveryOrderList(request, response);
+                showShippingOrderList(request, response);
                 break;
             case "4":
-                showCompletedOrderList(request, response);
+                showDeliveredOrderList(request, response);
                 break;
             case "5":
                 searchOrderByID(request, response);
@@ -122,7 +122,7 @@ public class OrderRecordControl extends HttpServlet {
 
     }
 
-    private void showPrssOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showPkgOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> prssOrderList = new ArrayList<Order>();
         try {
             HttpSession session = request.getSession(false);
@@ -163,7 +163,7 @@ public class OrderRecordControl extends HttpServlet {
 
     }
 
-    private void showDeliveryOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showShippingOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> deliveryOrderList = new ArrayList<Order>();
         try {
             HttpSession session = request.getSession(false);
@@ -202,7 +202,7 @@ public class OrderRecordControl extends HttpServlet {
         }
     }
 
-    private void showCompletedOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showDeliveredOrderList(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArrayList<Order> completedOrderList = new ArrayList<Order>();
         try {
             HttpSession session = request.getSession(false);
