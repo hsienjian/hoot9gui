@@ -100,7 +100,7 @@ public class PaymentControl extends HttpServlet {
                 java.util.Date date = new java.util.Date();
                 java.sql.Date sqlDate = new java.sql.Date(date.getTime());
                 cusInfo = cusDa.getCustomer(cusID);
-                order = new Order(orderID, sqlDate, orderTtl, "Processing", cusInfo.getCustID());
+                order = new Order(orderID, sqlDate, orderTtl, "Packaging", cusInfo.getCustID());
                 for (int i = 0; i < cartProdList.size(); i++) {
                     orderListObj = new OrderList(cartProdList.get(i).getProdID(), orderID, cartProdList.get(i).getStock(), prodSubTtl.get(i));
                     finalOrderList.add(orderListObj);
@@ -143,14 +143,10 @@ public class PaymentControl extends HttpServlet {
         //if validateArr[1] == true that mean it contain Digits
         //if validateArr[2] == true that mean it contain Space
         //if validateArr[3] == true that mean it contain Letters
-        if (validateArr[0] && validateArr[1] && validateArr[2] && validateArr[3]) {
-            validUserName = false;
-        } else if (validateArr[3] && validateArr[1] || validateArr[3] && validateArr[2] || validateArr[3] && validateArr[0]) {
-            validUserName = false;
-        } else if (validateArr[0] || validateArr[1] || validateArr[2]) {
-            validUserName = false;
-        } else {
+        if (!validateArr[0] && !validateArr[1] && !validateArr[2] && validateArr[3]) {
             validUserName = true;
+        } else {
+            validUserName = false;
         }
 
         if (!validCardNum && !validUserName) {
@@ -158,14 +154,12 @@ public class PaymentControl extends HttpServlet {
             errorCardNum = "Invalid cardNum";
             invalid = true;
             url = "clientPaymentForm.jsp";
-        } else if (!validCardNum) {
+        } else if (!validCardNum && validUserName) {
             errorCardNum = "Invalid cardNum";
-            errorName = "";
             url = "clientPaymentForm.jsp";
             invalid = true;
-        } else if (!validUserName) {
+        } else if (!validUserName && validCardNum) {
             errorName = "Invalid username should not contain (space),(SpeacialCharacter),(Digits) only in letter.Example: LowJiaHie";
-            errorCardNum = "";
             url = "clientPaymentForm.jsp";
             invalid = true;
         } else {
@@ -176,6 +170,7 @@ public class PaymentControl extends HttpServlet {
             ArrayList<Shoes> cartList = (ArrayList<Shoes>) session.getAttribute("cartProd");
             ArrayList<Shoes> shoesStockList = new ArrayList<Shoes>();
             try {
+                //add order to
                 orderDa.addOrder(order);
                 for (int i = 0; i < orderList.size(); i++) {
                     orderListObj = new OrderList(orderList.get(i).getProdID(), orderList.get(i).getOrderID(), orderList.get(i).getQty(), orderList.get(i).getSubTtlPrice());
