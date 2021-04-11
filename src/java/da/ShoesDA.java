@@ -158,26 +158,25 @@ public class ShoesDA {
         return brands;
     }
 
-    public ArrayList<Shoes> colors() throws SQLException {
-        ArrayList<Shoes> colors = new ArrayList<Shoes>();
-        Shoes department = null;
-        try {
-            createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(COLOR_ID) FROM " + tableName + " GROUP BY UPPER(COLOR_NAME) )";
-            stmt = conn.prepareStatement(queryStr);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                department = new Shoes(rs.getInt("PROD_ID"), rs.getString("SIZE"), rs.getString("PROD_NAME"), rs.getString("BRAND"), rs.getDouble("PRICE"), rs.getInt("STOCK"), rs.getString("SEASON"), rs.getString("IMG"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
-                colors.add(department);
-            }
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-        return colors;
-    }
-
+//    public ArrayList<Shoes> colors() throws SQLException {
+//        ArrayList<Shoes> colors = new ArrayList<Shoes>();
+//        Shoes department = null;
+//        try {
+//            createConnection();
+//            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(COLOR_ID) FROM " + tableName + " GROUP BY UPPER(COLOR_NAME) )";
+//            stmt = conn.prepareStatement(queryStr);
+//            ResultSet rs = stmt.executeQuery();
+//            while (rs.next()) {
+//                department = new Shoes(rs.getInt("PROD_ID"), rs.getString("SIZE"), rs.getString("PROD_NAME"), rs.getString("BRAND"), rs.getDouble("PRICE"), rs.getInt("STOCK"), rs.getString("SEASON"), rs.getString("IMG"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
+//                colors.add(department);
+//            }
+//        } catch (SQLException ex) {
+//            throw ex;
+//        } finally {
+//            shutDown();
+//        }
+//        return colors;
+//    }
     public ArrayList<Shoes> seasons() throws SQLException {
         ArrayList<Shoes> seasons = new ArrayList<Shoes>();
         Shoes department = null;

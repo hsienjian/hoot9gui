@@ -5,7 +5,6 @@
  */
 package da;
 
-import domain.Order;
 import domain.OrderList;
 import java.sql.*;
 import java.util.*;
@@ -26,75 +25,71 @@ public class OrderListDA {
         shoesDA = new ShoesDA();
     }
 
-    public OrderList getOrderList(int prodID) throws SQLException {
-        OrderList orderlist = null;
-        try {
-            createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE ORDER_ID=?";
-            stmt = conn.prepareStatement(queryStr);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                orderlist = new OrderList(prodID, rs.getInt("ORDERID"), rs.getInt("QTY"), rs.getDouble("SUBTTLPRICE"));
-            }
-        } catch (SQLException ex) {
-            throw ex;
-        }finally {
-            shutDown();
-        }
-        return orderlist;
-    }
-
-    public void addOrderList(Order order) throws SQLException {
-        try {
-            createConnection();
-            String insertColor = "INSERT INTO " + tableName + " (DATE, TOTAL_PRICE, STATUS, CUST_ID) VALUES( ?, ?, ?, ?)";
-            stmt = conn.prepareStatement(insertColor);
-            stmt.setDate(1, order.getDate());
-            stmt.setDouble(2, order.getTtlPrice());
-            stmt.setString(3, order.getStatus());
-            stmt.setInt(4, order.getCustID());
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-    }
-
-    public void updateOrderList(Order order) throws SQLException {
-        try {
-            createConnection();
-            String insertColor = "UPDATE " + tableName + " SET DATE=?, TOTAL_PRICE=?, STATUS=?, CUST_ID=? WHERE ORDER_ID=?";
-            stmt = conn.prepareStatement(insertColor);
-            stmt.setDate(1, order.getDate());
-            stmt.setDouble(2, order.getTtlPrice());
-            stmt.setString(3, order.getStatus());
-            stmt.setInt(4, order.getCustID());
-            stmt.setInt(5, order.getOrderID());
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-
-    }
-
-    public void deleteOrderList(int orderID) throws SQLException {
-        try {
-            createConnection();
-            String deleteProd = "DELETE FROM " + tableName + " WHERE ORDER_ID = ?";
-            stmt = conn.prepareStatement(deleteProd);
-            stmt.setInt(1, orderID);
-            stmt.executeUpdate();
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-    }
-
+//    public OrderList getOrderList(int prodID) throws SQLException {
+//        OrderList orderlist = null;
+//        try {
+//            createConnection();
+//            String queryStr = "SELECT * FROM " + tableName + " WHERE ORDER_ID=?";
+//            stmt = conn.prepareStatement(queryStr);
+//            ResultSet rs = stmt.executeQuery();
+//
+//            if (rs.next()) {
+//                orderlist = new OrderList(prodID, rs.getInt("ORDERID"), rs.getInt("QTY"), rs.getDouble("SUBTTLPRICE"));
+//            }
+//        } catch (SQLException ex) {
+//            throw ex;
+//        } finally {
+//            shutDown();
+//        }
+//        return orderlist;
+//    }
+//    public void addOrderList(Order order) throws SQLException {
+//        try {
+//            createConnection();
+//            String insertColor = "INSERT INTO " + tableName + " (DATE, TOTAL_PRICE, STATUS, CUST_ID) VALUES( ?, ?, ?, ?)";
+//            stmt = conn.prepareStatement(insertColor);
+//            stmt.setDate(1, order.getDate());
+//            stmt.setDouble(2, order.getTtlPrice());
+//            stmt.setString(3, order.getStatus());
+//            stmt.setInt(4, order.getCustID());
+//            stmt.executeUpdate();
+//        } catch (SQLException ex) {
+//            throw ex;
+//        } finally {
+//            shutDown();
+//        }
+//    }
+//    public void updateOrderList(Order order) throws SQLException {
+//        try {
+//            createConnection();
+//            String insertColor = "UPDATE " + tableName + " SET DATE=?, TOTAL_PRICE=?, STATUS=?, CUST_ID=? WHERE ORDER_ID=?";
+//            stmt = conn.prepareStatement(insertColor);
+//            stmt.setDate(1, order.getDate());
+//            stmt.setDouble(2, order.getTtlPrice());
+//            stmt.setString(3, order.getStatus());
+//            stmt.setInt(4, order.getCustID());
+//            stmt.setInt(5, order.getOrderID());
+//            stmt.executeUpdate();
+//        } catch (SQLException ex) {
+//            throw ex;
+//        } finally {
+//            shutDown();
+//        }
+//
+//    }
+//    public void deleteOrderList(int orderID) throws SQLException {
+//        try {
+//            createConnection();
+//            String deleteProd = "DELETE FROM " + tableName + " WHERE ORDER_ID = ?";
+//            stmt = conn.prepareStatement(deleteProd);
+//            stmt.setInt(1, orderID);
+//            stmt.executeUpdate();
+//        } catch (SQLException ex) {
+//            throw ex;
+//        } finally {
+//            shutDown();
+//        }
+//    }
     private void createConnection() throws SQLException {
 
         try {
@@ -135,8 +130,8 @@ public class OrderListDA {
         }
         return cusOrderList;
     }
-    
-       public ArrayList<OrderList> CusOrderList() throws SQLException {
+
+    public ArrayList<OrderList> CusOrderList() throws SQLException {
         ArrayList<OrderList> custOrderList = new ArrayList<OrderList>();
         OrderList orderList = null;
         try {
@@ -156,5 +151,4 @@ public class OrderListDA {
         }
         return custOrderList;
     }
-       
 }
