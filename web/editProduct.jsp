@@ -11,6 +11,15 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
+    //redirect user back to staff_login.jsp if no user session found
+    String staffEmail = (String) session.getAttribute("activeStaff");
+    response.setHeader("cache-Control", "no-cache,no-store,must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Expires", "0");
+    if (staffEmail == null) {
+        response.sendRedirect("/hoot9gui/staff_login.jsp");
+    }
+
     Shoes selected_shoes = (Shoes) request.getAttribute("selected_shoes");
     Color selected_color = (Color) request.getAttribute("selected_color");
     ArrayList<Color> colorsType = (ArrayList<Color>) request.getAttribute("colorsType");
@@ -72,16 +81,6 @@
         </style>
     </head>
     <body>
-        <%for (Color c : colorsType) {%>
-        <script>
-
-            if (<%=c.getColorID()%> == <%=selected_shoes.getColorID()%>) {
-                console.log("true");
-                console.log(<%=c.getColorID()%>);
-            }
-
-        </script>
-        <%}%>
         <jsp:include page="/components/backendHeader.jsp" />
         <h3 class="title">Edit Product Details</h3>
 
@@ -114,7 +113,13 @@
                     <input name="brand" type="text" value="<%=selected_shoes.getBrand()%>"/>
                     </br>
                     <label>Season : </label>
-                    <input name="season" type="text" value="<%=selected_shoes.getSeason()%>"/>
+                    <select name="season">
+                        <option value="Spring" <%=(selected_shoes.getSeason().equalsIgnoreCase("Spring")) ? "selected" : " "%>>Spring</option>
+                        <option value="Summer" <%=(selected_shoes.getSeason().equalsIgnoreCase("Summer")) ? "selected" : " "%>>Summer</option>
+                        <option value="Fall" <%=(selected_shoes.getSeason().equalsIgnoreCase("Fall")) ? "selected" : " "%>>Fall</option>
+                        <option value="Winter" <%=(selected_shoes.getSeason().equalsIgnoreCase("Winter")) ? "selected" : " "%>>Winter</option>
+                        <option value="All Seasons" <%=(selected_shoes.getSeason().equalsIgnoreCase("All Seasons")) ? "selected" : " "%>>All Seasons</option>
+                    </select>
                     </br>
                     <label>Size : </label>
                     <input name="size" type="text" value="<%=selected_shoes.getSize()%>"/>

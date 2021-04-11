@@ -38,6 +38,8 @@ public class ShoesDA {
             }
         } catch (SQLException ex) {
             throw ex;
+        } finally {
+            shutDown();
         }
         return shoes;
     }
@@ -55,6 +57,8 @@ public class ShoesDA {
             }
         } catch (SQLException ex) {
             throw ex;
+        } finally {
+            shutDown();
         }
         return shoes;
     }
@@ -123,7 +127,7 @@ public class ShoesDA {
         Shoes shoes = null;
         try {
             createConnection();
-            String selectStt = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY PROD_NAME )";
+            String selectStt = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY UPPER(PROD_NAME) )";
             stmt = conn.prepareStatement(selectStt);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -143,7 +147,7 @@ public class ShoesDA {
         Shoes department = null;
         try {
             createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY BRAND )";
+            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY UPPER(BRAND) )";
             stmt = conn.prepareStatement(queryStr);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -158,32 +162,12 @@ public class ShoesDA {
         return brands;
     }
 
-    public ArrayList<Shoes> colors() throws SQLException {
-        ArrayList<Shoes> colors = new ArrayList<Shoes>();
-        Shoes department = null;
-        try {
-            createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE COLOR_ID IN (SELECT MAX(COLOR_ID) FROM " + tableName + " GROUP BY PROD_NAME )";
-            stmt = conn.prepareStatement(queryStr);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                department = new Shoes(rs.getInt("PROD_ID"), rs.getString("SIZE"), rs.getString("PROD_NAME"), rs.getString("BRAND"), rs.getDouble("PRICE"), rs.getInt("STOCK"), rs.getString("SEASON"), rs.getString("IMG"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
-                colors.add(department);
-            }
-        } catch (SQLException ex) {
-            throw ex;
-        } finally {
-            shutDown();
-        }
-        return colors;
-    }
-
     public ArrayList<Shoes> seasons() throws SQLException {
         ArrayList<Shoes> seasons = new ArrayList<Shoes>();
         Shoes department = null;
         try {
             createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY SEASON )";
+            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY UPPER(SEASON) )";
             stmt = conn.prepareStatement(queryStr);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -246,7 +230,7 @@ public class ShoesDA {
         Shoes searched = null;
         try {
             createConnection();
-            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_NAME LIKE '%" + searching + "%' AND PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY PROD_NAME ) ";
+            String queryStr = "SELECT * FROM " + tableName + " WHERE UPPER(PROD_NAME) LIKE '%" + searching + "%' AND PROD_ID IN (SELECT MAX(PROD_ID) FROM " + tableName + " GROUP BY PROD_NAME ) ";
             stmt = conn.prepareStatement(queryStr);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -296,22 +280,25 @@ public class ShoesDA {
         }
     }
 
-    public Shoes getOrderShoes(int prodID) throws SQLException {
-        createConnection();
-        Shoes orderShoes = null;
+    public Shoes checkShoesStock(String shoesName, String shoesSize, Integer colorID) throws SQLException {
+        Shoes shoes = null;
         try {
-            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_ID = ?";
+            createConnection();
+            String queryStr = "SELECT * FROM " + tableName + " WHERE PROD_NAME = ? AND SIZE = ? AND COLOR_ID = ?";
             stmt = conn.prepareStatement(queryStr);
-            stmt.setInt(1, prodID);
+            stmt.setString(1, shoesName);
+            stmt.setString(2, shoesSize);
+            stmt.setInt(3, colorID);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                orderShoes = new Shoes(rs.getInt("PROD_ID"), rs.getString("SIZE"), rs.getString("PROD_NAME"), rs.getString("BRAND"), rs.getDouble("PRICE"), rs.getInt("STOCK"), rs.getString("SEASON"), rs.getString("IMG"), rs.getInt("COLOR_ID"), rs.getInt("STAFF_ID"));
+                shoes = new Shoes(rs.getInt("PROD_ID"), rs.getString("SIZE"), rs.getString("PROD_NAME"), rs.getDouble("PRICE"), rs.getInt("STOCK"), rs.getString("IMG"), rs.getInt("COLOR_ID"), null);
             }
         } catch (SQLException ex) {
             throw ex;
         } finally {
             shutDown();
         }
-        return orderShoes;
+        return shoes;
     }
+
 }

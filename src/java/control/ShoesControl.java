@@ -10,7 +10,6 @@ import da.ShoesDA;
 import domain.Color;
 import domain.Shoes;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -98,6 +97,7 @@ public class ShoesControl extends HttpServlet {
 
     private void shoesDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String prodName = request.getParameter("prod_name");
+        String message = request.getParameter("message");
         ArrayList<Shoes> choosen = new ArrayList<Shoes>();
         ArrayList<Color> prodColor = new ArrayList<Color>();
         ArrayList<Color> colorAvb = new ArrayList<Color>();
@@ -117,6 +117,7 @@ public class ShoesControl extends HttpServlet {
             }
             request.setAttribute("shoes", choosen);
             request.setAttribute("color", colorAvb);
+            request.setAttribute("message", message);
             RequestDispatcher dispatcher = request.getRequestDispatcher("productDetail.jsp");
             dispatcher.forward(request, response);
 
@@ -205,12 +206,12 @@ public class ShoesControl extends HttpServlet {
         ArrayList<Shoes> brand = null;
         ArrayList<Shoes> season = null;
         ArrayList<Shoes> prodResult = new ArrayList<Shoes>();
-        try (PrintWriter out = response.getWriter()) {
+        try {
             color = colorDA.listAllColor();
             brand = shoesDA.brands();
             season = shoesDA.seasons();
             if (searchInput != null) {
-                prodResult = shoesDA.searchProd(searchInput);
+                prodResult = shoesDA.searchProd(searchInput.toUpperCase());
                 if (prodResult.isEmpty()) {
                     request.setAttribute("error", "No Result Found");
                 }
@@ -328,7 +329,7 @@ public class ShoesControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        doGet(request, response);
     }
 
     /**

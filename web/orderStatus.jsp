@@ -1,9 +1,19 @@
 <%@page import="da.OrderDA"%>
 <%@page import="java.util.ArrayList"%>
-<% ArrayList <Order> allOrders = (ArrayList<Order>) request.getAttribute("order");  %>
+<% ArrayList<Order> allOrders = (ArrayList<Order>) request.getAttribute("order");  %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="domain.Order"%>
 <!DOCTYPE html>
+<%
+    //redirect user back to staff_login.jsp if no user session found
+    String staffEmail = (String) session.getAttribute("activeStaff");
+    response.setHeader("cache-Control", "no-cache,no-store,must-revalidate");
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Expires", "0");
+    if (staffEmail == null) {
+        response.sendRedirect("/hoot9gui/staff_login.jsp");
+    }
+%>
 <html>
     <head>
         <!-- Backend Header -->
@@ -13,7 +23,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="css/clientFooter.css">
         <link href="css/maintainStaff.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -40,16 +49,92 @@
             }
             #statusForm select:hover,
             #statusForm select:focus {
-              color: #c0392b;
-              background-color: white;
-              border-bottom-color: #DCDCDC;
+                color: #c0392b;
+                background-color: white;
+                border-bottom-color: #DCDCDC;
+            }
+            .order-control-panel {
+                display: absolute;
+                float: right;
+                transform: translateY(-25px);
+                margin-right: 25px;
             }
         </style>
+        <script>
+            function search(e) {
+                var i = 0;
+                var rowID = new Array();
+                var hittedRowID = new Array();
+                var search = e.target.value;
+                search = search.replaceAll(" ", "_");
+                //search = search.toUpperCase();
+
+                $("#recordTable tr").each(function () {
+                    var id = (this.id).split("-");
+                    rowID[i] = id;
+                    i++;
+                });
+
+                if (search.length > 0) {
+                    for (i = 0; i < rowID.length; i++) {
+                        var x = rowID[i];
+                        var exist;
+                        for (var l = 0; l < x.length; l++) {
+                            var y = x[l];
+                            for (var j = 0; j < search.length; j++) {
+                                var z = y[j];
+                                if (z.toLowerCase() === search[j].toLowerCase()) {
+                                    exist = 1;
+                                } else {
+                                    exist = 0;
+                                    break;
+                                }
+                            }
+                            if (exist === 1) {
+                                break;
+                            }
+                        }
+
+                        // check if the hittedRow is already listed or not
+                        for (var l = 0; l < hittedRowID.length; l++) {
+                            if (rowID[i] === hittedRowID[l]) {
+                                exist = 0;
+                                break;
+                            }
+                        }
+                        // if the hittedRow is not listed yet, then will pust to the listed array
+                        if (exist === 1) {
+                            hittedRowID.push(rowID[i]);
+                        }
+                    }
+                } else {
+                    hittedRowID = rowID;
+                }
+
+                //check the hittedRowID to be displayed
+                if (hittedRowID.length > 0) {
+                    for (i = 0; i < rowID.length; i++) {
+                        var row = rowID[i].join("-");
+                        for (var l = 0; l < hittedRowID.length; l++) {
+                            var hittedID = hittedRowID[l].join("-");
+                            if (hittedID === row) {
+                                $("#" + row).css("display", "table-row");
+                                break;
+                            } else {
+                                $("#" + row).css("display", "none");
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
     </head>
     <body>
         <jsp:include page="/components/backendHeader.jsp" />
         <h1 style="text-align:center">O R D E R &nbsp; S T A T U S</h1>
-        
+        <div class="order-control-panel">
+            <input onKeyUp="search(event)" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        </div>
         <div class="table-responsive" style="width:102%">
             <table class="table table-striped table-hover ">
                 <thead class="table-success">
@@ -62,25 +147,26 @@
                         <th scope="col" class="align-middle">Update Status</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="recordTable">
                     <%
-                        for(int i=0; i< allOrders.size(); i++)
-                        {
+                        for (int i = 0; i < allOrders.size(); i++) {
+                            String date = allOrders.get(i).getDate().toString();
+                            date = date.replaceAll("-", "_");
                     %>
-                    <tr>
-                        <td><%= allOrders.get(i).getOrderID() %></td>
-                        <td><%= allOrders.get(i).getDate() %></td>
-                        <td><%= allOrders.get(i).getTtlPrice() %></td>
-                        <td><%= allOrders.get(i).getCustID() %></td>
-                        <td><%= allOrders.get(i).getStatus() %></td>
+                    <tr id="<%=allOrders.get(i).getOrderID()%>-<%= date%>-<%= allOrders.get(i).getCustID()%>-<%= allOrders.get(i).getStatus()%>">
+                        <td><%= allOrders.get(i).getOrderID()%></td>
+                        <td><%= allOrders.get(i).getDate()%></td>
+                        <td><%= allOrders.get(i).getTtlPrice()%></td>
+                        <td><%= allOrders.get(i).getCustID()%></td>
+                        <td><%= allOrders.get(i).getStatus()%></td>
                         <td>
                             <form action="OrderControl" method="GET" id="statusForm">
-                                <input type="hidden" name="order_id" value="<%= allOrders.get(i).getOrderID() %>"/>
-                                <input type="hidden" name="cust_id" value="<%= allOrders.get(i).getCustID() %>"/>
-                                <input type="hidden" name="date" value="<%= allOrders.get(i).getDate() %>"/>
-                                <input type="hidden" name="ttlprice" value="<%= allOrders.get(i).getTtlPrice() %>"/>
+                                <input type="hidden" name="order_id" value="<%= allOrders.get(i).getOrderID()%>"/>
+                                <input type="hidden" name="cust_id" value="<%= allOrders.get(i).getCustID()%>"/>
+                                <input type="hidden" name="date" value="<%= allOrders.get(i).getDate()%>"/>
+                                <input type="hidden" name="ttlprice" value="<%= allOrders.get(i).getTtlPrice()%>"/>
                                 <select id="available" name="orderStatus">
-                                    <option value='<%= allOrders.get(i).getStatus() %>'><%= allOrders.get(i).getStatus() %></option>
+                                    <option value='<%= allOrders.get(i).getStatus()%>'><%= allOrders.get(i).getStatus()%></option>
                                     <option value="Packaging">Packaging</option>
                                     <option value="Shipping">Shipping</option>
                                     <option value="Delivered">Delivered</option>
@@ -89,13 +175,12 @@
                                 <input type="submit" id="update" value="Submit">
                             </form>
                         </td>
-                    </tr>  
-                    <% } %>
+                    </tr>
+                    <% }%>
                 </tbody>
             </table>
         </div>
-                
-    <%@include  file="components/clientFooter.jsp"%>
+
     </body>
     <!-- Js Plugins -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
