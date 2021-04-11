@@ -174,7 +174,7 @@ public class OrderRecordControl extends HttpServlet {
             Boolean checkIsEmpty = (deliveryOrderList.isEmpty() ? true : false);
 
             if (!checkIsEmpty) {
-                //filter Delivery Status
+                //filter Shipping Status
                 for (int i = 0; i < deliveryOrderList.size(); i++) {
                     if (deliveryOrderList.get(i).getStatus().equals("Delivered") || deliveryOrderList.get(i).getStatus().equals("Packaging")) {
                         deliveryOrderList.remove(i);
@@ -212,7 +212,7 @@ public class OrderRecordControl extends HttpServlet {
             String url = "clientMyOrder.jsp";
             Boolean checkIsEmpty = (completedOrderList.isEmpty() ? true : false);
             if (!checkIsEmpty) {
-                //filter Completed Status
+                //filter Delivered Status
                 for (int i = 0; i < completedOrderList.size(); i++) {
                     if (completedOrderList.get(i).getStatus().equals("Packaging") || completedOrderList.get(i).getStatus().equals("Shipping")) {
                         completedOrderList.remove(i);
@@ -297,7 +297,7 @@ public class OrderRecordControl extends HttpServlet {
             //getOrderRecord and assign to orderObj
             Order orderDetails = orderDa.getCusOrder(cusID, Integer.parseInt(orderID));
 
-            //getOrderRecord and assign to orderObj
+            //getCustomer and assign to cusobj
             Customer cusDetails = cusDa.getCustomer(cusID);
 
             //getOrderListRecord and assign to orderList ArrayList
