@@ -166,7 +166,6 @@
                                 <input type="hidden" name="date" value="<%= allOrders.get(i).getDate()%>"/>
                                 <input type="hidden" name="ttlprice" value="<%= allOrders.get(i).getTtlPrice()%>"/>
                                 <select id="available" name="orderStatus">
-                                    <option value='<%= allOrders.get(i).getStatus()%>'><%= allOrders.get(i).getStatus()%></option>
                                     <option value="Packaging">Packaging</option>
                                     <option value="Shipping">Shipping</option>
                                     <option value="Delivered">Delivered</option>
