@@ -54,6 +54,9 @@
                         <div class="sidebar" style="position: relative">
                             <div class="sidebar__item">
                                 <h4>Brand</h4>
+                                <ul>
+                                     <li><a href="ShoesControl?option=0">All</a></li>
+                                </ul>
                                 <ul>    
                                     <%
                                         for (int b=0; b<brand.size(); b++) {
@@ -125,10 +128,6 @@
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg" >
                                         <img src="./images/<%= allproduct.getImg()%>" alt="" style="height: 100%">
-                                        <ul class="product__item__pic__hover">
-                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                        </ul>
                                     </div>
                                     <div class="product__item__text">
                                         <h7><%= allproduct.getBrand()%></h7>

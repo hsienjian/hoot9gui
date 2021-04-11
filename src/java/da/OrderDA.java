@@ -18,6 +18,24 @@ public class OrderDA {
         custDA = new CustomerDA();
     }
 
+    public void addOrder(Order order) throws SQLException {
+        try {
+            createConnection();
+            String sqlQuery = "INSERT INTO " + tableName + " (ORDER_ID, DATE, TOTAL_PRICE, STATUS, CUST_ID) VALUES( ?, ?, ?, ?, ?)";
+            stmt = conn.prepareStatement(sqlQuery);
+            stmt.setInt(1, order.getOrderID());
+            stmt.setDate(2, order.getDate());
+            stmt.setDouble(3, order.getTtlPrice());
+            stmt.setString(4, order.getStatus());
+            stmt.setInt(5, order.getCustID());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            shutDown();
+        }
+    }
+
     public void updateOrder(Order order) throws SQLException {
         try {
             createConnection();
@@ -34,7 +52,25 @@ public class OrderDA {
         } finally {
             shutDown();
         }
+    }
 
+    private void createConnection() throws SQLException {
+        try {
+            conn = DriverManager.getConnection(host, user, password);
+            System.out.println("***TRACE: Connection established.");
+        } catch (SQLException ex) {
+            throw ex;
+        }
+    }
+
+    private void shutDown() throws SQLException {
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                throw ex;
+            }
+        }
     }
 
     public ArrayList<Order> listRecord() throws SQLException {
@@ -99,23 +135,21 @@ public class OrderDA {
         return cusOrderList;
     }
 
-    private void createConnection() throws SQLException {
+    public Integer countOrder() throws SQLException {
+        Integer countOrder = 0;
         try {
-            conn = DriverManager.getConnection(host, user, password);
-            System.out.println("***TRACE: Connection established.");
+            createConnection();
+            String queryStr = "SELECT COUNT(*) AS total FROM " + tableName;
+            stmt = conn.prepareStatement(queryStr);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                countOrder = rs.getInt("total");
+            }
         } catch (SQLException ex) {
             throw ex;
+        } finally {
+            shutDown();
         }
+        return countOrder;
     }
-
-    private void shutDown() throws SQLException {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException ex) {
-                throw ex;
-            }
-        }
-    }
-
 }

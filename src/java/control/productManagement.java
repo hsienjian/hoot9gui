@@ -15,14 +15,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.nio.file.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Properties;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -207,9 +207,9 @@ public class productManagement extends HttpServlet {
                     } else {
                         if (!img.getSubmittedFileName().equals("")) {
                             imgLocation = fileName;
-                            File file = new File(path + fileName);
+                            File file = new File(path + "/" + fileName);
                             if (file.exists() == false) {
-                                Files.copy(is, Paths.get(path + fileName), StandardCopyOption.REPLACE_EXISTING);
+                                Files.copy(is, Paths.get(path + "/" + fileName), StandardCopyOption.REPLACE_EXISTING);
                             }
                         }
                         Shoes new_shoes = new Shoes(size, product_name, brand, price, stock, season, imgLocation, color.getColorID(), staff.getStaffID());

@@ -97,6 +97,7 @@ public class ShoesControl extends HttpServlet {
 
     private void shoesDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String prodName = request.getParameter("prod_name");
+        String message = request.getParameter("message");
         ArrayList<Shoes> choosen = new ArrayList<Shoes>();
         ArrayList<Color> prodColor = new ArrayList<Color>();
         ArrayList<Color> colorAvb = new ArrayList<Color>();
@@ -116,6 +117,7 @@ public class ShoesControl extends HttpServlet {
             }
             request.setAttribute("shoes", choosen);
             request.setAttribute("color", colorAvb);
+            request.setAttribute("message", message);
             RequestDispatcher dispatcher = request.getRequestDispatcher("productDetail.jsp");
             dispatcher.forward(request, response);
 
@@ -327,7 +329,7 @@ public class ShoesControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        doGet(request, response);
     }
 
     /**

@@ -25,16 +25,28 @@
         <servlet-class>control.StaffControl</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CustomerControl</servlet-name>
-        <servlet-class>control.CustomerControl</servlet-class>
+        <servlet-name>CartControl</servlet-name>
+        <servlet-class>control.CartControl</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ReportControl</servlet-name>
         <servlet-class>control.ReportControl</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DashboardControl</servlet-name>
-        <servlet-class>control.DashboardControl</servlet-class>
+        <servlet-name>PaymentControl</servlet-name>
+        <servlet-class>control.PaymentControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ClientRegisterControl</servlet-name>
+        <servlet-class>control.ClientRegisterControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ClientLoginControl</servlet-name>
+        <servlet-class>control.ClientLoginControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerControl</servlet-name>
+        <servlet-class>control.CustomerControl</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ShoesControl</servlet-name>
@@ -53,6 +65,10 @@
         <url-pattern>/StaffLogin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>CartControl</servlet-name>
+        <url-pattern>/CartControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>OrderControl</servlet-name>
         <url-pattern>/OrderControl</url-pattern>
     </servlet-mapping>
@@ -61,16 +77,24 @@
         <url-pattern>/StaffControl</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CustomerControl</servlet-name>
-        <url-pattern>/CustomerControl</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ReportControl</servlet-name>
         <url-pattern>/ReportControl</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DashboardControl</servlet-name>
-        <url-pattern>/DashboardControl</url-pattern>
+        <servlet-name>PaymentControl</servlet-name>
+        <url-pattern>/PaymentControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClientRegisterControl</servlet-name>
+        <url-pattern>/ClientRegisterControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClientLoginControl</servlet-name>
+        <url-pattern>/ClientLoginControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerControl</servlet-name>
+        <url-pattern>/CustomerControl</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
