@@ -85,28 +85,39 @@ INSERT INTO STAFF (FIRST_NAME, LAST_NAME, AGE, EMAIL, PASSWORD, GENDER, ADDRESS,
 INSERT INTO COLOR (COLOR_NAME, COLOR_CODE) VALUES
 ('White Color', 'rgb(255,255,255)'),
 ('Black Color', 'rgb(0,0,0)'),
-('Light Cyan Color', 'rgb(224,255,255)'),
+('Cyan Color', 'rgb(224,255,255)'),
 ('Maroon Color', 'rgb(128,0,0)'),
 ('Gray Color', 'rgb(192,192,192)');
 
 INSERT INTO SHOES ("SIZE", PROD_NAME, BRAND, PRICE, STOCK, SEASON, IMG, COLOR_ID, STAFF_ID) VALUES
-('UK7', 'Ultrabost 21', 'Adidas', 799.00, 10, 'All Season', NULL, 5001, 2001),
-('UK8', 'Ultrabost 21', 'Adidas', 799.00, 15, 'All Season', NULL, 5002, 2001),
-('UK9', 'Stan Smith', 'Adidas', 419.00, 10, 'All Season', NULL, 5001, 2002),
-('UK7', 'Stan Smith', 'Adidas', 420.00, 15, 'All Season', NULL, 5004, 2002),
-('UK9.5', 'NMD R1', 'Adidas', 649.00, 10, 'All Season', NULL, 5002, 2003),
-('UK8.5', 'Air Zoom', 'Nike', 829.00, 15, 'All Season', NULL, 5001, 2003),
-('UK9.5', 'React Miller', 'Nike', 535.00, 10, 'All Season', NULL, 5005, 2004),
-('UK10', 'Flex Experience Run 10', 'Nike', 225.00, 10, 'All Season', NULL, 5001, 2004),
-('UK8', 'Joyride Dual Run', 'Nike', 269.00, 10, 'All Season', NULL, 5005, 2005),
-('UK7', 'Joyride Run Flyknit', 'Nike', 735.00, 10, 'All Season', NULL, 5005, 2005);
+('UK7', 'Ultrabost 21', 'Adidas', 799.00, 10, 'All Season', '44838C9A-5356-4FC1-94E7-E5A847BBA26A.JPEG', 5001, 2001),
+('UK8', 'Ultrabost 21', 'Adidas', 799.00, 15, 'All Season', 'D781BEF3-4D9F-4588-89EA-C8AA8CDD055E.JPEG', 5002, 2001),
+('UK9', 'Stan Smith', 'Adidas', 419.00, 10, 'Winter', 'DC069BA2-E5DD-46E9-94C4-6CE1B414E6CD.JPEG', 5001, 2002),
+('UK7', 'Stan Smith', 'Adidas', 420.00, 15, 'Winter', 'stansmithWhite.JPG', 5005, 2002),
+('UK9.5', 'NMD R1', 'Adidas', 649.00, 10, 'All Season', 'nmd-r1Black.JPG', 5002, 2003),
+('UK8.5', 'Air Zoom', 'Nike', 829.00, 15, 'All Season', 'airZoom-white.JPG', 5001, 2003),
+('UK9.5', 'React Miller', 'Nike', 535.00, 10, 'Fall', '195EA414-2F01-46F5-9CC6-87F3DAAC5155.JPEG', 5005, 2004),
+('UK10', 'Flex Experience Run 10', 'Nike', 225.00, 10, 'Summer', 'flex-experience-run-10-white.JPG', 5001, 2004),
+('UK8', 'Joyride Dual Run', 'Nike', 269.00, 10, 'Summer', '2544CCA6-F37E-4A42-8844-125D26290321.JPEG', 5005, 2005),
+('UK7', 'Joyride Run Flyknit', 'Nike', 735.00, 10, 'Spring', '21B61A39-EFE6-4811-B822-85EDC63CF508.JPEG', 5005, 2005);
 
 INSERT INTO "ORDER" ("DATE", TOTAL_PRICE, STATUS, CUST_ID) VALUES 
-('2021-03-06', 2310.00, 'Completed', 1001),
-('2021-04-07', 1605.00, 'Completed', 1002),
-('2021-05-31', 1754.00, 'Processing', 1003),
-('2021-06-27', 1667.00, 'Processing', 1004),
-('2021-06-28', 450.00, 'Processing', 1005);
+('2021-03-06', 2310.00, 'Packaging', 1001),
+('2021-04-07', 1605.00, 'Delivered', 1002),
+('2021-05-31', 1754.00, 'Packaging', 1003),
+('2021-06-27', 1667.00, 'Shipping', 1004),
+('2021-06-28', 450.00, 'Packaging', 1005);
+
+INSERT INTO ORDERLIST (PROD_ID, ORDER_ID, QTY, SUBTOTAL) VALUES
+(4004, 3001, 2, 840.00),
+(4005, 3001, 2, 1470.00),
+(4002, 3002, 3, 1605.00),
+(4002, 3003, 1, 799.00),
+(4004, 3003, 1, 420.00),
+(4007, 3003, 1, 535.00),
+(4003, 3004, 2, 838.00),
+(4006, 3004, 1, 829.00),
+(4008, 3005, 2, 535.00);
 
 INSERT INTO ORDERLIST (PROD_ID, ORDER_ID, QTY, SUBTOTAL) VALUES
 (4004, 3001, 2, 840.00),
